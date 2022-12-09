@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from 'axios';
 
 const token = JSON.parse((JSON.stringify(localStorage.getItem("ADMIN"))));
 const headersParam = {

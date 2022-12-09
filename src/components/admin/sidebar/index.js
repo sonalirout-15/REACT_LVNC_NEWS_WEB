@@ -237,6 +237,16 @@ export class SideBar extends Component {
             })}{" "}
           </ul>{" "}
         </aside>{" "}
+        <div>
+        <img
+                    src='../../assets/img/logo/koli-logo1.png'
+                    style={{ height: '100px', width:'200px',
+                    marginLeft:'30px',
+                    }}
+                    className="rounded-rectangle"
+                    alt="img"
+                  />
+        </div>
       </div>
     );
   }

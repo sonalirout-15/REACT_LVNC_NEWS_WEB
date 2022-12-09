@@ -2,8 +2,6 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router";
 import { Link } from "react-router-dom";
-import { Footer, Header } from "../../../components/admin";
-import SideBar from "../../../components/admin/sidebar";
 import { createAdminStart, updateAdminStart } from "../../../Redux/Actions/AdminActions";
 
 const initialState = {
@@ -50,36 +48,36 @@ const AddEditAdmin = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (name === '') {
-      setNameError('Name is required.')
+      setNameError('Name Required!')
     }
     if (email === '') {
       setEmailError('Email is required.');
     } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(email)) {
-      setEmailError('Invalid email address')
+      setEmailError('Invalid email address!')
     }
     if (password === '') {
-      setPasswordError('Password is required.');
+      setPasswordError('Password Required!');
     } else if (password.length < 6) {
-      setPasswordError('Atleast 6 character required.')
+      setPasswordError('Atleast 6 character Required!')
     }
     if (confirm_password === '') {
-      setConfirmPasswordError('Confirm Password is required.')
+      setConfirmPasswordError('Confirm Password Required!')
     } else if (password !== confirm_password) {
-      setConfirmPasswordError('Password and Confirm Password does not match.')
+      setConfirmPasswordError('Password and Confirm Password does not match!')
     }
     if (mobile === '') {
-      setMobileError('Mobile is required.')
+      setMobileError('Mobile Required!')
     } else if (mobile.length != 10) {
-      setMobileError('Enter valid Mobile No.')
+      setMobileError('Enter valid Mobile No!')
     }
     if (gender === '') {
-      setGenderError('Gender is required.')
+      setGenderError('Gender Required!')
     }
     if (address === '') {
-      setAddressError('Address is required.')
+      setAddressError('Address Required!')
     }
     if (image === '') {
-      setImageError('Image is required.')
+      setImageError('Image Required!')
     } else {
 
       if (!editMode) {
@@ -124,17 +122,15 @@ const AddEditAdmin = () => {
   };  
 
   const handleGenderChange = (e) => {
-    setFormValue({ ...formValue, [name]: e.target.value });
+    let { name, value } = e.target;
+    setFormValue({ ...formValue, [name]: value });
     setGenderCheck(e.target.value)
   }
 
-
   return (
     <>
-    <Header />
-    <SideBar />
       <div className="main-content">
-        <section className="section" onSubmit={handleSubmit}>
+        <section className="section">
           <div className="section-header">
             <h4>Admin</h4>
           </div>
@@ -157,7 +153,6 @@ const AddEditAdmin = () => {
                           name="name"
                           onChange={onInputChange}
                         />
-                      </div>
                       <label style={{
                         color: "red",
                         marginLeft: "2%",
@@ -165,6 +160,7 @@ const AddEditAdmin = () => {
                       }}>
                         {nameError}
                       </label>
+                      </div>
                       <div className="form-group">
                         <label>Email</label>
                         <input
@@ -174,7 +170,6 @@ const AddEditAdmin = () => {
                           value={email || ""}
                           name="email"
                           onChange={onInputChange} />
-                      </div>
                       <label style={{
                         color: "red",
                         marginLeft: "2%",
@@ -182,6 +177,7 @@ const AddEditAdmin = () => {
                       }}>
                         {emailError}
                       </label>
+                      </div>
                       <div className="form-group">
                         <label>Password Strength</label>
                         <div className="input-group">
@@ -199,7 +195,6 @@ const AddEditAdmin = () => {
                             name="password"
                             onChange={onInputChange}
                           />
-                        </div>
                         <label style={{
                           color: "red",
                           marginLeft: "2%",
@@ -207,6 +202,7 @@ const AddEditAdmin = () => {
                         }}>
                           {passwordError}
                         </label>
+                        </div>
                         <div id="pwindicator" className="pwindicator">
                           <div className="bar"></div>
                           <div className="label"></div>
@@ -229,7 +225,6 @@ const AddEditAdmin = () => {
                             name="confirm_password"
                             onChange={onInputChange}
                           />
-                        </div>
                         <label style={{
                           color: "red",
                           marginLeft: "2%",
@@ -237,6 +232,7 @@ const AddEditAdmin = () => {
                         }}>
                           {confirmPasswordError}
                         </label>
+                        </div>
                         <div id="pwindicator" className="pwindicator">
                           <div className="bar"></div>
                           <div className="label"></div>
@@ -259,7 +255,6 @@ const AddEditAdmin = () => {
                             onChange={onInputChange}
                           />
                         </div>
-                      </div>
                       <label style={{
                         color: "red",
                         marginLeft: "2%",
@@ -267,12 +262,13 @@ const AddEditAdmin = () => {
                       }}>
                         {mobileError}
                       </label>  
+                      </div>
                       <div className="form-group">
                         <label>Gender</label>
                         <div onChange={handleGenderChange}>
-                          <input type="radio" value="Male" name="gender" checked={genderCheck === "Male"} /> Male
-                          <input type="radio" value="Female" name="gender" checked={genderCheck === "Female"}/> Female
-                          <input type="radio" value="Other" name="gender" checked={genderCheck === "Other"} /> Other
+                          <input type="radio" value="Male" name="gender" checked={genderCheck === "Male"}/> Male {" "}
+                          <input type="radio" value="Female" name="gender" checked={genderCheck === "Female"}/> Female {" "}
+                          <input type="radio" value="Other" name="gender" checked={genderCheck === "Other"} /> Other {" "}
                     </div>
                         {/* <input
                           type="text"
@@ -281,7 +277,6 @@ const AddEditAdmin = () => {
                           value={gender || ""}
                           name="gender"
                           onChange={onInputChange} /> */}
-                      </div>
                       <label style={{
                         color: "red",
                         marginLeft: "2%",
@@ -289,6 +284,7 @@ const AddEditAdmin = () => {
                       }}>
                         {genderError}
                       </label>
+                      </div>
                       <div className="form-group">
                         <label>Address</label>
                         <input
@@ -298,7 +294,6 @@ const AddEditAdmin = () => {
                           value={address || ""}
                           name="address"
                           onChange={onInputChange} />
-                      </div>
                       <label style={{
                         color: "red",
                         marginLeft: "2%",
@@ -306,6 +301,7 @@ const AddEditAdmin = () => {
                       }}>
                         {addressError}
                       </label>
+                      </div>
                       <div className="form-group">
                         <label>Image</label>
                         <input
@@ -316,7 +312,6 @@ const AddEditAdmin = () => {
                           defaultValue={image || ""}
                           name="image"
                           onChange={handleFileSelect} />
-                      </div>
                       <label style={{
                         color: "red",
                         marginLeft: "2%",
@@ -324,6 +319,7 @@ const AddEditAdmin = () => {
                       }}>
                         {imageError}
                       </label>
+                      </div>
                       <button type="submit" className="btn btn-primary">{!editMode ? "Add" : "Update"}</button>{" "}
                       <Link to={'/admins'} className="btn btn-info"> Back </Link>
                     </div>
@@ -334,7 +330,6 @@ const AddEditAdmin = () => {
           </form>
         </section>
       </div>
-      <Footer />
     </>
   )
 }

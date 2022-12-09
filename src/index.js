@@ -5,7 +5,13 @@ import App from "./App";
 import { Provider } from "react-redux";
 import store from "./Redux/store";
 // // Template JS File
+// require('react-bootstrap-table-next/dist/react-bootstrap-table2.min.css');
 import "bootstrap/dist/css/bootstrap.min.css";
+import 'react-bootstrap-table-next/dist/react-bootstrap-table2.min.css';
+
+// import '@fortawesome/fontawesome-free/css/all.min.css';
+// import 'bootstrap-css-only/css/bootstrap.min.css';
+// import 'mdbreact/dist/css/mdb.css';
 
 import * as jQuery from "jquery";
 import "jqvmap/dist/jqvmap.min.css";

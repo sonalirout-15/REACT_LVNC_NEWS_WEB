@@ -2,8 +2,6 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router";
 import { Link } from "react-router-dom";
-import { Header } from "../../../components/admin";
-import SideBar from "../../../components/admin/sidebar";
 import { getSingleCategoryStart } from "../../../Redux/Actions/CategoryAction";
 
 const ViewCategories = () => {
@@ -17,8 +15,6 @@ const ViewCategories = () => {
 
   return (
     <>
-      <Header />
-      <SideBar />
       <div class="main-content">
         <section class="section">
           <div class="section-header">
@@ -48,10 +44,6 @@ const ViewCategories = () => {
                           <td><div><label htmlFor="status" style={{ fontWeight: 'bold' }}>Status</label></div></td>
                           <td><div ><label>{singleData?.status}</label></div></td>
                         </tr>
-
-                        {/* <td>
-                            <div class="badge badge-success">Active</div>
-                          </td> */}
                       </table>
                     </div>
                   </div>

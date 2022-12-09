@@ -1,14 +1,13 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Footer, Header } from "../../components/admin";
-import SideBar from "../../components/admin/sidebar";
 import { loadAdminStart } from "../../Redux/Actions/AdminActions";
 import { loadCampaningStart } from "../../Redux/Actions/CampaignActions";
 import { loadCategoryStart } from "../../Redux/Actions/CategoryAction";
 import { loadMettersStart } from "../../Redux/Actions/MattersActions";
 import { loadPostStart } from "../../Redux/Actions/PostActions";
 import { loadSubcategoryStart } from "../../Redux/Actions/SubcategoryActions";
-import logo from '../../assets/img/logo/LVNClogo.png'
+import logo from '../../assets/img/logo/LVNClogo.png';
+import { loadUserStart } from "../../Redux/Actions/UserAction";
 
 const GeneralDashboard = () => {
   const dispatch = useDispatch();
@@ -37,24 +36,20 @@ const GeneralDashboard = () => {
     dispatch(loadCampaningStart());
   }, []);
 
+  useEffect(() => {
+    dispatch(loadUserStart());
+  }, []);
+
   const AdminData = useSelector((state) => state?.admin?.admin?.count);
-  const categoriesData = useSelector(
-    (state) => state?.categoryData?.categories?.categoryData?.count
-  );
-  const subcategoriesData = useSelector(
-    (state) => state?.subcategory?.subcategories?.categoryData?.count);
-  const mettersData = useSelector(
-    (state) => state?.metters?.metters?.mettersData?.count
-  );
+  const categoriesData = useSelector((state) => state?.categoryData?.categories?.categoryData?.count);
+  const subcategoriesData = useSelector((state) => state?.subcategory?.subcategories?.categoryData?.count);
+  const mettersData = useSelector((state) => state?.metters?.metters?.mettersData?.count);
   const postsData = useSelector((state) => state?.post?.post?.count);
-  const campaningsData = useSelector(
-    (state) => state?.campaning?.campaning?.CampaningData?.count
-  );
+  const campaningsData = useSelector((state) => state?.campaning?.campaning?.CampaningData?.count);
+  const usersData = useSelector((state) => state?.user)
 
   return (
     <>
-    <Header />
-    <SideBar />
       <div className="main-content">
         <section className="section">
           <div className="section-header">
@@ -102,7 +97,7 @@ const GeneralDashboard = () => {
             </div>
             <div className="col-lg-3 col-md-6 col-sm-6 col-12">
               <div className="card card-statistic-1">
-                <div className="card-icon bg-success">
+                <div className="card-icon bg-info">
                   <i className="fas fa-newspaper"></i>
                 </div>
                 <div className="card-wrap">
@@ -115,7 +110,7 @@ const GeneralDashboard = () => {
             </div>
             <div className="col-lg-3 col-md-6 col-sm-6 col-12">
               <div className="card card-statistic-1">
-                <div className="card-icon bg-success">
+                <div className="card-icon bg-dark">
                   <i className="fas fa-print"></i>
                 </div>
                 <div className="card-wrap">
@@ -128,7 +123,7 @@ const GeneralDashboard = () => {
             </div>
             <div className="col-lg-3 col-md-6 col-sm-6 col-12">
               <div className="card card-statistic-1">
-                <div className="card-icon bg-success">
+                <div className="card-icon bg-secondary">
                   <i className="fas fa-poll"></i>
                 </div>
                 <div className="card-wrap">
@@ -136,6 +131,19 @@ const GeneralDashboard = () => {
                     <h4>Campaning</h4>
                   </div>
                   <div className="card-body">{campaningsData}</div>
+                </div>
+              </div>
+            </div>
+            <div className="col-lg-3 col-md-6 col-sm-6 col-12">
+              <div className="card card-statistic-1">
+                <div className="card-icon bg-success">
+                  <i className="fa fa-users"></i>
+                </div>
+                <div className="card-wrap">
+                  <div className="card-header">
+                    <h4>Total Users</h4>
+                  </div>
+                  <div className="card-body"></div>
                 </div>
               </div>
             </div>
@@ -154,7 +162,6 @@ const GeneralDashboard = () => {
           </div>{" "}
         </section>
       </div>
-      <Footer />
     </>
   );
 };

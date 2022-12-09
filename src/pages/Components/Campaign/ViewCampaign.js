@@ -2,8 +2,6 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router";
 import { Link } from "react-router-dom";
-import { Header } from "../../../components/admin";
-import SideBar from "../../../components/admin/sidebar";
 import { getSingleCampaningStart } from "../../../Redux/Actions/CampaignActions";
 
 const ViewCampaign = () => {
@@ -18,8 +16,6 @@ const ViewCampaign = () => {
 
   return (
     <>
-      <Header />
-      <SideBar />
       <div class="main-content">
         <section class="section">
           <div class="section-header">
@@ -71,9 +67,6 @@ const ViewCampaign = () => {
                           <td><div ><label>{singleData?.status}</label></div></td>
                         </tr>
 
-                        {/* <td>
-                            <div class="badge badge-success">Active</div>
-                          </td> */}
                       </table>
                     </div>
                   </div>

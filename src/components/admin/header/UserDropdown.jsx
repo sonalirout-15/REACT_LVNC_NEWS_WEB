@@ -1,28 +1,18 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React from "react";
 import { NavLink, useHistory } from "react-router-dom";
-import { adminLoginStart } from "../../../Redux/Actions/AdminActions";
 import { userDetail } from "./Data";
 
 const UserDropdown = () => {
   const userData = userDetail;
   const history = useHistory();
+
+  const userEmail = localStorage.getItem("ADMINEMAIL");
+
   const handleClick = () => {
     localStorage.removeItem("ADMIN");
+    localStorage.removeItem("ADMINEMAIL");
     history.push("/");
   };
-  
-  const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(adminLoginStart());
-  }, []);
-
-  const admin = useSelector((state) => state?.admin.adminLogin?.userEmail);
-  const [data, setData] = useState(admin);
-
-  useEffect(() => {
-    setData(admin)
-  }, [admin])
 
   return (
     <>
@@ -39,7 +29,9 @@ const UserDropdown = () => {
           />
         </a>
         <div className="dropdown-menu dropdown-menu-right">
-          <div style={{ color: "#6777ef", textAlign: "center" }}>{data}</div>
+          <div style={{ color: "#6777ef", textAlign: "center" }}>
+            {userEmail ? <div>{userEmail}</div> : <span>Login</span>}
+          </div>
           {userData.datas.map((data, idata) => {
             return (
               <>

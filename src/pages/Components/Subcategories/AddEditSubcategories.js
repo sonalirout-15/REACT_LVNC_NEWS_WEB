@@ -2,28 +2,28 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router";
 import { Link } from "react-router-dom";
-import { Footer, Header } from "../../../components/admin";
-import SideBar from "../../../components/admin/sidebar";
 import { loadCategoryStart } from "../../../Redux/Actions/CategoryAction";
 import { createSubcategoryStart, updateSubcategoryStart } from "../../../Redux/Actions/SubcategoryActions";
 
 const initialState = {
   category_ref_id: '',
   subcategory_name: '',
+  Description: '',
+  image:''
 }
 
 const AddEditSubcategories = () => {
   const [formValue, setFormValue] = useState(initialState);
   const [nameError, setNameError] = useState();
+  const [descriptionError, setDescriptionError] = useState();
+  const [imageError, setImageError] = useState();
   const [editMode, setEditMode] = useState(false);
   const history = useHistory()
-  var { id,category_ref_id ,subcategory_name } = formValue;
-  // const navigate = useNavigate();
+  var { id,category_ref_id ,subcategory_name, Description, image } = formValue;
   const dispatch = useDispatch();
   var { id } = useParams();
 
 const subcategories = useSelector((state) => state?.subcategory?.subcategories?.categoryData?.rows);
-
 const categories = useSelector((state) => state?.categoryData?.categories?.categoryData?.rows);
 
 useEffect(() => {
@@ -41,40 +41,57 @@ useEffect(() => {
   dispatch(loadCategoryStart())
 }, [])
 
-const handleSubmit = (e) => {
-    e.preventDefault();
-      if (category_ref_id || subcategory_name === '') {
-        setNameError('Subcategory name is required')
+const handleSubmit = async (e) => {
+  e.preventDefault();
+  if (category_ref_id === '' && subcategory_name === '') {
+    setNameError('Required!')
+  }
+  if(Description === ''){
+    setDescriptionError('Description Required!')
+  }
+  if (image === '') {
+    setImageError('Image Required!');
+  }
+  else {
+
+    if (!editMode) {
+      const formData = new FormData();
+      formData.append("category_ref_id", category_ref_id);
+      formData.append("subcategory_name", subcategory_name);
+      formData.append("Description", Description);
+      formData.append("image", image);
+      dispatch(createSubcategoryStart(formData));
+      history.push('/post')
     }
-    if(subcategory_name > 4){
-      setNameError('Subcategory name needs to atleast 4 characters')
+    else {
+      const formData = new FormData();
+      formData.append("id", id);
+      formData.append("category_ref_id", category_ref_id);
+      formData.append("subcategory_name", subcategory_name);
+      formData.append("Description", Description);
+      formData.append("image", image);
+      dispatch(updateSubcategoryStart(formData));
+      setEditMode(false);
+      history.push('/post')
     }
-    if(subcategory_name > 25)
-    {
-      setNameError('Subcategory name must be 4 to 25 characters')
-    }else{
-      if (!editMode) {
-        dispatch(createSubcategoryStart(formValue));
-        history.push('/subcategories')
-        // navigate("/subcategories");
-      } else {
-        dispatch(updateSubcategoryStart(formValue))
-        setEditMode(false);
-      }
   }
 };
+
 
 const onInputChange = (e) => {
   let { name, value } = e.target;
   setFormValue({ ...formValue, [name]: value });
 };
 
+const handleFileSelect = (e) => {
+  setFormValue({ ...formValue, [e.target.name]: e.target.files[0] });
+};
+
+
   return (
     <>
-      <Header />
-      <SideBar />
       <div className="main-content">
-        <section className="section" onSubmit={handleSubmit}>
+        <section className="section">
           <div className="section-header">
             <h4>Subcategory</h4>
           </div>
@@ -97,14 +114,49 @@ const onInputChange = (e) => {
                           name="subcategory_name"
                           onChange={onInputChange}
                         />
-                      </div>
-                      <label style={{
+                         <label style={{
                         color: "red",
                         marginLeft: "2%",
                         display: "flex"
                       }}>
                         {nameError}
                       </label>
+                      </div>
+                      <div className="form-group">
+                        <label>Description</label>
+                        <input
+                          type="text"
+                          className="form-control"
+                          id="Description"
+                          value={Description || ""}
+                          name="Description"
+                          onChange={onInputChange} />
+                      <label style={{
+                        color: "red",
+                        marginLeft: "2%",
+                        display: "flex"
+                      }}>
+                        {descriptionError}
+                      </label>
+                      </div>
+                      <div className="form-group">
+                        <label>Image</label>
+                        <input
+                          type="file"
+                          className="form-control"
+                          accept="/accept/*"
+                          id="image"
+                          defaultValue={image || ""}
+                          name="image"
+                          onChange={handleFileSelect} />
+                      <label style={{
+                        color: "red",
+                        marginLeft: "2%",
+                        display: "flex"
+                      }}>
+                        {imageError}
+                      </label>
+                      </div>
                       <div className="form-group">
                         <label>Category Id</label>
                         <select
@@ -133,7 +185,6 @@ const onInputChange = (e) => {
           </form>
         </section>
       </div>
-      <Footer />
     </>
   )
 }

@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router";
 import { Link } from "react-router-dom";
-import { Footer, Header, Sidebar } from "../../../components/admin";
 import { loadAdminStart } from "../../../Redux/Actions/AdminActions";
 import { loadCategoryStart } from "../../../Redux/Actions/CategoryAction";
 import { createPostStart, updatePostStart } from "../../../Redux/Actions/PostActions";
@@ -63,19 +62,19 @@ const AddEditPost = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (title === '') {
-      setTitleError('Title is required')
+      setTitleError('Title Required!')
     }
     if (description === '') {
-      setDescriptionError('Description is required');
+      setDescriptionError('Description Required!');
     }
     if (image === '') {
-      setImageError('Image is required');
+      setImageError('Image Required!');
     }
     if (audio === '') {
-      setAudioError('Audio is required')
+      setAudioError('Audio Required!')
     }
     if (video === '') {
-      setVedioError('Vedio is required')
+      setVedioError('Vedio Required!')
     } else {
 
       if (!editMode) {
@@ -121,10 +120,8 @@ const AddEditPost = () => {
 
   return (
     <>
-      <Header />
-      <Sidebar />
       <div className="main-content">
-        <section className="section" onSubmit={handleSubmit}>
+        <section className="section">
           <div className="section-header">
             <h4>Post</h4>
           </div>
@@ -147,7 +144,6 @@ const AddEditPost = () => {
                           name="title"
                           onChange={onInputChange}
                         />
-                      </div>
                       <label style={{
                         color: "red",
                         marginLeft: "2%",
@@ -155,6 +151,7 @@ const AddEditPost = () => {
                       }}>
                         {titleError}
                       </label>
+                      </div>
                       <div className="form-group">
                         <label>Description</label>
                         <input
@@ -164,7 +161,6 @@ const AddEditPost = () => {
                           value={description || ""}
                           name="description"
                           onChange={onInputChange} />
-                      </div>
                       <label style={{
                         color: "red",
                         marginLeft: "2%",
@@ -172,6 +168,7 @@ const AddEditPost = () => {
                       }}>
                         {descriptionError}
                       </label>
+                      </div>
                       <div className="form-group">
                         <label>Image</label>
                         <input
@@ -182,7 +179,6 @@ const AddEditPost = () => {
                           defaultValue={image || ""}
                           name="image"
                           onChange={handleFileSelect} />
-                      </div>
                       <label style={{
                         color: "red",
                         marginLeft: "2%",
@@ -190,6 +186,7 @@ const AddEditPost = () => {
                       }}>
                         {imageError}
                       </label>
+                      </div>
                       <div className="form-group">
                         <label>Audio</label>
                         <input
@@ -200,7 +197,6 @@ const AddEditPost = () => {
                           defaultValue={audio || ""}
                           name="audio"
                           onChange={handleFileSelect} />
-                      </div>
                       <label style={{
                         color: "red",
                         marginLeft: "2%",
@@ -208,6 +204,7 @@ const AddEditPost = () => {
                       }}>
                         {audioError}
                       </label>
+                      </div>
                       <div className="form-group">
                         <label>Video</label>
                         <input
@@ -218,7 +215,6 @@ const AddEditPost = () => {
                           defaultValue={video || ""}
                           name="video"
                           onChange={handleFileSelect} />
-                      </div>
                       <label style={{
                         color: "red",
                         marginLeft: "2%",
@@ -226,6 +222,7 @@ const AddEditPost = () => {
                       }}>
                         {videoError}
                       </label>
+                      </div>
                       <div className="form-group">
                         <label>Admin Id</label>
                         <select
@@ -290,7 +287,6 @@ const AddEditPost = () => {
           </form>
         </section>
       </div>
-      <Footer />
     </>
   )
 }

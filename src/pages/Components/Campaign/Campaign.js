@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
-import { Footer, Header } from "../../../components/admin";
-import SideBar from "../../../components/admin/sidebar";
 import BootstrapTable from 'react-bootstrap-table-next';
 import 'react-bootstrap-table-next/dist/react-bootstrap-table2.min.css';
 import paginationFactory from 'react-bootstrap-table2-paginator';
@@ -42,14 +40,14 @@ const Campaign = () => {
     {
       dataField: 'audio', text: 'Audio', formatter: (cell, row) => {
         return (
-          <audio controls style={{ height: '40px', width: '120px' }}><source src={row.audio} type='audio/mp3' /></audio>
+          <audio controls style={{ height: '40px', width: '120px' }}><source src={row.audio} type='audio/mp3/mp4' /></audio>
         )
       }
     },
     {
       dataField: 'audio', text: 'Audio', formatter: (cell, row) => {
         return (
-          <video controls style={{ height: '70px' }}><source src={row.video} type="video/mp4" /></video>
+          <video controls style={{ height: '70px' }}><source src={row.video} type="video/MP4/MKV/AVI" /></video>
         )
       }
     },
@@ -115,8 +113,6 @@ const Campaign = () => {
 
   return (
     <>
-      <Header />
-      <SideBar />
       <div className="main-content">
         <section className="section">
           <div className="section-header">
@@ -160,7 +156,6 @@ const Campaign = () => {
           </div>
         </section>
       </div>
-      <Footer />
     </>
   )
 }

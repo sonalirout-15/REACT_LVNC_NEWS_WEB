@@ -5,6 +5,7 @@ import categoryReducer from "./Reducers/CategoryReducer";
 import mattersReducer from "./Reducers/MattersReducer";
 import postReducer from "./Reducers/PostReducer";
 import subcategoryReducer from "./Reducers/SubcategoryReducer";
+import userReducer from "./Reducers/UserReducer";
 
 const rootReducer = combineReducers({
     admin: adminReducer,
@@ -13,6 +14,7 @@ const rootReducer = combineReducers({
     metters: mattersReducer,
     post: postReducer,
     campaning: campaignReducer,
+    user : userReducer
 })
 
 export default rootReducer;

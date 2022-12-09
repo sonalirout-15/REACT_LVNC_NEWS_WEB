@@ -63,6 +63,7 @@ export function* onGetSingleCategoryStartAsync({ payload }) {
 export function* onCreateCategoryStartAsync({ payload }) {
     try {
         const response = yield call(createCategoryApi, payload)
+        console.log('PAYLOAD¬¬¬¬¬¬¬', response)
         if (response.data.message === "Success") {
             yield put(createCategorySuccess(response.data.data))
             Toast.fire({

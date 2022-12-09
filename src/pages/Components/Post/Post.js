@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
-import { Footer, Header } from "../../../components/admin";
-import SideBar from "../../../components/admin/sidebar";
 import BootstrapTable from 'react-bootstrap-table-next';
 import 'react-bootstrap-table-next/dist/react-bootstrap-table2.min.css';
 import paginationFactory from 'react-bootstrap-table2-paginator';
@@ -54,7 +52,15 @@ const Post = () => {
         )
       }
     },
-    { dataField: 'status', text: 'Status', sort: true },
+    { dataField: 'status', text: 'Status', sort: true , formatter:(cell, row) => {
+      return (
+        <>
+        {
+            row.status === 0 ? (<div class="badge badge-danger">Inactive</div>) : (<div class="badge badge-success">Active</div>)
+        }
+        </>
+      )
+    }},
     {
       text: 'Action', formatter: (cell, row) => {
         return (
@@ -116,8 +122,6 @@ const Post = () => {
 
   return (
     <>
-      <Header />
-      <SideBar />
       <div className="main-content">
         <section className="section">
           <div className="section-header">
@@ -161,7 +165,6 @@ const Post = () => {
           </div>
         </section>
       </div>
-      <Footer />
     </>
   )
 }

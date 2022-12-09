@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
-import { Footer, Header } from "../../../components/admin";
-import SideBar from "../../../components/admin/sidebar";
 import BootstrapTable from 'react-bootstrap-table-next';
 import 'react-bootstrap-table-next/dist/react-bootstrap-table2.min.css';
 import paginationFactory from 'react-bootstrap-table2-paginator';
@@ -34,7 +32,23 @@ const Subcategories = () => {
     },
     { dataField: 'subcategory_name', text: 'Subcategory Name', sort: true },
     { dataField: 'category_ref_id', text: 'Category Ref Id' },
-    { dataField: 'status', text: 'Status', sort: true },
+    { dataField: 'Description', text: 'Description' },
+    {
+      dataField: 'image', text: 'Image', formatter: (cell, row) => {
+        return (
+          <img src={row.image} style={{ height: "100px" }} />
+        )
+      }
+    },
+    { dataField: 'status', text: 'Status', sort: true , formatter:(cell, row) => {
+      return (
+        <>
+        {
+            row.status === 0 ? (<div class="badge badge-danger">Inactive</div>) : (<div class="badge badge-success">Active</div>)
+        }
+        </>
+      )
+    }},
     {
       text: 'Action', formatter: (cell, row) => {
         return (
@@ -96,8 +110,6 @@ const Subcategories = () => {
   
   return (
     <>
-      <Header />
-      <SideBar />
       <div className="main-content">
         <section className="section">
           <div className="section-header">
@@ -140,7 +152,6 @@ const Subcategories = () => {
           </div>
         </section>
       </div>
-      <Footer />
     </>
   )
 }

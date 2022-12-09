@@ -39,5 +39,11 @@ export const Data = {
             icon: 'fas fa-poll',
             url: '/campaign',
         },
+        {
+            name: 'User',
+            icon: 'fa fa-users',
+            url: '/users',
+        },
+        
     ]
 };

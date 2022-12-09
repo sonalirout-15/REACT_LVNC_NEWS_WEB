@@ -2,8 +2,6 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router";
 import { Link } from "react-router-dom";
-import { Footer, Header } from "../../../components/admin";
-import SideBar from "../../../components/admin/sidebar";
 import { createCampaningStart, updateCampaningStart } from "../../../Redux/Actions/CampaignActions";
 
 const initialState = {
@@ -43,19 +41,19 @@ const AddEditCampaign = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (title === '') {
-      setTitleError('Title is required')
+      setTitleError('Title Required!')
     }
     if (description === '') {
-      setDescriptionError('Description is required');
+      setDescriptionError('Description Required!');
     }
     if (image === '') {
-      setImageError('Image is required');
+      setImageError('Image Required!');
     }
     if (audio === '') {
-      setAudioError('Audio is required')
+      setAudioError('Audio Required!')
     }
     if (video === '') {
-      setVedioError('Vedio is required')
+      setVedioError('Vedio Required!')
     } else {
       if (!editMode) {
         const formData = new FormData();
@@ -95,10 +93,9 @@ const AddEditCampaign = () => {
 
   return (
     <>
-      <Header />
-      <SideBar />
+
       <div className="main-content">
-        <section className="section" onSubmit={handleSubmit}>
+        <section className="section">
           <div className="section-header">
             <center><strong>{!editMode ? "Add Post" : "Update Post"}</strong></center>
           </div>
@@ -121,7 +118,6 @@ const AddEditCampaign = () => {
                           name="title"
                           onChange={onInputChange}
                         />
-                      </div>
                       <label style={{
                         color: "red",
                         marginLeft: "2%",
@@ -129,6 +125,7 @@ const AddEditCampaign = () => {
                       }}>
                         {titleError}
                       </label>
+                      </div>
                       <div className="form-group">
                         <label>Description</label>
                         <input
@@ -138,7 +135,6 @@ const AddEditCampaign = () => {
                           value={description || ""}
                           name="description"
                           onChange={onInputChange} />
-                      </div>
                       <label style={{
                         color: "red",
                         marginLeft: "2%",
@@ -146,6 +142,7 @@ const AddEditCampaign = () => {
                       }}>
                         {descriptionError}
                       </label>
+                      </div>
                       <div className="form-group">
                         <label>Image</label>
                         <input
@@ -156,7 +153,6 @@ const AddEditCampaign = () => {
                           defaultValue={image || ""}
                           name="image"
                           onChange={handleFileSelect} />
-                      </div>
                       <label style={{
                         color: "red",
                         marginLeft: "2%",
@@ -164,6 +160,7 @@ const AddEditCampaign = () => {
                       }}>
                         {imageError}
                       </label>
+                      </div>
                       <div className="form-group">
                         <label>Audio</label>
                         <input
@@ -174,7 +171,6 @@ const AddEditCampaign = () => {
                           defaultValue={audio || ""}
                           name="audio"
                           onChange={handleFileSelect} />
-                      </div>
                       <label style={{
                         color: "red",
                         marginLeft: "2%",
@@ -182,6 +178,7 @@ const AddEditCampaign = () => {
                       }}>
                         {audioError}
                       </label>
+                      </div>
                       <div className="form-group">
                         <label>Video</label>
                         <input
@@ -192,7 +189,6 @@ const AddEditCampaign = () => {
                           defaultValue={video || ""}
                           name="video"
                           onChange={handleFileSelect} />
-                      </div>
                       <label style={{
                         color: "red",
                         marginLeft: "2%",
@@ -200,6 +196,7 @@ const AddEditCampaign = () => {
                       }}>
                         {videoError}
                       </label>
+                      </div>
                       <button type="submit" className="btn btn-primary">{!editMode ? "Add" : "Update"}</button>{" "}
                       <Link to={'/campaign'} className="btn btn-info"> Back </Link>
                     </div>
@@ -210,7 +207,6 @@ const AddEditCampaign = () => {
           </form>
         </section>
       </div>
-      <Footer />
     </>
   )
 }

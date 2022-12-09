@@ -1,5 +1,5 @@
 import React from "react";
-import { Redirect, Route } from "react-router-dom";
+import { Redirect, Route, useLocation } from "react-router-dom";
 import DefaultLayoutPage from "./pages/Strater/DefaultLayoutPage";
 import Login from './pages/Pages/Auth/Login';
 import GeneralDashboard from "./pages/Dashboard/GeneralDashboard";
@@ -24,13 +24,22 @@ import ViewCampaning from "./pages/Components/Campaign/ViewCampaign";
 import ChangePassword from "./pages/Pages/Auth/ChangePassword";
 import ResetPassword from "./pages/Pages/Auth/ResetPassword";
 import ForgotPassword from "./pages/Pages/Auth/ForgotPassword";
+import UsersList from "./pages/Components/Users/UsersList";
+import { Footer, Header } from "./components/admin";
+import SideBar from "./components/admin/sidebar";
 
 const App = () => {
+  let location = useLocation();
 
   return (
     <>
       <div className="App">
-
+       {
+        location.pathname !== '/' &&  <Header />
+      }
+      {
+        location.pathname !== '/' && <SideBar />
+      }
         {/* {sessionStorage.getItem("ADMIN") ? (<Redirect to='/dashboard'/>) : (<Redirect to='/'/>)} */}
         <Route path='/' exact component={Login} />
         <Route path="/dashboard" component={GeneralDashboard} />
@@ -62,6 +71,11 @@ const App = () => {
         <Route path='/change-password' component={ChangePassword} />
         <Route path='/reset-password' component={ResetPassword} />
         <Route path='/forgot-password' component={ForgotPassword} />
+        <Route path='/users' component={UsersList}/>
+        {
+          location.pathname !== '/' &&  <Footer />
+        }
+    
       </div>
 
     </>

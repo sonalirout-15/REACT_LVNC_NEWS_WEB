@@ -5,6 +5,7 @@ import categorySaga from './CategorySaga';
 import mettersSaga from './MattersSaga';
 import postSaga from './PostSaga';
 import subcategorySaga from './SubcategorySaga';
+import userSaga from './UserSaga';
 
 export default function* rootSaga() {
     yield all([
@@ -14,5 +15,6 @@ export default function* rootSaga() {
         mettersSaga(),
         postSaga(),
         campaignSaga(),
+        userSaga()
     ])
 }

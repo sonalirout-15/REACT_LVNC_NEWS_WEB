@@ -2,8 +2,6 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router";
 import { Link } from "react-router-dom";
-import { Footer, Header } from "../../../components/admin";
-import SideBar from "../../../components/admin/sidebar";
 import { createCategoryStart, updateCategoryStart } from "../../../Redux/Actions/CategoryAction";
 
 const initialState = {
@@ -35,13 +33,13 @@ const AddEditCategories = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (category_name === '') {
-      setNameError('Category name is required')
+      setNameError('Category Required!')
     }
-    if (category_name > 4) {
-      setNameError('Category name needs to atleast 4 characters')
+    else if(category_name.length < 4) {
+      setNameError('Category name needs to atleast 4 characters!')
     }
-    if (category_name > 25) {
-      setNameError('Category name must be 4 to 25 characters')
+    else if(category_name.length > 25) {
+      setNameError('Category name needs only 25 characters!')
     }
     else {
       if (!editMode) {
@@ -61,12 +59,11 @@ const AddEditCategories = () => {
     setFormValue({ ...formValue, [name]: value });
     console.log("form ...", formValue);
   };
+  
   return (
     <>
-      <Header />
-      <SideBar />
       <div className="main-content">
-        <section className="section" onSubmit={handleSubmit}>
+        <section className="section">
           <div className="section-header">
             <h4>Category</h4>
           </div>
@@ -89,7 +86,6 @@ const AddEditCategories = () => {
                           name="category_name"
                           onChange={onInputChange}
                         />
-                      </div>
                       <label style={{
                         color: "red",
                         marginLeft: "2%",
@@ -97,6 +93,7 @@ const AddEditCategories = () => {
                       }}>
                         {nameError}
                       </label>
+                      </div>
                       <button type="submit" className="btn btn-primary">{!editMode ? "Add" : "Update"}</button>{" "}
                       <Link to={'/categories'} className="btn btn-info"> Back </Link>
                     </div>
@@ -107,7 +104,6 @@ const AddEditCategories = () => {
           </form>
         </section>
       </div>
-      <Footer />
     </>
   )
 }

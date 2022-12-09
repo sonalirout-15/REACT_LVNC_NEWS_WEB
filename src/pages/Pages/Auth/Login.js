@@ -8,7 +8,7 @@ const Login = () =>  {
   const dispatch = useDispatch();
   const[emailError, setEmailErorr] = useState()
   const[passwordError , setPasswordError] = useState();
-  
+  const admin = useSelector((state) => state?.admin.adminLogin?.userEmail);
   const user = useSelector((state) =>state?.admin.adminLogin.status);
   const history = useHistory();
 
@@ -114,6 +114,7 @@ const Login = () =>  {
                             >
                               Forgot Password?
                             </a>
+                            
                           </div>
                         </div>
                         <input

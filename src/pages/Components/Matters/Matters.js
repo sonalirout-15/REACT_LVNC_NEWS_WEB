@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
-import { Footer, Header } from "../../../components/admin";
 import { deleteMettersStart, loadMettersStart } from "../../../Redux/Actions/MattersActions";
 import BootstrapTable from 'react-bootstrap-table-next';
+import "bootstrap/dist/css/bootstrap.min.css";
 import 'react-bootstrap-table-next/dist/react-bootstrap-table2.min.css';
 import paginationFactory from 'react-bootstrap-table2-paginator';
 import 'react-bootstrap-table2-paginator/dist/react-bootstrap-table2-paginator.min.css';
 import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit';
-import SideBar from "../../../components/admin/sidebar";
 
 const { SearchBar } = Search;
 
@@ -48,8 +47,7 @@ const Matters = () => {
         return (
           <audio controls style={{ height: '40px', width: '120px' }}><source src={row.audio} type='audio/mp3' /></audio>
         )
-      }
-      
+      }    
     },
     {
       dataField: 'Video', text: 'Video', formatter: (cell, row) => {
@@ -59,7 +57,15 @@ const Matters = () => {
       }
     },
 
-    { dataField: 'status', text: 'Status', sort: true },
+    { dataField: 'status', text: 'Status', sort: true , formatter:(cell, row) => {
+      return (
+        <>
+        {
+            row.status === 0 ? (<div class="badge badge-danger">Inactive</div>) : (<div class="badge badge-success">Active</div>)
+        }
+        </>
+      )
+    }},
     {
       text: 'Action', formatter: (cell, row) => {
         return (
@@ -121,8 +127,6 @@ const Matters = () => {
 
   return (
     <>
-      <Header />
-      <SideBar />
       <div className="main-content">
         <section className="section">
           <div className="section-header">
@@ -151,6 +155,7 @@ const Matters = () => {
                             <h3 style={{ marginLeft: '10px' }}></h3>
                             <SearchBar {...props.searchProps} style={{ marginLeft: '10px' }} />
                             <BootstrapTable
+                            classes="react-bootstrap-table-next"
                               {...props.baseProps}
                               pagination={pagination}
                             />
@@ -165,7 +170,6 @@ const Matters = () => {
           </div>
         </section>
       </div>
-      <Footer />
     </>
   )
 }
