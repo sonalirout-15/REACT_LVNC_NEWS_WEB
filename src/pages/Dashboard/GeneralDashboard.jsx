@@ -6,7 +6,6 @@ import { loadCategoryStart } from "../../Redux/Actions/CategoryAction";
 import { loadMettersStart } from "../../Redux/Actions/MattersActions";
 import { loadPostStart } from "../../Redux/Actions/PostActions";
 import { loadSubcategoryStart } from "../../Redux/Actions/SubcategoryActions";
-import logo from '../../assets/img/logo/LVNClogo.png';
 import { loadUserStart } from "../../Redux/Actions/UserAction";
 
 const GeneralDashboard = () => {
@@ -46,7 +45,7 @@ const GeneralDashboard = () => {
   const mettersData = useSelector((state) => state?.metters?.metters?.mettersData?.count);
   const postsData = useSelector((state) => state?.post?.post?.count);
   const campaningsData = useSelector((state) => state?.campaning?.campaning?.CampaningData?.count);
-  const usersData = useSelector((state) => state?.user)
+  const usersData = useSelector((state) => state?.user?.user?.data?.count)
 
   return (
     <>
@@ -143,21 +142,21 @@ const GeneralDashboard = () => {
                   <div className="card-header">
                     <h4>Total Users</h4>
                   </div>
-                  <div className="card-body"></div>
+                  <div className="card-body">{usersData}</div>
                 </div>
               </div>
             </div>
           </div>
           <div className="sidebar-brand">
           <img
-                    src={logo}
-                    style={{ height: '200px', width:'700px',
-                    backgroundColor:'#032a63',
-                    border: '2px solid #032a63',
-                    marginLeft:'300px',
-                    marginTop:'90px'}}
-                    className="rounded-rectangle"
-                    alt="img"
+                src='../../assets/img/logo/LVNClogo.png'
+                style={{ height: '200px', width:'700px',
+                backgroundColor:'#032a63',
+                border: '2px solid #032a63',
+                marginLeft:'300px',
+                marginTop:'90px'}}
+                className="rounded-rectangle"
+                alt="img"
                   />
           </div>{" "}
         </section>

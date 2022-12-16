@@ -22,6 +22,7 @@ import {
     createCategorySuccess,
     deleteCategoryError,
     deleteCategorySuccess,
+    getSingleCategoryError,
     getSingleCategorySuccess,
     loadCategoryError,
     loadCategorySuccess,
@@ -56,7 +57,7 @@ export function* onGetSingleCategoryStartAsync({ payload }) {
             yield put(getSingleCategorySuccess(response.data.categoryData))
         }
     } catch (error) {
-        yield put(getSingleCategorySuccess(error.response))
+        yield put(getSingleCategoryError(error.response))
     }
 }
 

@@ -7,6 +7,7 @@ const initialState = {
     categoryData: [],
     catgories: [],
     cateData: [],
+    updateSubcategory:[],
     loading: false,
     error: null
 }

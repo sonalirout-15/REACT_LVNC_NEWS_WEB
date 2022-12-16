@@ -34,7 +34,7 @@ const Matters = () => {
       sort: true
     },
     { dataField: 'title', text: 'Title', sort: true },
-    { dataField: 'description', text: 'Description', sort: true },
+    { dataField: 'Description', text: 'Description', sort: true },
     {
       dataField: 'image', text: 'Image', formatter: (cell, row) => {
         return (

@@ -55,6 +55,7 @@ const Login = () =>  {
 
   if(user === 200){
     history.push('/dashboard')
+    window.location.reload();
   }
 
     return (

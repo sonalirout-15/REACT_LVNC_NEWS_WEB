@@ -6,7 +6,7 @@ import { createMettersStart, updateMettersStart } from "../../../Redux/Actions/M
 
 const initialState = {
   title: '',
-  description: '',
+  Description: '',
   image: '',
   audio: '',
   video: '',
@@ -21,7 +21,7 @@ const AddEditMattters = () => {
   const [imageError, setImageError] = useState();
   const [audioError, setAudioError] = useState();
   const [videoError, setVedioError] = useState();
-  var { title, description, image, audio, video } = formValue;
+  var { title, Description, image, audio, video } = formValue;
   const dispatch = useDispatch();
   var { id } = useParams();
 
@@ -45,7 +45,7 @@ const AddEditMattters = () => {
     if (title === '') {
       setTitleError('Title Required!')
     }
-    if (description === '') {
+    if (Description === '') {
       setDescriptionError('Description Required!');
     }
     if (image === '') {
@@ -60,7 +60,7 @@ const AddEditMattters = () => {
       if (!editMode) {
         const formData = new FormData();
         formData.append("title", title);
-        formData.append("description", description);
+        formData.append("Description", Description);
         formData.append("image", image);
         formData.append("audio", audio);
         formData.append("video", video);
@@ -71,7 +71,7 @@ const AddEditMattters = () => {
         const formData = new FormData();
         formData.append("id", id);
         formData.append("title", title);
-        formData.append("description", description);
+        formData.append("Description", Description);
         formData.append("image", image);
         formData.append("audio", audio);
         formData.append("video", video);
@@ -130,9 +130,9 @@ const AddEditMattters = () => {
                         <input
                           type="text"
                           className="form-control"
-                          id="description"
-                          value={description || ""}
-                          name="description"
+                          id="Description"
+                          value={Description || ""}
+                          name="Description"
                           onChange={onInputChange} />
                       <label style={{
                         color: "red",

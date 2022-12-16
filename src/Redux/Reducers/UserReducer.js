@@ -17,7 +17,7 @@ const userReducer = (state = initialState, action) => {
             return {
                 ...state,
                 loading: false,
-                admin: action.payload
+                user: action.payload
             }
         case types.LOAD_USER_ERROR:
     

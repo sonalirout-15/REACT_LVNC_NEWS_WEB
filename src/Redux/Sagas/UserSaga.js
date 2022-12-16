@@ -14,7 +14,7 @@ export function* onLoadUserStartAsync() {
     try {
         const response = yield call(loadUserApi);
         if (response.data.message === "Success") {
-            yield put(loadUserSuccess(response.data.data))
+            yield put(loadUserSuccess(response.data))
         }
     } catch (error) {
         yield put(loadUserError(error.response))

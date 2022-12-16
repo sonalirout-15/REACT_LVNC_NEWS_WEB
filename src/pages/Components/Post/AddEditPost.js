@@ -88,7 +88,7 @@ const AddEditPost = () => {
         formData.append("audio", audio);
         formData.append("video", video);
         dispatch(createPostStart(formData));
-        history.push('/post')
+        // history.push('/post')
       }
       else {
         const formData = new FormData();

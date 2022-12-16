@@ -40,7 +40,7 @@ const App = () => {
       {
         location.pathname !== '/' && <SideBar />
       }
-        {/* {sessionStorage.getItem("ADMIN") ? (<Redirect to='/dashboard'/>) : (<Redirect to='/'/>)} */}
+        {sessionStorage.getItem("ADMIN") ? (<Redirect to='/dashboard'/>) : (<Redirect to='/'/>)}
         <Route path='/' exact component={Login} />
         <Route path="/dashboard" component={GeneralDashboard} />
         <Route path="/layout/default" component={DefaultLayoutPage} />

@@ -18,7 +18,8 @@ const UsersList = () => {
         dispatch(loadUserStart())
     }, [])
 
-    const tableData = useSelector((state) => state?.user)
+    const tableData = useSelector((state) => state?.user?.user?.data?.rows)
+    console.log('user-data>>>>>', tableData)
     const [data, setData] = useState(tableData);
 
     useEffect(() => {
@@ -33,7 +34,7 @@ const UsersList = () => {
         },
         { dataField: 'username', text: 'Username' },
         { dataField: 'email', text: 'Email' },
-        { dataField: 'mobile', text: 'Mobile' },
+        { dataField: 'phonenumber', text: 'Mobile' },
         { dataField: 'address', text: 'Address' },
         {
             dataField: 'status', text: 'Status', formatter: (cell, row) => {
@@ -47,7 +48,6 @@ const UsersList = () => {
             }
         },
     ]
-
     const pagination = paginationFactory({
         page: 1,
         sizePerPage: 4,

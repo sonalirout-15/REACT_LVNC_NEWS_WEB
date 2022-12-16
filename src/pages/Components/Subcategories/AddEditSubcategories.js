@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory, useParams } from "react-router";
-import { Link } from "react-router-dom";
+import { Link, useHistory, useParams } from "react-router-dom";
 import { loadCategoryStart } from "../../../Redux/Actions/CategoryAction";
 import { createSubcategoryStart, updateSubcategoryStart } from "../../../Redux/Actions/SubcategoryActions";
 
@@ -9,24 +8,23 @@ const initialState = {
   category_ref_id: '',
   subcategory_name: '',
   Description: '',
-  image:''
+  image: '',
 }
-
 const AddEditSubcategories = () => {
   const [formValue, setFormValue] = useState(initialState);
-  const [nameError, setNameError] = useState();
+  const [editMode, setEditMode] = useState(false);
+  const history = useHistory();
+  const [titleError, setTitleError] = useState();
   const [descriptionError, setDescriptionError] = useState();
   const [imageError, setImageError] = useState();
-  const [editMode, setEditMode] = useState(false);
-  const history = useHistory()
-  var { id,category_ref_id ,subcategory_name, Description, image } = formValue;
+  var { category_ref_id,subcategory_name,Description,  image, } = formValue;
   const dispatch = useDispatch();
   var { id } = useParams();
 
-const subcategories = useSelector((state) => state?.subcategory?.subcategories?.categoryData?.rows);
-const categories = useSelector((state) => state?.categoryData?.categories?.categoryData?.rows);
+  const subcategories = useSelector((state) => state?.subcategory?.subcategories?.categoryData?.rows);
+  const categories = useSelector((state) => state?.categoryData?.categories?.categoryData?.rows);
 
-useEffect(() => {
+  useEffect(() => {
     if (id) {
       setEditMode(true);
       const singleSubcategory = subcategories ? subcategories.find((item) => item.id === Number(id)) : null;
@@ -35,62 +33,61 @@ useEffect(() => {
       setEditMode(false);
       setFormValue({ ...formValue });
     }
-}, [id]);
+  }, [id]);
 
-useEffect(() => {
-  dispatch(loadCategoryStart())
-}, [])
+  useEffect(() => {
+    dispatch(loadCategoryStart())
+  }, [])
 
-const handleSubmit = async (e) => {
-  e.preventDefault();
-  if (category_ref_id === '' && subcategory_name === '') {
-    setNameError('Required!')
-  }
-  if(Description === ''){
-    setDescriptionError('Description Required!')
-  }
-  if (image === '') {
-    setImageError('Image Required!');
-  }
-  else {
-
-    if (!editMode) {
-      const formData = new FormData();
-      formData.append("category_ref_id", category_ref_id);
-      formData.append("subcategory_name", subcategory_name);
-      formData.append("Description", Description);
-      formData.append("image", image);
-      dispatch(createSubcategoryStart(formData));
-      history.push('/post')
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (subcategory_name === '') {
+      setTitleError('Title Required!')
     }
-    else {
-      const formData = new FormData();
-      formData.append("id", id);
-      formData.append("category_ref_id", category_ref_id);
-      formData.append("subcategory_name", subcategory_name);
-      formData.append("Description", Description);
-      formData.append("image", image);
-      dispatch(updateSubcategoryStart(formData));
-      setEditMode(false);
-      history.push('/post')
+    if (Description === '') {
+      setDescriptionError('Description Required!');
     }
-  }
-};
+    if (image === '') {
+      setImageError('Image Required!');
+    }
+     else {
+      if (!editMode) {
+        const formData = new FormData();
+        formData.append("category_ref_id", category_ref_id);
+        formData.append("subcategory_name", subcategory_name);
+        formData.append("Description", Description);
+        formData.append("image", image);
+        dispatch(createSubcategoryStart(formData));
+        history.push('/subcategories')
+      }
+      else {
+        const formData = new FormData();
+        formData.append("id", id);
+        formData.append("category_ref_id", category_ref_id);
+        formData.append("subcategory_name", subcategory_name);
+        formData.append("Description", Description);
+        formData.append("image", image);
+        dispatch(updateSubcategoryStart(formData));
+        console.log('FORM-DATA>>>>>>', formData)
+        setEditMode(false);
+        // history.push('/subcategories')
+      }
+    }
+  };
 
 
-const onInputChange = (e) => {
-  let { name, value } = e.target;
-  setFormValue({ ...formValue, [name]: value });
-};
+  const onInputChange = (e) => {
+    let { name, value } = e.target;
+    setFormValue({ ...formValue, [name]: value });
+  };
 
-const handleFileSelect = (e) => {
-  setFormValue({ ...formValue, [e.target.name]: e.target.files[0] });
-};
+  const handleFileSelect = (e) => {
+    setFormValue({ ...formValue, [e.target.name]: e.target.files[0] });
+  };
 
-
-  return (
+  return(
     <>
-      <div className="main-content">
+         <div className="main-content">
         <section className="section">
           <div className="section-header">
             <h4>Subcategory</h4>
@@ -105,7 +102,7 @@ const handleFileSelect = (e) => {
                     </div>
                     <div className="card-body">
                       <div className="form-group">
-                        <label>Subcategory Name</label>
+                        <label>Title</label>
                         <input
                           type="text"
                           className="form-control"
@@ -114,12 +111,12 @@ const handleFileSelect = (e) => {
                           name="subcategory_name"
                           onChange={onInputChange}
                         />
-                         <label style={{
+                       <label style={{
                         color: "red",
                         marginLeft: "2%",
                         display: "flex"
                       }}>
-                        {nameError}
+                        {titleError}
                       </label>
                       </div>
                       <div className="form-group">
@@ -130,8 +127,9 @@ const handleFileSelect = (e) => {
                           id="Description"
                           value={Description || ""}
                           name="Description"
-                          onChange={onInputChange} />
-                      <label style={{
+                          onChange={onInputChange}
+                          />
+                       <label style={{
                         color: "red",
                         marginLeft: "2%",
                         display: "flex"

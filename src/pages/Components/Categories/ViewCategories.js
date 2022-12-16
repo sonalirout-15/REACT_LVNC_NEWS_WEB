@@ -42,7 +42,7 @@ const ViewCategories = () => {
 
                         <tr>
                           <td><div><label htmlFor="status" style={{ fontWeight: 'bold' }}>Status</label></div></td>
-                          <td><div ><label>{singleData?.status}</label></div></td>
+                          <td><div ><label>{ singleData?.status === 0 ? (<div class="badge badge-danger">Inactive</div>) : (<div class="badge badge-success">Active</div>)}</label></div></td>
                         </tr>
                       </table>
                     </div>

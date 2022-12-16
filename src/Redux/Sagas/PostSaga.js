@@ -27,6 +27,7 @@ import {
     updatePostError, 
     updatePostSuccess 
 } from '../Actions/PostActions';
+import { clearConfigCache } from 'prettier';
 
 const Toast = Swal.mixin({
     toast: true,
@@ -40,7 +41,7 @@ export function* onLoadPostStartAsync() {
     try {
         const response = yield call(loadPostApi);
         if (response.data.message === "Success") {
-            yield put(loadPostSuccess(response.data.postData))
+            yield put(loadPostSuccess(response.data.mettersData))
         }
     } catch (error) {
         yield put(loadPostError(error.response))

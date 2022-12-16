@@ -63,7 +63,7 @@ const AddEditCampaign = () => {
         formData.append("audio", audio);
         formData.append("video", video);
         dispatch(createCampaningStart(formData));
-        history.push('/campaning')
+        history.push('/campaing')
 
       }
       else {
@@ -76,7 +76,7 @@ const AddEditCampaign = () => {
         formData.append("video", video);
         dispatch(updateCampaningStart(formData));
         setEditMode(false);
-        history.push('/campaning')
+        history.push('/campaing')
       }
     }
   };
