@@ -17,7 +17,6 @@ const Post = () => {
     dispatch(loadPostStart())
   }, [])
   const postData = useSelector((state) => state?.post?.post?.rows)
-  console.log('PostDATA>>>>>>>>>>', postData)
   const [data, setData] = useState(postData)
   useEffect(() => {
     setData(postData)

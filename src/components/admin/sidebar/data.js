@@ -40,6 +40,11 @@ export const Data = {
             url: '/campaign',
         },
         {
+            name: 'Latest News',
+            icon: 'fas fa-newspaper',
+            url: '/latestnews',
+        },
+        {
             name: 'User',
             icon: 'fa fa-users',
             url: '/users',

@@ -21,6 +21,7 @@ import ViewPost from './pages/Components/Post/ViewPost';
 import Campaning from "./pages/Components/Campaign/Campaign";
 import AddEditCampanings from "./pages/Components/Campaign/AddEditCampaign";
 import ViewCampaning from "./pages/Components/Campaign/ViewCampaign";
+import LatestNews from "./pages/Components/LatestNews/LatestNews";
 import ChangePassword from "./pages/Pages/Auth/ChangePassword";
 import ResetPassword from "./pages/Pages/Auth/ResetPassword";
 import ForgotPassword from "./pages/Pages/Auth/ForgotPassword";
@@ -40,7 +41,7 @@ const App = () => {
       {
         location.pathname !== '/' && <SideBar />
       }
-        {sessionStorage.getItem("ADMIN") ? (<Redirect to='/dashboard'/>) : (<Redirect to='/'/>)}
+        {/* {sessionStorage.getItem("ADMIN") ? (<Redirect to='/dashboard'/>) : (<Redirect to='/'/>)} */}
         <Route path='/' exact component={Login} />
         <Route path="/dashboard" component={GeneralDashboard} />
         <Route path="/layout/default" component={DefaultLayoutPage} />
@@ -68,6 +69,7 @@ const App = () => {
         <Route path='/addCampaign' component={AddEditCampanings} />
         <Route path='/editCampaign/:id' component={AddEditCampanings} />
         <Route path='/viewCampaign/:id' component={ViewCampaning} />
+        <Route path='/latestNews' component={LatestNews}/>
         <Route path='/change-password' component={ChangePassword} />
         <Route path='/reset-password' component={ResetPassword} />
         <Route path='/forgot-password' component={ForgotPassword} />

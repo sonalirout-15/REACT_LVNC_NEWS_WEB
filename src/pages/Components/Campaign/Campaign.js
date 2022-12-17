@@ -45,7 +45,7 @@ const Campaign = () => {
       }
     },
     {
-      dataField: 'audio', text: 'Audio', formatter: (cell, row) => {
+      dataField: 'video', text: 'Video', formatter: (cell, row) => {
         return (
           <video controls style={{ height: '70px' }}><source src={row.video} type="video/MP4/MKV/AVI" /></video>
         )

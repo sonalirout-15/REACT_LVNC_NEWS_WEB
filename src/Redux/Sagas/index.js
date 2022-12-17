@@ -2,6 +2,7 @@ import { all } from 'redux-saga/effects';
 import adminSaga from './AdminSaga';
 import campaignSaga from './CampaningSaga';
 import categorySaga from './CategorySaga';
+import latestNewsSaga from './LatestNewsSaga';
 import mettersSaga from './MattersSaga';
 import postSaga from './PostSaga';
 import subcategorySaga from './SubcategorySaga';
@@ -15,6 +16,7 @@ export default function* rootSaga() {
         mettersSaga(),
         postSaga(),
         campaignSaga(),
-        userSaga()
+        userSaga(),
+        latestNewsSaga()
     ])
 }

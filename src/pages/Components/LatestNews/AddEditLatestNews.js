@@ -8,9 +8,6 @@ import { createPostStart, updatePostStart } from "../../../Redux/Actions/PostAct
 import { loadSubcategoryStart } from "../../../Redux/Actions/SubcategoryActions";
 
 const initialState = {
-  admin_ref_id: '',
-  category_ref_id: '',
-  subcategory_ref_id: '',
   title: '',
   description: '',
   image: '',
@@ -18,7 +15,7 @@ const initialState = {
   video: '',
 }
 
-const AddEditPost = () => {
+const AddEditLatestNews = () => {
   const [formValue, setFormValue] = useState(initialState);
   const [editMode, setEditMode] = useState(false);
   const history = useHistory();
@@ -27,37 +24,23 @@ const AddEditPost = () => {
   const [imageError, setImageError] = useState();
   const [audioError, setAudioError] = useState();
   const [videoError, setVedioError] = useState();
-  var { admin_ref_id, category_ref_id, subcategory_ref_id, title, description, image, audio, video } = formValue;
+  var {  title, description, image, video } = formValue;
   const dispatch = useDispatch();
   var { id } = useParams();
 
-  const post = useSelector((state) => state?.post?.post?.rows)
-  const admin = useSelector((state) => state?.admin?.admin?.rows)
-  const subcategories = useSelector((state) => state?.subcategory?.subcategories?.categoryData?.rows);
-  const categories = useSelector((state) => state?.categoryData?.categories?.categoryData?.rows);
+  const latestnews = useSelector((state) => state)
 
   useEffect(() => {
     if (id) {
       setEditMode(true);
-      const singlePost = post ? post.find((item) => item.id === Number(id)) : null;
-      setFormValue({ ...singlePost });
+      const singleLatestNews = latestnews ? latestnews.find((item) => item.id === Number(id)) : null;
+      setFormValue({ ...singleLatestNews });
     } else {
       setEditMode(false);
       setFormValue({ ...formValue });
     }
   }, [id]);
 
-  useEffect(() => {
-    dispatch(loadCategoryStart())
-  }, [])
-
-  useEffect(() => {
-    dispatch(loadSubcategoryStart())
-  }, [])
-
-  useEffect(() => {
-    dispatch(loadAdminStart())
-  }, [])
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -70,40 +53,29 @@ const AddEditPost = () => {
     if (image === '') {
       setImageError('Image Required!');
     }
-    if (audio === '') {
-      setAudioError('Audio Required!')
-    }
     if (video === '') {
       setVedioError('Vedio Required!')
     } else {
 
       if (!editMode) {
         const formData = new FormData();
-        formData.append("admin_ref_id", admin_ref_id);
-        formData.append("category_ref_id", category_ref_id);
-        formData.append("subcategory_ref_id", subcategory_ref_id);
         formData.append("title", title);
         formData.append("description", description);
         formData.append("image", image);
-        formData.append("audio", audio);
         formData.append("video", video);
         dispatch(createPostStart(formData));
-        history.push('/post')
+        history.push('/latestnews')
       }
       else {
         const formData = new FormData();
         formData.append("id", id);
-        formData.append("admin_ref_id", admin_ref_id);
-        formData.append("category_ref_id", category_ref_id);
-        formData.append("subcategory_ref_id", subcategory_ref_id);
         formData.append("title", title);
         formData.append("description", description);
         formData.append("image", image);
-        formData.append("audio", audio);
         formData.append("video", video);
         dispatch(updatePostStart(formData));
         setEditMode(false);
-        history.push('/post')
+        history.push('/latestnews')
       }
     }
   };
@@ -291,4 +263,4 @@ const AddEditPost = () => {
   )
 }
 
-export default AddEditPost;
+export default AddEditLatestNews;
