@@ -8,7 +8,7 @@ import store from "./Redux/store";
 // require('react-bootstrap-table-next/dist/react-bootstrap-table2.min.css');
 import "bootstrap/dist/css/bootstrap.min.css";
 import 'react-bootstrap-table-next/dist/react-bootstrap-table2.min.css';
-
+import "mdbreact/dist/css/mdb.css";
 // import '@fortawesome/fontawesome-free/css/all.min.css';
 // import 'bootstrap-css-only/css/bootstrap.min.css';
 // import 'mdbreact/dist/css/mdb.css';

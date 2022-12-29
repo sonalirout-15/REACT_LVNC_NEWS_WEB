@@ -21,11 +21,16 @@ import ViewPost from './pages/Components/Post/ViewPost';
 import Campaning from "./pages/Components/Campaign/Campaign";
 import AddEditCampanings from "./pages/Components/Campaign/AddEditCampaign";
 import ViewCampaning from "./pages/Components/Campaign/ViewCampaign";
+import BannerImage from "./pages/Components/BannerImageData/BannerImage";
+import AddEditBanner from "./pages/Components/BannerImageData/AddEditBanner";
+import ViewBanner from "./pages/Components/BannerImageData/ViewBanner";
 import LatestNews from "./pages/Components/LatestNews/LatestNews";
+import AddEditLatestNews from "./pages/Components/LatestNews/AddEditLatestNews";
 import ChangePassword from "./pages/Pages/Auth/ChangePassword";
 import ResetPassword from "./pages/Pages/Auth/ResetPassword";
 import ForgotPassword from "./pages/Pages/Auth/ForgotPassword";
 import UsersList from "./pages/Components/Users/UsersList";
+import ContactUsList from "./pages/Components/Users/ContactUsList";
 import { Footer, Header } from "./components/admin";
 import SideBar from "./components/admin/sidebar";
 
@@ -35,12 +40,12 @@ const App = () => {
   return (
     <>
       <div className="App">
-       {
+       {/* {
         location.pathname !== '/' &&  <Header />
       }
       {
         location.pathname !== '/' && <SideBar />
-      }
+      } */}
         {/* {sessionStorage.getItem("ADMIN") ? (<Redirect to='/dashboard'/>) : (<Redirect to='/'/>)} */}
         <Route path='/' exact component={Login} />
         <Route path="/dashboard" component={GeneralDashboard} />
@@ -69,14 +74,20 @@ const App = () => {
         <Route path='/addCampaign' component={AddEditCampanings} />
         <Route path='/editCampaign/:id' component={AddEditCampanings} />
         <Route path='/viewCampaign/:id' component={ViewCampaning} />
+        <Route path='/banner' component={BannerImage}/>
+        <Route path='/addBanner' component={AddEditBanner}/>
+        <Route path='/editBanner/:id' component={AddEditBanner} />
+        <Route path='/viewBanner/:id' component={ViewBanner}/>
         <Route path='/latestNews' component={LatestNews}/>
+        <Route path='/addLatestnews' component={AddEditLatestNews}/>
         <Route path='/change-password' component={ChangePassword} />
         <Route path='/reset-password' component={ResetPassword} />
         <Route path='/forgot-password' component={ForgotPassword} />
-        <Route path='/users' component={UsersList}/>
-        {
+        <Route path='/users/userList' component={UsersList}/>
+        <Route path='/users/contactUs' component={ContactUsList}/>
+        {/* {
           location.pathname !== '/' &&  <Footer />
-        }
+        } */}
     
       </div>
 

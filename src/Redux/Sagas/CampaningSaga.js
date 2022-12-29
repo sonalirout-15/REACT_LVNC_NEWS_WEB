@@ -104,7 +104,7 @@ export function* onUpdateCampaningStartAsync({ payload }) {
     try {
         const response = yield call(updateCampaningApi, payload)
         if (response.data.message === "Success") {
-            yield put(updateCampaningSuccess())
+            yield put(updateCampaningSuccess(response.data))
             Toast.fire({
                 icon: "success",
                 title: response.data.message

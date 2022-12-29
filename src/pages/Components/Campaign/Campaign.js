@@ -16,6 +16,7 @@ const Campaign = () => {
   useEffect(() => {
     dispatch(loadCampaningStart())
   }, [])
+  
   const campaningData = useSelector((state) => state?.campaning?.campaning?.CampaningData?.rows)
   const [data, setData] = useState(campaningData)
   useEffect(() => {

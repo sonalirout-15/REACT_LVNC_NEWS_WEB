@@ -50,7 +50,7 @@ const Matters = () => {
       }    
     },
     {
-      dataField: 'Video', text: 'Video', formatter: (cell, row) => {
+      dataField: 'video', text: 'Video', formatter: (cell, row) => {
         return (
           <video controls style={{ height: '70px' }}><source src={row.video} type="video/mp4" /></video>
         )

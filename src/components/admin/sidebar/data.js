@@ -40,15 +40,31 @@ export const Data = {
             url: '/campaign',
         },
         {
+            name: 'Banner Image',
+            icon: 'fas fa-poll',
+            url: '/banner',
+        },
+        {
             name: 'Latest News',
             icon: 'fas fa-newspaper',
             url: '/latestnews',
         },
         {
-            name: 'User',
-            icon: 'fa fa-users',
-            url: '/users',
+            dropdown: true,
+            active: false,
+            name: 'Users',
+            icon: 'far fa-user',
+            children: [{
+                    name: 'User List',
+                    url: '/users/userList',
+                    active: false
+                },
+                {
+                    name: 'Contact List',
+                    icon: 'fas fa-phone',
+                    url: '/users/contactUs',
+                },
+            ]
         },
-        
     ]
 };

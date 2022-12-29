@@ -1,5 +1,6 @@
 import { combineReducers } from "redux";
 import adminReducer from "./Reducers/AdminReducer";
+import bannerImageReducer from "./Reducers/BannerImageReducer";
 import campaignReducer from "./Reducers/CampaignReducer";
 import categoryReducer from "./Reducers/CategoryReducer";
 import latestNewsReducer from "./Reducers/LatestNewsReducer";
@@ -15,6 +16,7 @@ const rootReducer = combineReducers({
     metters: mattersReducer,
     post: postReducer,
     campaning: campaignReducer,
+    banner : bannerImageReducer,
     user : userReducer,
     latestnewsData : latestNewsReducer
 

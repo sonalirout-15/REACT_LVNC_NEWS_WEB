@@ -39,6 +39,7 @@ const AddEditSubcategories = () => {
     dispatch(loadCategoryStart())
   }, [])
 
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (subcategory_name === '') {

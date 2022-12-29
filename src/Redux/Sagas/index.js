@@ -1,5 +1,6 @@
 import { all } from 'redux-saga/effects';
 import adminSaga from './AdminSaga';
+import bannerImageSaga from './BannerImageSaga';
 import campaignSaga from './CampaningSaga';
 import categorySaga from './CategorySaga';
 import latestNewsSaga from './LatestNewsSaga';
@@ -16,6 +17,7 @@ export default function* rootSaga() {
         mettersSaga(),
         postSaga(),
         campaignSaga(),
+        bannerImageSaga(),
         userSaga(),
         latestNewsSaga()
     ])
