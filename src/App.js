@@ -26,6 +26,7 @@ import AddEditBanner from "./pages/Components/BannerImageData/AddEditBanner";
 import ViewBanner from "./pages/Components/BannerImageData/ViewBanner";
 import LatestNews from "./pages/Components/LatestNews/LatestNews";
 import AddEditLatestNews from "./pages/Components/LatestNews/AddEditLatestNews";
+import ViewLatestNews from "./pages/Components/LatestNews/ViewLatestNews";
 import ChangePassword from "./pages/Pages/Auth/ChangePassword";
 import ResetPassword from "./pages/Pages/Auth/ResetPassword";
 import ForgotPassword from "./pages/Pages/Auth/ForgotPassword";
@@ -40,12 +41,12 @@ const App = () => {
   return (
     <>
       <div className="App">
-       {/* {
+      {
         location.pathname !== '/' &&  <Header />
       }
       {
         location.pathname !== '/' && <SideBar />
-      } */}
+      }
         {/* {sessionStorage.getItem("ADMIN") ? (<Redirect to='/dashboard'/>) : (<Redirect to='/'/>)} */}
         <Route path='/' exact component={Login} />
         <Route path="/dashboard" component={GeneralDashboard} />
@@ -80,14 +81,16 @@ const App = () => {
         <Route path='/viewBanner/:id' component={ViewBanner}/>
         <Route path='/latestNews' component={LatestNews}/>
         <Route path='/addLatestnews' component={AddEditLatestNews}/>
+        <Route path='/editLatestNews/:id' component={AddEditLatestNews}/>
+        <Route path='/viewLatestNews/:id' component={ViewLatestNews}/>
         <Route path='/change-password' component={ChangePassword} />
         <Route path='/reset-password' component={ResetPassword} />
         <Route path='/forgot-password' component={ForgotPassword} />
         <Route path='/users/userList' component={UsersList}/>
         <Route path='/users/contactUs' component={ContactUsList}/>
-        {/* {
+        {
           location.pathname !== '/' &&  <Footer />
-        } */}
+        }
     
       </div>
 

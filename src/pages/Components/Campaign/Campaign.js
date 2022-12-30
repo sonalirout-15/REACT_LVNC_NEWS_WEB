@@ -52,7 +52,15 @@ const Campaign = () => {
         )
       }
     },
-    { dataField: 'status', text: 'Status', sort: true },
+    { dataField: 'status', text: 'Status', sort: true , formatter:(cell, row) => {
+      return (
+        <>
+        {
+            row.status === 0 ? (<div class="badge badge-danger">Inactive</div>) : (<div class="badge badge-success">Active</div>)
+        }
+        </>
+      )
+    }},
     {
       text: 'Action', formatter: (cell, row) => {
         return (
@@ -88,7 +96,7 @@ const Campaign = () => {
   ]
 
   const handleDelete = (id) => {
-    if (window.confirm("Are you sure that you wanted to delete that campaning?")) {
+    if (window.confirm("Are you sure that you wanted to delete that campaing?")) {
       dispatch(deleteCampaningStart(id))
     }
   }

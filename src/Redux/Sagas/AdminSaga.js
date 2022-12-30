@@ -54,7 +54,6 @@ const Toast = Swal.mixin({
 export function* onAdminLoginStartAsync({ payload }) {
     try {
         const response = yield call(adminLoginApi, payload);
-        console.log("PAYLOAD===", response)
         if (response.data.status === 200) {
             localStorage.setItem("ADMIN", response.data.data.token);
             localStorage.setItem('ADMINEMAIL',  response.data.userEmail)

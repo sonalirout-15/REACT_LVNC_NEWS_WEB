@@ -97,7 +97,7 @@ const AddEditCampaign = () => {
       <div className="main-content">
         <section className="section">
           <div className="section-header">
-            <center><strong>{!editMode ? "Add Post" : "Update Post"}</strong></center>
+            <h4>Campaign</h4>
           </div>
           <form onSubmit={handleSubmit}>
             <div className="section-body">
@@ -105,7 +105,7 @@ const AddEditCampaign = () => {
                 <div className="col-18 col-md-6 col-lg-6">
                   <div className="card">
                     <div className="card-header">
-                      <h4>Campaign</h4>
+                    <center><strong>{!editMode ? "Add Campaign" : "Update Campaign"}</strong></center>
                     </div>
                     <div className="card-body">
                       <div className="form-group">

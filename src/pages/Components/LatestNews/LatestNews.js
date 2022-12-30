@@ -17,7 +17,7 @@ const LatestNews = () => {
     dispatch(loadLatestNewsStart())
   }, [])
 
-  const latestNewsData = useSelector((state) => state)
+  const latestNewsData = useSelector((state) => state?.latestnewsData?.latestnews?.rows)
   const [data, setData] = useState(latestNewsData)
   useEffect(() => {
     setData(latestNewsData)
@@ -45,7 +45,15 @@ const LatestNews = () => {
         )
       }
     },
-    { dataField: 'status', text: 'Status', sort: true },
+    { dataField: 'status', text: 'Status', sort: true , formatter:(cell, row) => {
+      return (
+        <>
+        {
+            row.status === 0 ? (<div class="badge badge-danger">Inactive</div>) : (<div class="badge badge-success">Active</div>)
+        }
+        </>
+      )
+    }},
     {
       text: 'Action', formatter: (cell, row) => {
         return (
@@ -70,7 +78,7 @@ const LatestNews = () => {
               className="btn btn-info btn-action"
               data-toggle="tooltip"
               title="Delete"
-              onClick={() => history.push(`viewLatestNews/${row.id}`)}
+              onClick={() => history.push(`/viewLatestNews/${row.id}`)}
               >
                 <i className="fas fa-eye"></i>
             </a>

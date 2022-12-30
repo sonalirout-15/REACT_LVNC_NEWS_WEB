@@ -71,7 +71,7 @@ const AddEditSubcategories = () => {
         dispatch(updateSubcategoryStart(formData));
         console.log('FORM-DATA>>>>>>', formData)
         setEditMode(false);
-        // history.push('/subcategories')
+        history.push('/subcategories')
       }
     }
   };

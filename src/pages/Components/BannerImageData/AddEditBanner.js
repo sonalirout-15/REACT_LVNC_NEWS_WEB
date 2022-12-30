@@ -16,12 +16,10 @@ const AddEditBanner = () => {
   const [imageNameError, setImageNameError] = useState();
   const [imageError, setImageError] = useState();
   var { id, imageName , image } = formValue;
-//   console.log('FORM-DATA=================??>>>>',formValue)
   const dispatch = useDispatch();
   var { id } = useParams();
 
-  const banner = useSelector((state) => state);
-  console.log('BANNER-DATA~~~~~~~~~~~>>>>>>', banner)
+  const banner = useSelector((state) => state?.banner?.bannerImageData);
 
   useEffect(() => {
     if (id) {
@@ -47,7 +45,7 @@ const AddEditBanner = () => {
         formData.append("imageName", imageName);
         formData.append("image", image);
         dispatch(createBannerImageStart(formData));
-        // history.push('/banner')
+        history.push('/banner')
 
       }
       else {
@@ -78,7 +76,7 @@ const AddEditBanner = () => {
       <div className="main-content">
         <section className="section">
           <div className="section-header">
-            <center><strong>{!editMode ? "Add Banner" : "Update Banner"}</strong></center>
+          <h4>Banner</h4>
           </div>
           <form onSubmit={handleSubmit}>
             <div className="section-body">
@@ -86,7 +84,7 @@ const AddEditBanner = () => {
                 <div className="col-18 col-md-6 col-lg-6">
                   <div className="card">
                     <div className="card-header">
-                      <h4>Banner</h4>
+                    <center><strong>{!editMode ? "Add Banner" : "Update Banner"}</strong></center>
                     </div>
                     <div className="card-body">
                       <div className="form-group">

@@ -21,9 +21,8 @@ const Toast = Swal.mixin({
 export function* onLoadLatestNewsStartAsync() {
     try {
         const response = yield call(loadLatestNewsApi);
-        console.log('PAYLOAD~~~~~~~~~~~~~', response)
-        if (response.status === 200) {
-            yield put(loadLatestNewsSuccess(response))
+        if (response.data.status === 200) {
+            yield put(loadLatestNewsSuccess(response.data.latestnewsData))
         }
     } catch (error) {
         yield put(loadLatestNewsError(error.response))
@@ -34,7 +33,7 @@ export function* onGetSingleLatestNewsStartAsync({ payload }) {
     try {
         const response = yield call(getSingleLatestNewsApi, payload);
         if (response.data.message === "Success") {
-            yield put(getSingleLatestNewsSuccess(response.data))
+            yield put(getSingleLatestNewsSuccess(response.data.latestnewsData))
         }
     } catch (error) {
         yield put(getSingleLatestNewsError(error.response))
@@ -45,7 +44,7 @@ export function* onCreateLatestNewsStartAsync({ payload }) {
     try {
         const response = yield call(createLatestNewsApi, payload)
         if (response.data.message === "Success") {
-            yield put(createLatestNewsSuccess(response.data))
+            yield put(createLatestNewsSuccess(response.data.latestnewsData))
             Toast.fire({
                 icon: "success",
                 title: response.data.message
@@ -86,7 +85,7 @@ export function* onUpdateLatestNewsStartAsync({ payload }) {
     try {
         const response = yield call(updateLatestNewsApi, payload)
         if (response.data.message === "Success") {
-            yield put(updateLatestNewsSuccess(response.data))
+            yield put(updateLatestNewsSuccess(response.data.latestnewsData))
             Toast.fire({
                 icon: "success",
                 title: response.data.message

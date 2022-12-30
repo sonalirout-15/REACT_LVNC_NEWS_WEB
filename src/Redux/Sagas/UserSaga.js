@@ -24,9 +24,8 @@ export function* onLoadUserStartAsync() {
 export function* onLoadUserContactListStartAsync() {
     try {
         const response = yield call(loadUserContactListApi);
-        if (response.data.message === "Success") {
-            console.log('RESPONSE~~~~~~~~~~~~>>>>>', response.data)
-            yield put(loadUserContactUsSuccess(response.data))
+        if (response.data.status === 200) {
+            yield put(loadUserContactUsSuccess(response.data.BannerData))
         }
     } catch (error) {
         yield put(loadUserContactUsError(error.response))

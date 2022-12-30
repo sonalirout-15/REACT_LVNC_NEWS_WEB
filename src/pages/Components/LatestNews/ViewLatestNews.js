@@ -5,11 +5,11 @@ import { Link } from "react-router-dom";
 import { getSingleCampaningStart } from "../../../Redux/Actions/CampaignActions";
 import { getSingleLatestNewsStart } from "../../../Redux/Actions/LatestNewsActions";
 
-const ViewCampaign = () => {
+const ViewLatestNews = () => {
 
   const dispatch = useDispatch();
   const { id } = useParams();
-  const singleData = useSelector((state) => state?.campaning?.CampaningData)
+  const singleData = useSelector((state) => state?.latestnewsData?.latestnewsData)
 
   useEffect(() => {
     dispatch(getSingleLatestNewsStart(id))
@@ -28,13 +28,13 @@ const ViewCampaign = () => {
                 <div class="card">
                   <div class="card-header">
                     <h4>Single Latest News</h4>
-                    <Link style={{ marginLeft: '70%' }} to={'/campaign'} className="btn btn-primary">Back</Link>
+                    <Link style={{ marginLeft: '70%' }} to={'/latestNews'} className="btn btn-primary">Back</Link>
                   </div>
                   <div class="card-body">
                     <div class="table-responsive">
                       <table class="table table-bordered table-md">
                         <tr>
-                          <td><div><label htmlFor="id" style={{ fontWeight: 'bold' }}>Campaign Id : </label></div></td>
+                          <td><div><label htmlFor="id" style={{ fontWeight: 'bold' }}>Latest News Id : </label></div></td>
                           <td><div><label>{singleData?.id}</label></div></td>
                         </tr>
                         <tr>
@@ -43,8 +43,8 @@ const ViewCampaign = () => {
                         </tr>
 
                         <tr>
-                          <td><div><label htmlFor="email" style={{ fontWeight: 'bold' }}>Description : </label></div></td>
-                          <td><div><label>{singleData?.description}</label></div></td>
+                          <td><div><label htmlFor="Description" style={{ fontWeight: 'bold' }}>Description : </label></div></td>
+                          <td><div><label>{singleData?.Description}</label></div></td>
                         </tr>
 
                         <tr>
@@ -53,13 +53,18 @@ const ViewCampaign = () => {
                         </tr>
 
                         <tr>
-                          <td><div><label htmlFor="vedio" style={{ fontWeight: 'bold' }}>Vedio : </label></div></td>
+                          <td><div><label htmlFor="video" style={{ fontWeight: 'bold' }}>Video : </label></div></td>
                           <td><div><label><video src={singleData?.video} type="video/mp4" style={{ height: "50px" }}></video></label></div></td>
                         </tr>
 
                         <tr>
+                          <td><div><label htmlFor="category_ref_id" style={{ fontWeight: 'bold' }}>Category_ref_id : </label></div></td>
+                          <td><div><label>{singleData?.category_ref_id}</label></div></td>
+                        </tr>
+
+                        <tr>
                           <td><div><label htmlFor="status" style={{ fontWeight: 'bold' }}>Status</label></div></td>
-                          <td><div ><label>{ singleData.status === 0 ? (<div class="badge badge-danger">Inactive</div>) : (<div class="badge badge-success">Active</div>)}</label></div></td>
+                          <td><div ><label>{ singleData?.status === 0 ? (<div class="badge badge-danger">Inactive</div>) : (<div class="badge badge-success">Active</div>)}</label></div></td>
                         </tr>
 
                       </table>
@@ -75,7 +80,7 @@ const ViewCampaign = () => {
   )
 }
 
-export default ViewCampaign;
+export default ViewLatestNews;
 
 
 

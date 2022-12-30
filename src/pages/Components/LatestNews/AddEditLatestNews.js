@@ -21,11 +21,11 @@ const AddEditLatestNews = () => {
   const [descriptionError, setDescriptionError] = useState();
   const [imageError, setImageError] = useState();
   const [videoError, setVedioError] = useState();
-  var {  title, Description, image, video, category_ref_id } = formValue;
+  var { title, Description, image, video, category_ref_id } = formValue;
   const dispatch = useDispatch();
   var { id } = useParams();
 
-  const latestnews = useSelector((state) => state);
+  const latestnews = useSelector((state) => state?.latestnewsData?.latestnews?.rows);
   const categories = useSelector((state) => state?.categoryData?.categories?.categoryData?.rows);
 
   useEffect(() => {
@@ -67,7 +67,7 @@ const AddEditLatestNews = () => {
         formData.append("video", video);
         formData.append("category_ref_id", category_ref_id);
         dispatch(createLatestNewsStart(formData));
-        // history.push('/latestnews')
+        history.push('/latestnews')
       }
       else {
         const formData = new FormData();
@@ -120,13 +120,13 @@ const AddEditLatestNews = () => {
                           name="title"
                           onChange={onInputChange}
                         />
-                      <label style={{
-                        color: "red",
-                        marginLeft: "2%",
-                        display: "flex"
-                      }}>
-                        {titleError}
-                      </label>
+                        <label style={{
+                          color: "red",
+                          marginLeft: "2%",
+                          display: "flex"
+                        }}>
+                          {titleError}
+                        </label>
                       </div>
                       <div className="form-group">
                         <label>Description</label>
@@ -137,13 +137,13 @@ const AddEditLatestNews = () => {
                           value={Description || ""}
                           name="Description"
                           onChange={onInputChange} />
-                      <label style={{
-                        color: "red",
-                        marginLeft: "2%",
-                        display: "flex"
-                      }}>
-                        {descriptionError}
-                      </label>
+                        <label style={{
+                          color: "red",
+                          marginLeft: "2%",
+                          display: "flex"
+                        }}>
+                          {descriptionError}
+                        </label>
                       </div>
                       <div className="form-group">
                         <label>Image</label>
@@ -155,13 +155,13 @@ const AddEditLatestNews = () => {
                           defaultValue={image || ""}
                           name="image"
                           onChange={handleFileSelect} />
-                      <label style={{
-                        color: "red",
-                        marginLeft: "2%",
-                        display: "flex"
-                      }}>
-                        {imageError}
-                      </label>
+                        <label style={{
+                          color: "red",
+                          marginLeft: "2%",
+                          display: "flex"
+                        }}>
+                          {imageError}
+                        </label>
                       </div>
                       <div className="form-group">
                         <label>Video</label>
@@ -173,13 +173,13 @@ const AddEditLatestNews = () => {
                           defaultValue={video || ""}
                           name="video"
                           onChange={handleFileSelect} />
-                      <label style={{
-                        color: "red",
-                        marginLeft: "2%",
-                        display: "flex"
-                      }}>
-                        {videoError}
-                      </label>
+                        <label style={{
+                          color: "red",
+                          marginLeft: "2%",
+                          display: "flex"
+                        }}>
+                          {videoError}
+                        </label>
                       </div>
                       <div className="form-group">
                         <label>Category Id</label>

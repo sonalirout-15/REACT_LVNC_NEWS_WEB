@@ -1,12 +1,14 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { loadAdminStart } from "../../Redux/Actions/AdminActions";
+import { loadBannerImageStart } from "../../Redux/Actions/BannerImageAction";
 import { loadCampaningStart } from "../../Redux/Actions/CampaignActions";
 import { loadCategoryStart } from "../../Redux/Actions/CategoryAction";
+import { loadLatestNewsStart } from "../../Redux/Actions/LatestNewsActions";
 import { loadMettersStart } from "../../Redux/Actions/MattersActions";
 import { loadPostStart } from "../../Redux/Actions/PostActions";
 import { loadSubcategoryStart } from "../../Redux/Actions/SubcategoryActions";
-import { loadUserStart } from "../../Redux/Actions/UserAction";
+import {  loadUserStart } from "../../Redux/Actions/UserAction";
 
 const GeneralDashboard = () => {
   const dispatch = useDispatch();
@@ -39,13 +41,23 @@ const GeneralDashboard = () => {
     dispatch(loadUserStart());
   }, []);
 
+  useEffect(() => {
+    dispatch(loadBannerImageStart());
+  }, []);
+
+  useEffect(() => {
+    dispatch(loadLatestNewsStart())
+  }, [])
+
   const AdminData = useSelector((state) => state?.admin?.admin?.count);
   const categoriesData = useSelector((state) => state?.categoryData?.categories?.categoryData?.count);
   const subcategoriesData = useSelector((state) => state?.subcategory?.subcategories?.categoryData?.count);
   const mettersData = useSelector((state) => state?.metters?.metters?.mettersData?.count);
   const postsData = useSelector((state) => state?.post?.post?.count);
   const campaningsData = useSelector((state) => state?.campaning?.campaning?.CampaningData?.count);
-  const usersData = useSelector((state) => state?.user?.user?.data?.count)
+  const usersData = useSelector((state) => state?.user?.user?.data?.count);
+  const latestNewsData = useSelector((state) => state?.latestnewsData?.latestnews?.count);
+  const bannerData = useSelector((state) => state?.banner?.bannerImageData?.BannerData);
 
   return (
     <>
@@ -142,7 +154,7 @@ const GeneralDashboard = () => {
                   <div className="card-header">
                     <h4>Latest News</h4>
                   </div>
-                  <div className="card-body">{usersData}</div>
+                  <div className="card-body">{latestNewsData}</div>
                 </div>
               </div>
             </div>

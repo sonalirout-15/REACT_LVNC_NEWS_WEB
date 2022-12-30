@@ -15,8 +15,8 @@ const ContactUsList = () => {
         dispatch(loadUserContactUsStart())
     }, [])
 
-    const tableData = useSelector((state) => state?.user)
-    console.log('user-data>>>>>', tableData)
+    const tableData = useSelector((state) => state?.user?.contactUsData)
+    console.log('Contact-data>>>>>', tableData)
     const [data, setData] = useState(tableData);
 
     useEffect(() => {
@@ -29,7 +29,7 @@ const ContactUsList = () => {
                 return rowIndex + 1;
             }, sort: true
         },
-        { dataField: 'username', text: 'Username' },
+        { dataField: 'name', text: 'Username' },
         { dataField: 'email', text: 'Email' },
         { dataField: 'title', text: 'Message' },
     ]
@@ -55,13 +55,13 @@ const ContactUsList = () => {
         <div className="main-content">
         <section className="section">
             <div className="section-header">
-                <h1>Users List</h1>
+                <h1>Users ContactUs List</h1>
             </div>
             <div className="row">
                 <div className="col-lg-20 col-md-20 col-20 col-sm-12">
                     <div className="card">
                         <div className="card-header">
-                            <h4>Users Contact List Details</h4>
+                            <h4>User Contact Us Details</h4>
                             <div className="card-header-action">
                                 <Link to={'/dashboard'} className="btn btn-primary"> Back </Link>
                             </div>

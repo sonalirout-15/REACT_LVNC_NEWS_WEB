@@ -23,7 +23,7 @@ export function* onLoadBannerImageStartAsync() {
     try {
         const response = yield call(loadBannerImageApi);
         if (response.data.message === "Success") {
-            yield put(loadBannerImageSuccess(response.data))
+            yield put(loadBannerImageSuccess(response.data.BannerData))
         }
     } catch (error) {
         yield put(loadBannerImageError(error.response))
