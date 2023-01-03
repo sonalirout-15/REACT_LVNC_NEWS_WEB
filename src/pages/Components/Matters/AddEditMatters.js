@@ -92,7 +92,6 @@ const AddEditMattters = () => {
     setFormValue({ ...formValue, [e.target.name]: e.target.files[0] });
   };
   return (
-    <>
       <div className="main-content">
         <section className="section">
           <div className="section-header">
@@ -206,7 +205,6 @@ const AddEditMattters = () => {
           </form>
         </section>
       </div>
-    </>
   )
 }
 

@@ -61,7 +61,6 @@ const AddEditCategories = () => {
   };
   
   return (
-    <>
       <div className="main-content">
         <section className="section">
           <div className="section-header">
@@ -104,7 +103,6 @@ const AddEditCategories = () => {
           </form>
         </section>
       </div>
-    </>
   )
 }
 

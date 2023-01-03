@@ -1,5 +1,5 @@
 import React from "react";
-import { Redirect, Route, useLocation } from "react-router-dom";
+import { Route, useLocation } from "react-router-dom";
 import DefaultLayoutPage from "./pages/Strater/DefaultLayoutPage";
 import Login from './pages/Pages/Auth/Login';
 import GeneralDashboard from "./pages/Dashboard/GeneralDashboard";
@@ -12,6 +12,9 @@ import ViewCategories from "./pages/Components/Categories/ViewCategories";
 import Subcategories from "./pages/Components/Subcategories/Subcategories";
 import AddEditSubcategories from "./pages/Components/Subcategories/AddEditSubcategories";
 import ViewSubcategories from "./pages/Components/Subcategories/ViewSubcategories";
+import ChildSubcategory from "./pages/Components/ChildSubcatgory/ChildSubcategory";
+import AddEditChildSubcategory from "./pages/Components/ChildSubcatgory/AddEditChildSubcategory";
+import ViewChildSubcategory from "./pages/Components/ChildSubcatgory/ViewChildSubcategory";
 import Matters from "./pages/Components/Matters/Matters";
 import AddEditMatters from "./pages/Components/Matters/AddEditMatters";
 import ViewMatters from "./pages/Components/Matters/ViewMatters";
@@ -63,6 +66,10 @@ const App = () => {
         <Route path='/addSubcategory' component={AddEditSubcategories} />
         <Route path='/editSubcategory/:id' component={AddEditSubcategories} />
         <Route path='/viewSubcategory/:id' component={ViewSubcategories} />
+        <Route path='/childSubcategory' component={ChildSubcategory}/>
+        <Route path='/addChildSubcategory' component={AddEditChildSubcategory}/>
+        <Route path='/editChildSubcategory/:id' component={AddEditChildSubcategory}/>
+        <Route path='/viewChildSubcategory/:id' component={ViewChildSubcategory}/>
         <Route path='/matters' component={Matters} />
         <Route path='/addMatters' component={AddEditMatters} />
         <Route path='/editMatters/:id' component={AddEditMatters} />

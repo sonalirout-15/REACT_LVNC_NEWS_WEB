@@ -71,8 +71,6 @@ const AddEditBanner = () => {
   };
 
   return (
-    <>
-
       <div className="main-content">
         <section className="section">
           <div className="section-header">
@@ -133,7 +131,6 @@ const AddEditBanner = () => {
           </form>
         </section>
       </div>
-    </>
   )
 }
 

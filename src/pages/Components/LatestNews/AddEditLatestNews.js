@@ -95,7 +95,7 @@ const AddEditLatestNews = () => {
   };
 
   return (
-    <>
+
       <div className="main-content">
         <section className="section">
           <div className="section-header">
@@ -209,7 +209,6 @@ const AddEditLatestNews = () => {
           </form>
         </section>
       </div>
-    </>
   )
 }
 

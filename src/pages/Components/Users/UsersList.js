@@ -16,7 +16,6 @@ const UsersList = () => {
     }, [])
 
     const tableData = useSelector((state) => state?.user?.user?.data?.rows)
-    console.log('user-data>>>>>', tableData)
     const [data, setData] = useState(tableData);
 
     useEffect(() => {
@@ -64,7 +63,6 @@ const UsersList = () => {
         }
     })
     return (
-        <>
             <div className="main-content">
                 <section className="section">
                     <div className="section-header">
@@ -107,7 +105,6 @@ const UsersList = () => {
                     </div>
                 </section>
             </div>
-        </>
     )
 }
 

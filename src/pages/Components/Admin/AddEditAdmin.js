@@ -33,7 +33,7 @@ const AddEditAdmin = () => {
   var { id } = useParams();
 
   const admin = useSelector((state) => state?.admin?.admin?.rows)
- 
+
   useEffect(() => {
     if (id) {
       setEditMode(true);
@@ -119,7 +119,7 @@ const AddEditAdmin = () => {
 
   const handleFileSelect = (e) => {
     setFormValue({ ...formValue, [e.target.name]: e.target.files[0] });
-  };  
+  };
 
   const handleGenderChange = (e) => {
     let { name, value } = e.target;
@@ -128,7 +128,6 @@ const AddEditAdmin = () => {
   }
 
   return (
-    <>
       <div className="main-content">
         <section className="section">
           <div className="section-header">
@@ -153,13 +152,13 @@ const AddEditAdmin = () => {
                           name="name"
                           onChange={onInputChange}
                         />
-                      <label style={{
-                        color: "red",
-                        marginLeft: "2%",
-                        display: "flex"
-                      }}>
-                        {nameError}
-                      </label>
+                        <label style={{
+                          color: "red",
+                          marginLeft: "2%",
+                          display: "flex"
+                        }}>
+                          {nameError}
+                        </label>
                       </div>
                       <div className="form-group">
                         <label>Email</label>
@@ -170,13 +169,13 @@ const AddEditAdmin = () => {
                           value={email || ""}
                           name="email"
                           onChange={onInputChange} />
-                      <label style={{
-                        color: "red",
-                        marginLeft: "2%",
-                        display: "flex"
-                      }}>
-                        {emailError}
-                      </label>
+                        <label style={{
+                          color: "red",
+                          marginLeft: "2%",
+                          display: "flex"
+                        }}>
+                          {emailError}
+                        </label>
                       </div>
                       <div className="form-group">
                         <label>Password Strength</label>
@@ -195,13 +194,13 @@ const AddEditAdmin = () => {
                             name="password"
                             onChange={onInputChange}
                           />
-                        <label style={{
-                          color: "red",
-                          marginLeft: "2%",
-                          display: "flex"
-                        }}>
-                          {passwordError}
-                        </label>
+                          <label style={{
+                            color: "red",
+                            marginLeft: "2%",
+                            display: "flex"
+                          }}>
+                            {passwordError}
+                          </label>
                         </div>
                         <div id="pwindicator" className="pwindicator">
                           <div className="bar"></div>
@@ -225,13 +224,13 @@ const AddEditAdmin = () => {
                             name="confirm_password"
                             onChange={onInputChange}
                           />
-                        <label style={{
-                          color: "red",
-                          marginLeft: "2%",
-                          display: "flex"
-                        }}>
-                          {confirmPasswordError}
-                        </label>
+                          <label style={{
+                            color: "red",
+                            marginLeft: "2%",
+                            display: "flex"
+                          }}>
+                            {confirmPasswordError}
+                          </label>
                         </div>
                         <div id="pwindicator" className="pwindicator">
                           <div className="bar"></div>
@@ -255,35 +254,28 @@ const AddEditAdmin = () => {
                             onChange={onInputChange}
                           />
                         </div>
-                      <label style={{
-                        color: "red",
-                        marginLeft: "2%",
-                        display: "flex"
-                      }}>
-                        {mobileError}
-                      </label>  
+                        <label style={{
+                          color: "red",
+                          marginLeft: "2%",
+                          display: "flex"
+                        }}>
+                          {mobileError}
+                        </label>
                       </div>
                       <div className="form-group">
                         <label>Gender</label>
                         <div onChange={handleGenderChange}>
-                          <input type="radio" value="Male" name="gender" checked={genderCheck === "Male"}/> Male {" "}
-                          <input type="radio" value="Female" name="gender" checked={genderCheck === "Female"}/> Female {" "}
+                          <input type="radio" value="Male" name="gender" checked={genderCheck === "Male"} /> Male {" "}
+                          <input type="radio" value="Female" name="gender" checked={genderCheck === "Female"} /> Female {" "}
                           <input type="radio" value="Other" name="gender" checked={genderCheck === "Other"} /> Other {" "}
-                    </div>
-                        {/* <input
-                          type="text"
-                          className="form-control"
-                          id="gender"
-                          value={gender || ""}
-                          name="gender"
-                          onChange={onInputChange} /> */}
-                      <label style={{
-                        color: "red",
-                        marginLeft: "2%",
-                        display: "flex"
-                      }}>
-                        {genderError}
-                      </label>
+                        </div>
+                        <label style={{
+                          color: "red",
+                          marginLeft: "2%",
+                          display: "flex"
+                        }}>
+                          {genderError}
+                        </label>
                       </div>
                       <div className="form-group">
                         <label>Address</label>
@@ -294,13 +286,13 @@ const AddEditAdmin = () => {
                           value={address || ""}
                           name="address"
                           onChange={onInputChange} />
-                      <label style={{
-                        color: "red",
-                        marginLeft: "2%",
-                        display: "flex"
-                      }}>
-                        {addressError}
-                      </label>
+                        <label style={{
+                          color: "red",
+                          marginLeft: "2%",
+                          display: "flex"
+                        }}>
+                          {addressError}
+                        </label>
                       </div>
                       <div className="form-group">
                         <label>Image</label>
@@ -312,13 +304,13 @@ const AddEditAdmin = () => {
                           defaultValue={image || ""}
                           name="image"
                           onChange={handleFileSelect} />
-                      <label style={{
-                        color: "red",
-                        marginLeft: "2%",
-                        display: "flex"
-                      }}>
-                        {imageError}
-                      </label>
+                        <label style={{
+                          color: "red",
+                          marginLeft: "2%",
+                          display: "flex"
+                        }}>
+                          {imageError}
+                        </label>
                       </div>
                       <button type="submit" className="btn btn-primary">{!editMode ? "Add" : "Update"}</button>{" "}
                       <Link to={'/admins'} className="btn btn-info"> Back </Link>
@@ -330,7 +322,6 @@ const AddEditAdmin = () => {
           </form>
         </section>
       </div>
-    </>
   )
 }
 

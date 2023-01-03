@@ -15,7 +15,6 @@ const ViewSubcategories = () => {
   }, [])
 
   return (
-    <>
       <div class="main-content">
         <section class="section">
           <div class="section-header">
@@ -47,16 +46,6 @@ const ViewSubcategories = () => {
                         </tr>
                         
                         <tr>
-                          <td><div><label htmlFor="description" style={{ fontWeight: 'bold' }}>Description : </label></div></td>
-                          <td><div><label>{singleData?.Description}</label></div></td>
-                        </tr>
-
-                        <tr>
-                          <td><div><label htmlFor="image" style={{ fontWeight: 'bold' }}>Image : </label></div></td>
-                          <td><div><label><img src={singleData?.image} style={{ height: "60px" }}></img></label></div></td>
-                        </tr>
-
-                        <tr>
                           <td><div><label htmlFor="status" style={{ fontWeight: 'bold' }}>Status</label></div></td>
                           <td><div ><label>{ singleData?.status === 0 ? (<div class="badge badge-danger">Inactive</div>) : (<div class="badge badge-success">Active</div>)}</label></div></td>
                         </tr>
@@ -69,7 +58,6 @@ const ViewSubcategories = () => {
           </div>
         </section>
       </div>
-    </>
   )
 }
 

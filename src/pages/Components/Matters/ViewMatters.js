@@ -13,7 +13,7 @@ const ViewMatters = () => {
   }, [])
 
   return (
-    <>
+
       <div class="main-content">
         <section class="section">
           <div class="section-header">
@@ -74,7 +74,6 @@ const ViewMatters = () => {
           </div>
         </section>
       </div>
-    </>
   )
 }
 

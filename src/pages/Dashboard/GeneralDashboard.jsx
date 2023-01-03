@@ -4,6 +4,7 @@ import { loadAdminStart } from "../../Redux/Actions/AdminActions";
 import { loadBannerImageStart } from "../../Redux/Actions/BannerImageAction";
 import { loadCampaningStart } from "../../Redux/Actions/CampaignActions";
 import { loadCategoryStart } from "../../Redux/Actions/CategoryAction";
+import { loadChildSubcategoryStart } from "../../Redux/Actions/ChildSubcategoryAction";
 import { loadLatestNewsStart } from "../../Redux/Actions/LatestNewsActions";
 import { loadMettersStart } from "../../Redux/Actions/MattersActions";
 import { loadPostStart } from "../../Redux/Actions/PostActions";
@@ -24,6 +25,10 @@ const GeneralDashboard = () => {
   useEffect(() => {
     dispatch(loadSubcategoryStart());
   }, []);
+
+  useEffect(() => {
+    dispatch(loadChildSubcategoryStart())
+  },[])
 
   useEffect(() => {
     dispatch(loadMettersStart());
@@ -52,6 +57,7 @@ const GeneralDashboard = () => {
   const AdminData = useSelector((state) => state?.admin?.admin?.count);
   const categoriesData = useSelector((state) => state?.categoryData?.categories?.categoryData?.count);
   const subcategoriesData = useSelector((state) => state?.subcategory?.subcategories?.categoryData?.count);
+  const childSubcategoriesData = useSelector((state) => state?.childSubcatgory?.childSubcatgeory?.count);
   const mettersData = useSelector((state) => state?.metters?.metters?.mettersData?.count);
   const postsData = useSelector((state) => state?.post?.post?.count);
   const campaningsData = useSelector((state) => state?.campaning?.campaning?.CampaningData?.count);
@@ -60,7 +66,6 @@ const GeneralDashboard = () => {
   const bannerData = useSelector((state) => state?.banner?.bannerImageData?.BannerData);
 
   return (
-    <>
       <div className="main-content">
         <section className="section">
           <div className="section-header">
@@ -103,6 +108,19 @@ const GeneralDashboard = () => {
                     <h4>Subcategories</h4>
                   </div>
                   <div className="card-body">{subcategoriesData}</div>
+                </div>
+              </div>
+            </div>
+            <div className="col-lg-3 col-md-6 col-sm-6 col-12">
+              <div className="card card-statistic-1">
+                <div className="card-icon bg-warning">
+                  <i className="fa fa-list-alt"></i>
+                </div>
+                <div className="card-wrap">
+                  <div className="card-header">
+                    <h4>Child Subcategories</h4>
+                  </div>
+                  <div className="card-body">{childSubcategoriesData}</div>
                 </div>
               </div>
             </div>
@@ -186,7 +204,6 @@ const GeneralDashboard = () => {
           </div>{" "}
         </section>
       </div>
-    </>
   );
 };
 

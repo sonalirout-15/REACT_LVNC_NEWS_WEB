@@ -3,6 +3,7 @@ import adminSaga from './AdminSaga';
 import bannerImageSaga from './BannerImageSaga';
 import campaignSaga from './CampaningSaga';
 import categorySaga from './CategorySaga';
+import childSubcategorySaga from './ChildSubcategorySaga';
 import latestNewsSaga from './LatestNewsSaga';
 import mettersSaga from './MattersSaga';
 import postSaga from './PostSaga';
@@ -14,6 +15,7 @@ export default function* rootSaga() {
         adminSaga(),
         categorySaga(),
         subcategorySaga(),
+        childSubcategorySaga(),
         mettersSaga(),
         postSaga(),
         campaignSaga(),

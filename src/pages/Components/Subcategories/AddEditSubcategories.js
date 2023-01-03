@@ -7,17 +7,13 @@ import { createSubcategoryStart, updateSubcategoryStart } from "../../../Redux/A
 const initialState = {
   category_ref_id: '',
   subcategory_name: '',
-  Description: '',
-  image: '',
 }
 const AddEditSubcategories = () => {
   const [formValue, setFormValue] = useState(initialState);
   const [editMode, setEditMode] = useState(false);
   const history = useHistory();
-  const [titleError, setTitleError] = useState();
-  const [descriptionError, setDescriptionError] = useState();
-  const [imageError, setImageError] = useState();
-  var { category_ref_id,subcategory_name,Description,  image, } = formValue;
+  const [nameError, setNameError] = useState();
+  var { category_ref_id, subcategory_name } = formValue;
   const dispatch = useDispatch();
   var { id } = useParams();
 
@@ -43,51 +39,35 @@ const AddEditSubcategories = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (subcategory_name === '') {
-      setTitleError('Title Required!')
+      setNameError('Category Required!')
     }
-    if (Description === '') {
-      setDescriptionError('Description Required!');
+    else if(subcategory_name.length < 4) {
+      setNameError('Category name needs to atleast 4 characters!')
     }
-    if (image === '') {
-      setImageError('Image Required!');
+    else if(subcategory_name.length > 25) {
+      setNameError('Category name needs only 25 characters!')
     }
-     else {
+    else {
       if (!editMode) {
-        const formData = new FormData();
-        formData.append("category_ref_id", category_ref_id);
-        formData.append("subcategory_name", subcategory_name);
-        formData.append("Description", Description);
-        formData.append("image", image);
-        dispatch(createSubcategoryStart(formData));
-        history.push('/subcategories')
-      }
-      else {
-        const formData = new FormData();
-        formData.append("id", id);
-        formData.append("category_ref_id", category_ref_id);
-        formData.append("subcategory_name", subcategory_name);
-        formData.append("Description", Description);
-        formData.append("image", image);
-        dispatch(updateSubcategoryStart(formData));
-        console.log('FORM-DATA>>>>>>', formData)
+        dispatch(createSubcategoryStart(formValue));
+        history.push('/categories');
+
+      } else {
+        dispatch(updateSubcategoryStart(formValue))
         setEditMode(false);
-        history.push('/subcategories')
+        history.push('/categories')
       }
     }
   };
-
 
   const onInputChange = (e) => {
     let { name, value } = e.target;
     setFormValue({ ...formValue, [name]: value });
+    console.log("form ...", formValue);
   };
 
-  const handleFileSelect = (e) => {
-    setFormValue({ ...formValue, [e.target.name]: e.target.files[0] });
-  };
 
   return(
-    <>
          <div className="main-content">
         <section className="section">
           <div className="section-header">
@@ -103,7 +83,7 @@ const AddEditSubcategories = () => {
                     </div>
                     <div className="card-body">
                       <div className="form-group">
-                        <label>Title</label>
+                        <label>Subcategory Name</label>
                         <input
                           type="text"
                           className="form-control"
@@ -117,43 +97,7 @@ const AddEditSubcategories = () => {
                         marginLeft: "2%",
                         display: "flex"
                       }}>
-                        {titleError}
-                      </label>
-                      </div>
-                      <div className="form-group">
-                        <label>Description</label>
-                        <input
-                          type="text"
-                          className="form-control"
-                          id="Description"
-                          value={Description || ""}
-                          name="Description"
-                          onChange={onInputChange}
-                          />
-                       <label style={{
-                        color: "red",
-                        marginLeft: "2%",
-                        display: "flex"
-                      }}>
-                        {descriptionError}
-                      </label>
-                      </div>
-                      <div className="form-group">
-                        <label>Image</label>
-                        <input
-                          type="file"
-                          className="form-control"
-                          accept="/accept/*"
-                          id="image"
-                          defaultValue={image || ""}
-                          name="image"
-                          onChange={handleFileSelect} />
-                      <label style={{
-                        color: "red",
-                        marginLeft: "2%",
-                        display: "flex"
-                      }}>
-                        {imageError}
+                        {nameError}
                       </label>
                       </div>
                       <div className="form-group">
@@ -184,7 +128,6 @@ const AddEditSubcategories = () => {
           </form>
         </section>
       </div>
-    </>
   )
 }
 

@@ -73,7 +73,7 @@ const Admins = () => {
             <a
               className="btn btn-info btn-action"
               data-toggle="tooltip"
-              title="Delete"
+              title="View"
               onClick={() => history.push(`viewAdmin/${row.id}`)}
             >
               <i className="fas fa-eye"></i>
@@ -109,7 +109,6 @@ const Admins = () => {
   })
 
   return (
-    <>
       <div className="main-content">
         <section className="section">
           <div className="section-header">
@@ -152,7 +151,6 @@ const Admins = () => {
           </div>
         </section>
       </div>
-    </>
   )
 }
 

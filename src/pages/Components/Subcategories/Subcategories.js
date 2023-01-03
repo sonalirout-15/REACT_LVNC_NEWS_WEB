@@ -2,9 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
 import BootstrapTable from 'react-bootstrap-table-next';
-import 'react-bootstrap-table-next/dist/react-bootstrap-table2.min.css';
 import paginationFactory from 'react-bootstrap-table2-paginator';
-import 'react-bootstrap-table2-paginator/dist/react-bootstrap-table2-paginator.min.css';
 import { deleteSubcategoryStart, loadSubcategoryStart } from "../../../Redux/Actions/SubcategoryActions";
 import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit';
 const { SearchBar } = Search;
@@ -19,6 +17,7 @@ const Subcategories = () => {
   
   const subcategoryData = useSelector((state) => state?.subcategory?.subcategories?.categoryData?.rows);
   const [data, setData] = useState(subcategoryData)
+  
   useEffect(() => {
     setData(subcategoryData)
   }, [subcategoryData])
@@ -32,14 +31,6 @@ const Subcategories = () => {
     },
     { dataField: 'subcategory_name', text: 'Subcategory Name', sort: true },
     { dataField: 'category_ref_id', text: 'Category Ref Id' },
-    { dataField: 'Description', text: 'Description' },
-    {
-      dataField: 'image', text: 'Image', formatter: (cell, row) => {
-        return (
-          <img src={row.image} style={{ height: "100px" }} />
-        )
-      }
-    },
     { dataField: 'status', text: 'Status', sort: true , formatter:(cell, row) => {
       return (
         <>
@@ -72,7 +63,7 @@ const Subcategories = () => {
             <a
               className="btn btn-info btn-action"
               data-toggle="tooltip"
-              title="Delete"
+              title="View"
               onClick={() => history.push(`viewSubcategory/${row.id}`)}
               >
                 <i className="fas fa-eye"></i>
@@ -84,7 +75,7 @@ const Subcategories = () => {
   ]
 
   const handleDelete = (id) => {
-    if (window.confirm("Are you sure that you wanted to delete that user?")) {
+    if (window.confirm("Are you sure that you wanted to delete that subcategory?")) {
       dispatch(deleteSubcategoryStart(id))
     }
   }
@@ -109,7 +100,6 @@ const Subcategories = () => {
   })
   
   return (
-    <>
       <div className="main-content">
         <section className="section">
           <div className="section-header">
@@ -143,7 +133,6 @@ const Subcategories = () => {
                           </>
                         )
                       }
-
                     </ToolkitProvider>
                   </div>
                 </div>
@@ -152,7 +141,6 @@ const Subcategories = () => {
           </div>
         </section>
       </div>
-    </>
   )
 }
 

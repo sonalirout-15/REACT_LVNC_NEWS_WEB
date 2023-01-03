@@ -15,7 +15,6 @@ const ViewCampaign = () => {
   }, [])
 
   return (
-    <>
       <div class="main-content">
         <section class="section">
           <div class="section-header">
@@ -76,7 +75,6 @@ const ViewCampaign = () => {
           </div>
         </section>
       </div>
-    </>
   )
 }
 

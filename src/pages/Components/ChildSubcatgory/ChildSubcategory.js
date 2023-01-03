@@ -1,30 +1,26 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
-import { deleteMettersStart, loadMettersStart } from "../../../Redux/Actions/MattersActions";
 import BootstrapTable from 'react-bootstrap-table-next';
-import "bootstrap/dist/css/bootstrap.min.css";
-import 'react-bootstrap-table-next/dist/react-bootstrap-table2.min.css';
 import paginationFactory from 'react-bootstrap-table2-paginator';
-import 'react-bootstrap-table2-paginator/dist/react-bootstrap-table2-paginator.min.css';
 import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit';
-
+import { deleteChildSubcategoryStart, loadChildSubcategoryStart } from "../../../Redux/Actions/ChildSubcategoryAction";
 const { SearchBar } = Search;
 
-const Matters = () => {
-
+const ChildSubcategory = () => {
   const dispatch = useDispatch();
-  const history = useHistory()
+  const history = useHistory();
 
   useEffect(() => {
-    dispatch(loadMettersStart())
+    dispatch(loadChildSubcategoryStart())
   }, [])
-  const mettersData = useSelector((state) => state?.metters?.metters?.mettersData?.rows)
-  const [data, setData] = useState(mettersData)
-
+  
+  const childSubcategoryData = useSelector((state) => state?.childSubcatgory?.childSubcatgeory?.rows);
+  // console.log('CHILD-SUBCATGEORY!~~~~~~~~~~~~~~>>>>>', childSubcategoryData)
+  const [data, setData] = useState(childSubcategoryData)
   useEffect(() => {
-    setData(mettersData)
-  }, [mettersData])
+    setData(childSubcategoryData)
+  }, [childSubcategoryData])
 
   const columns = [
     {
@@ -33,30 +29,16 @@ const Matters = () => {
       },
       sort: true
     },
+    { dataField: 'Subcategory_ref_id', text: 'SubCategory Ref Id' },
     { dataField: 'title', text: 'Title', sort: true },
     { dataField: 'Description', text: 'Description', sort: true },
     {
-      dataField: 'image', text: 'Image', formatter: (cell, row) => {
-        return (
-          <img src={row.image} style={{ height: "50px" }} />
-        )
-      }
-    },
-    {
-      dataField: 'audio', text: 'Audio', formatter: (cell, row) => {
-        return (
-          <audio controls style={{ height: '40px', width: '120px' }}><source src={row.audio} type='audio/mp3' /></audio>
-        )
-      }    
-    },
-    {
-      dataField: 'video', text: 'Video', formatter: (cell, row) => {
-        return (
-          <video controls style={{ height: '70px' }}><source src={row.video} type="video/mp4" /></video>
-        )
-      }
-    },
-
+        dataField: 'image', text: 'Image', formatter: (cell, row) => {
+          return (
+            <img src={row.image} style={{ height: "50px" }} />
+          )
+        }
+      },
     { dataField: 'status', text: 'Status', sort: true , formatter:(cell, row) => {
       return (
         <>
@@ -74,7 +56,7 @@ const Matters = () => {
               className="btn btn-primary btn-action mr-1"
               data-toggle="tooltip"
               title="Edit"
-              onClick={() => history.push(`/editMatters/${row.id}`)}
+              onClick={() => history.push(`/editChildSubcategory/${row.id}`)}
              >
               <i className="far fa-edit"></i>
            </a>{" "}
@@ -89,8 +71,8 @@ const Matters = () => {
             <a
               className="btn btn-info btn-action"
               data-toggle="tooltip"
-              title="Delete"
-              onClick={() => history.push(`viewMatters/${row.id}`)}
+              title="View"
+              onClick={() => history.push(`viewChildSubcategory/${row.id}`)}
               >
                 <i className="fas fa-eye"></i>
             </a>
@@ -101,8 +83,8 @@ const Matters = () => {
   ]
 
   const handleDelete = (id) => {
-    if (window.confirm("Are you sure that you wanted to delete that metters?")) {
-      dispatch(deleteMettersStart(id))
+    if (window.confirm("Are you sure that you wanted to delete that child subcategory?")) {
+      dispatch(deleteChildSubcategoryStart(id))
     }
   }
 
@@ -123,21 +105,21 @@ const Matters = () => {
       console.log('page', page);
       console.log('sizePerPage', sizePerPage)
     }
-  });
-
+  })
+  
   return (
       <div className="main-content">
         <section className="section">
           <div className="section-header">
-            <h1>Matters</h1>
+            <h1>Child Subcategories</h1>
           </div>
           <div className="row">
-            <div className="col-lg-12 col-md-14 col-14 col-sm-24">
+            <div className="col-lg-10 col-md-12 col-12 col-sm-14">
               <div className="card">
                 <div className="card-header">
-                  <h4>Matters Details</h4>
+                  <h4>Child Subcategories Details</h4>
                   <div className="card-header-action">
-                    <Link to={'/addMatters'} className="btn btn-primary">+ New</Link>
+                    <Link to={'/addChildSubcategory'} className="btn btn-primary"> + New </Link>
                   </div>
                 </div>
                 <div className="card-body p-0">
@@ -146,15 +128,13 @@ const Matters = () => {
                       keyField="id"
                       columns={columns}
                       data={data}
-                      search
-                    >
-                      {
+                    //   search
+                    >{
                         props => (
                           <>
                             <h3 style={{ marginLeft: '10px' }}></h3>
                             <SearchBar {...props.searchProps} style={{ marginLeft: '10px' }} />
                             <BootstrapTable
-                            classes="react-bootstrap-table-next"
                               {...props.baseProps}
                               pagination={pagination}
                             />
@@ -172,4 +152,4 @@ const Matters = () => {
   )
 }
 
-export default Matters;
+export default ChildSubcategory;

@@ -40,7 +40,6 @@ const ForgotPassword = () => {
     history.push('/dashboard')
   };
     return(
-        <>
         <div id="app">
         <section class="section">
           <div class="container mt-5">
@@ -60,9 +59,6 @@ const ForgotPassword = () => {
                     <h4>Forgot Password</h4>
                   </div>
                   <div class="card-body">
-                    {/* <p class="text-muted">
-                      We will send a link to reset your password
-                    </p> */}
                     <form method="POST" onSubmit={handleSubmit}>
                       <div class="form-group">
                         <label for="email">Email</label>
@@ -96,7 +92,6 @@ const ForgotPassword = () => {
           </div>
         </section>
       </div>
-        </>
     )
 }
 

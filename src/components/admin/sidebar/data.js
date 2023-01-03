@@ -24,6 +24,11 @@ export const Data = {
             url: '/subcategories',
         },
         {
+            name: 'Child Subcategories',
+            icon: 'fa fa-list-alt',
+            url: '/childSubcategory',
+        },
+        {
             name: 'Matters',
             icon: 'fas fa-newspaper',
             url: '/matters',

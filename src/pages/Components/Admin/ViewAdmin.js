@@ -14,7 +14,6 @@ const ViewAdmin = () => {
   }, [])
 
   return (
-    <>
       <div class="main-content">
         <section class="section">
           <div class="section-header">
@@ -78,7 +77,6 @@ const ViewAdmin = () => {
           </div>
         </section>
       </div>
-    </>
   )
 }
 

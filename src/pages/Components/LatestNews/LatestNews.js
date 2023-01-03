@@ -114,7 +114,6 @@ const LatestNews = () => {
   })
 
   return (
-    <>
       <div className="main-content">
         <section className="section">
           <div className="section-header">
@@ -158,7 +157,6 @@ const LatestNews = () => {
           </div>
         </section>
       </div>
-    </>
   )
 }
 

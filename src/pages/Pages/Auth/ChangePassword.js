@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
-import { Header } from "../../../components/admin";
-import SideBar from "../../../components/admin/sidebar";
 import { adminChangePasswordStart } from "../../../Redux/Actions/AdminActions";
 
 const ChangePassword = () => {
@@ -43,9 +41,6 @@ const ChangePassword = () => {
             history.push('/dashboard')
         }
     return(
-        <>
-        <Header />
-        <SideBar/>
         <div className="main-content">
         <section className="section" onSubmit={handleSubmit}>
           <div className="section-header">
@@ -107,7 +102,6 @@ const ChangePassword = () => {
           </form>
         </section>
       </div>
-        </>
     )
 }
 

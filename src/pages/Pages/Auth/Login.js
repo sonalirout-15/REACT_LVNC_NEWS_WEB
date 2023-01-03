@@ -59,7 +59,6 @@ const Login = () =>  {
   }
 
     return (
-      <>
       <div id="app">
         <section className="section">
           <div className="container mt-5">
@@ -156,7 +155,6 @@ const Login = () =>  {
           </div>
         </section>
       </div>
-      </>
     );
   }
 export default Login;

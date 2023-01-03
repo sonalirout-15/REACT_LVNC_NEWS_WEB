@@ -44,7 +44,6 @@ const ResetPassword = () => {
         }
 
     return(
-        <>
         <div id="app">
         <section class="section">
           <div class="container mt-5">
@@ -120,7 +119,6 @@ const ResetPassword = () => {
           </div>
         </section>
       </div>
-        </>
     )
 }
 

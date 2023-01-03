@@ -15,7 +15,6 @@ const ViewBanner = () => {
   }, [])
 
   return (
-    <>
       <div class="main-content">
         <section class="section">
           <div class="section-header">
@@ -60,7 +59,6 @@ const ViewBanner = () => {
           </div>
         </section>
       </div>
-    </>
   )
 }
 
