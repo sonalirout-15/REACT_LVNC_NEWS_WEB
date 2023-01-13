@@ -2,9 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
 import BootstrapTable from 'react-bootstrap-table-next';
-import 'react-bootstrap-table-next/dist/react-bootstrap-table2.min.css';
 import paginationFactory from 'react-bootstrap-table2-paginator';
-import 'react-bootstrap-table2-paginator/dist/react-bootstrap-table2-paginator.min.css';
 import { deletePostStart, loadPostStart } from "../../../Redux/Actions/PostActions";
 import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit';
 const { SearchBar } = Search;
@@ -29,6 +27,10 @@ const Post = () => {
       },
       sort: true
     },
+    { dataField: 'admin_ref_id', text: 'Admin Ref Id' },
+    { dataField: 'category_ref_id', text: 'Category Ref Id' },
+    { dataField: 'subcategory_ref_id', text: 'Subcategory Ref Id' },
+    { dataField: 'childcategory_ref_id', text: 'Child Subcategory Ref Id' },
     { dataField: 'title', text: 'Title', sort: true },
     { dataField: 'description', text: 'Description', sort: true },
     {
@@ -41,14 +43,14 @@ const Post = () => {
     {
       dataField: 'audio', text: 'Audio', formatter: (cell, row) => {
         return (
-          <audio controls style={{ height: '50px', width: '120px' }}><source src={row.audio} type='audio/mp3' /></audio>
+          <audio controls style={{ height: '50px', width: '110px' }}><source src={row.audio} type='audio/mp3' /></audio>
         )
       }
     },
     {
       dataField: 'video', text: 'Video', formatter: (cell, row) => {
         return (
-          <video controls style={{ height: '80px' }}><source src={row.video} type="video/mp4" /></video>
+          <video controls style={{ height: '70px' }}><source src={row.video} type="video/mp4" /></video>
         )
       }
     },

@@ -58,7 +58,7 @@ const GeneralDashboard = () => {
   const categoriesData = useSelector((state) => state?.categoryData?.categories?.categoryData?.count);
   const subcategoriesData = useSelector((state) => state?.subcategory?.subcategories?.categoryData?.count);
   const childSubcategoriesData = useSelector((state) => state?.childSubcatgory?.childSubcatgeory?.count);
-  const mettersData = useSelector((state) => state?.metters?.metters?.mettersData?.count);
+  const mattersData = useSelector((state) => state?.metters?.metters?.mettersData?.count);
   const postsData = useSelector((state) => state?.post?.post?.count);
   const campaningsData = useSelector((state) => state?.campaning?.campaning?.CampaningData?.count);
   const usersData = useSelector((state) => state?.user?.user?.data?.count);
@@ -131,9 +131,9 @@ const GeneralDashboard = () => {
                 </div>
                 <div className="card-wrap">
                   <div className="card-header">
-                    <h4>Metters</h4>
+                    <h4>Matters</h4>
                   </div>
-                  <div className="card-body">{mettersData}</div>
+                  <div className="card-body">{mattersData}</div>
                 </div>
               </div>
             </div>

@@ -47,6 +47,11 @@ const ViewPost = () => {
                           <td><div><label htmlFor="id" style={{ fontWeight: 'bold' }}>Subcategory Ref Id : </label></div></td>
                           <td><div><label>{singleData?.subcategory_ref_id}</label></div></td>
                         </tr>
+
+                        <tr>
+                          <td><div><label htmlFor="id" style={{ fontWeight: 'bold' }}>Child Subcategory Ref Id : </label></div></td>
+                          <td><div><label>{singleData?.childcategory_ref_id}</label></div></td>
+                        </tr>
                         <tr>
                           <td><div><label htmlFor="name" style={{ fontWeight: 'bold' }}>Title : </label></div></td>
                           <td><div><label>{singleData?.title}</label></div></td>
@@ -68,7 +73,7 @@ const ViewPost = () => {
                         </tr>
 
                         <tr>
-                          <td><div><label htmlFor="vedio" style={{ fontWeight: 'bold' }}>Vedio : </label></div></td>
+                          <td><div><label htmlFor="vedio" style={{ fontWeight: 'bold' }}>Video : </label></div></td>
                           <td><div><label><video src={singleData?.video} type="video/mp4" style={{ height: "50px" }}></video></label></div></td>
                         </tr>
 

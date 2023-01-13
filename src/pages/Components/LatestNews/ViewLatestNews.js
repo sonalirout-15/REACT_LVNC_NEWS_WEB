@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router";
 import { Link } from "react-router-dom";
-import { getSingleCampaningStart } from "../../../Redux/Actions/CampaignActions";
 import { getSingleLatestNewsStart } from "../../../Redux/Actions/LatestNewsActions";
 
 const ViewLatestNews = () => {
@@ -60,6 +59,11 @@ const ViewLatestNews = () => {
                         <tr>
                           <td><div><label htmlFor="category_ref_id" style={{ fontWeight: 'bold' }}>Category_ref_id : </label></div></td>
                           <td><div><label>{singleData?.category_ref_id}</label></div></td>
+                        </tr>
+
+                        <tr>
+                          <td><div><label htmlFor="category_ref_id" style={{ fontWeight: 'bold' }}>Subcategory_ref_id : </label></div></td>
+                          <td><div><label>{singleData?.Subcategory_ref_id}</label></div></td>
                         </tr>
 
                         <tr>

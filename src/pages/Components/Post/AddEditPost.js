@@ -11,8 +11,9 @@ const initialState = {
   admin_ref_id: '',
   category_ref_id: '',
   subcategory_ref_id: '',
+  childcategory_ref_id: '',
   title: '',
-  description: '',
+  Description: '',
   image: '',
   audio: '',
   video: '',
@@ -27,7 +28,7 @@ const AddEditPost = () => {
   const [imageError, setImageError] = useState();
   const [audioError, setAudioError] = useState();
   const [videoError, setVedioError] = useState();
-  var { admin_ref_id, category_ref_id, subcategory_ref_id, title, description, image, audio, video } = formValue;
+  var { admin_ref_id, category_ref_id, subcategory_ref_id, childcategory_ref_id , title, Description, image, audio, video } = formValue;
   const dispatch = useDispatch();
   var { id } = useParams();
 
@@ -35,6 +36,7 @@ const AddEditPost = () => {
   const admin = useSelector((state) => state?.admin?.admin?.rows)
   const subcategories = useSelector((state) => state?.subcategory?.subcategories?.categoryData?.rows);
   const categories = useSelector((state) => state?.categoryData?.categories?.categoryData?.rows);
+  const childSubcategories = useSelector((state) => state?.childSubcatgory?.childSubcatgeory?.rows);
 
   useEffect(() => {
     if (id) {
@@ -64,7 +66,7 @@ const AddEditPost = () => {
     if (title === '') {
       setTitleError('Title Required!')
     }
-    if (description === '') {
+    if (Description === '') {
       setDescriptionError('Description Required!');
     }
     if (image === '') {
@@ -82,8 +84,9 @@ const AddEditPost = () => {
         formData.append("admin_ref_id", admin_ref_id);
         formData.append("category_ref_id", category_ref_id);
         formData.append("subcategory_ref_id", subcategory_ref_id);
+        formData.append("childcategory_ref_id", childcategory_ref_id);
         formData.append("title", title);
-        formData.append("description", description);
+        formData.append("Description", Description);
         formData.append("image", image);
         formData.append("audio", audio);
         formData.append("video", video);
@@ -96,8 +99,9 @@ const AddEditPost = () => {
         formData.append("admin_ref_id", admin_ref_id);
         formData.append("category_ref_id", category_ref_id);
         formData.append("subcategory_ref_id", subcategory_ref_id);
+        formData.append("childcategory_ref_id", childcategory_ref_id);
         formData.append("title", title);
-        formData.append("description", description);
+        formData.append("Description", Description);
         formData.append("image", image);
         formData.append("audio", audio);
         formData.append("video", video);
@@ -156,9 +160,9 @@ const AddEditPost = () => {
                         <input
                           type="text"
                           className="form-control"
-                          id="description"
-                          value={description || ""}
-                          name="description"
+                          id="Description"
+                          value={Description || ""}
+                          name="Description"
                           onChange={onInputChange} />
                       <label style={{
                         color: "red",
@@ -241,6 +245,24 @@ const AddEditPost = () => {
                         </select>
                       </div>
                       <div className="form-group">
+                        <label>Category Id</label>
+                        <select
+                          className="form-control"
+                          id="category_ref_id"
+                          value={category_ref_id || ""}
+                          name="category_ref_id"
+                          onChange={onInputChange}
+                        >
+                          {categories ? categories.map(catItem => (
+                            <option
+                              key={catItem.category_name}
+                              value={catItem.id}>
+                              {catItem.category_name}
+                            </option>
+                          )) : null}
+                        </select>
+                      </div>
+                      <div className="form-group">
                         <label>Subcategory Id</label>
                         <select
                           className="form-control"
@@ -259,19 +281,19 @@ const AddEditPost = () => {
                         </select>
                       </div>
                       <div className="form-group">
-                        <label>Category Id</label>
+                        <label>Child Subcategory Id</label>
                         <select
                           className="form-control"
-                          id="category_ref_id"
-                          value={category_ref_id || ""}
-                          name="category_ref_id"
+                          id="childcategory_ref_id"
+                          value={childcategory_ref_id || ""}
+                          name="childcategory_ref_id"
                           onChange={onInputChange}
                         >
-                          {categories ? categories.map(catItem => (
+                          {childSubcategories ? childSubcategories.map(childcatItem => (
                             <option
-                              key={catItem.category_name}
-                              value={catItem.id}>
-                              {catItem.category_name}
+                              key={childcatItem.id}
+                              value={childcatItem.id}>
+                              {childcatItem.id}
                             </option>
                           )) : null}
                         </select>

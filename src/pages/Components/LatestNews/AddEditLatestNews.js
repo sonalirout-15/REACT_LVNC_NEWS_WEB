@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router";
 import { Link } from "react-router-dom";
 import { loadCategoryStart } from "../../../Redux/Actions/CategoryAction";
+import { loadSubcategoryStart } from "../../../Redux/Actions/SubcategoryActions";
 import { createLatestNewsStart, updateLatestNewsStart } from "../../../Redux/Actions/LatestNewsActions";
 
 const initialState = {
@@ -10,7 +11,8 @@ const initialState = {
   Description: '',
   image: '',
   video: '',
-  category_ref_id: ''
+  category_ref_id: '',
+  Subcategory_ref_id: ''
 }
 
 const AddEditLatestNews = () => {
@@ -21,12 +23,13 @@ const AddEditLatestNews = () => {
   const [descriptionError, setDescriptionError] = useState();
   const [imageError, setImageError] = useState();
   const [videoError, setVedioError] = useState();
-  var { title, Description, image, video, category_ref_id } = formValue;
+  var { title, Description, image, video, category_ref_id, Subcategory_ref_id } = formValue;
   const dispatch = useDispatch();
   var { id } = useParams();
 
   const latestnews = useSelector((state) => state?.latestnewsData?.latestnews?.rows);
   const categories = useSelector((state) => state?.categoryData?.categories?.categoryData?.rows);
+  const subcategories = useSelector((state) => state?.subcategory?.subcategories?.categoryData?.rows);
 
   useEffect(() => {
     if (id) {
@@ -42,6 +45,10 @@ const AddEditLatestNews = () => {
 
   useEffect(() => {
     dispatch(loadCategoryStart())
+  }, [])
+
+  useEffect(() => {
+    dispatch(loadSubcategoryStart())
   }, [])
 
   const handleSubmit = async (e) => {
@@ -66,6 +73,7 @@ const AddEditLatestNews = () => {
         formData.append("image", image);
         formData.append("video", video);
         formData.append("category_ref_id", category_ref_id);
+        formData.append("Subcategory_ref_id", Subcategory_ref_id)
         dispatch(createLatestNewsStart(formData));
         history.push('/latestnews')
       }
@@ -77,6 +85,7 @@ const AddEditLatestNews = () => {
         formData.append("image", image);
         formData.append("video", video);
         formData.append("category_ref_id", category_ref_id);
+        formData.append("Subcategory_ref_id", Subcategory_ref_id)
         dispatch(updateLatestNewsStart(formData));
         setEditMode(false);
         history.push('/latestnews')
@@ -195,6 +204,24 @@ const AddEditLatestNews = () => {
                               key={catItem.category_name}
                               value={catItem.id}>
                               {catItem.category_name}
+                            </option>
+                          )) : null}
+                        </select>
+                      </div>
+                      <div className="form-group">
+                        <label>Subcategory Id</label>
+                        <select
+                          className="form-control"
+                          id="Subcategory_ref_id"
+                          value={Subcategory_ref_id || ""}
+                          name="Subcategory_ref_id"
+                          onChange={onInputChange}
+                        >
+                          {subcategories ? subcategories.map(subcatItem => (
+                            <option
+                              key={subcatItem.subcategory_name}
+                              value={subcatItem.id}>
+                              {subcatItem.subcategory_name}
                             </option>
                           )) : null}
                         </select>

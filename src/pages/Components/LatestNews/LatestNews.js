@@ -2,9 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
 import BootstrapTable from 'react-bootstrap-table-next';
-import 'react-bootstrap-table-next/dist/react-bootstrap-table2.min.css';
 import paginationFactory from 'react-bootstrap-table2-paginator';
-import 'react-bootstrap-table2-paginator/dist/react-bootstrap-table2-paginator.min.css';
 import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit';
 import { deleteLatestNewsStart, loadLatestNewsStart } from "../../../Redux/Actions/LatestNewsActions";
 const { SearchBar } = Search;
@@ -29,8 +27,10 @@ const LatestNews = () => {
         return rowIndex + 1;
       }, sort: true
     },
+    { dataField: 'category_ref_id', text: 'Category Ref Id', sort: true },
+    { dataField: 'Subcategory_ref_id', text: 'Subcategory Ref Id', sort: true },
     { dataField: 'title', text: 'Title', sort: true },
-    { dataField: 'description', text: 'Description', sort: true },
+    { dataField: 'Description', text: 'Description', sort: true },
     {
       dataField: 'image', text: 'Image', formatter: (cell, row) => {
         return (
@@ -77,7 +77,7 @@ const LatestNews = () => {
             <a
               className="btn btn-info btn-action"
               data-toggle="tooltip"
-              title="Delete"
+              title="View"
               onClick={() => history.push(`/viewLatestNews/${row.id}`)}
               >
                 <i className="fas fa-eye"></i>
