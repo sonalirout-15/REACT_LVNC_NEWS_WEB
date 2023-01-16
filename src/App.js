@@ -1,5 +1,5 @@
 import React from "react";
-import { Route, useLocation } from "react-router-dom";
+import { Redirect, Route, useLocation } from "react-router-dom";
 import DefaultLayoutPage from "./pages/Strater/DefaultLayoutPage";
 import Login from './pages/Pages/Auth/Login';
 import GeneralDashboard from "./pages/Dashboard/GeneralDashboard";
@@ -37,6 +37,7 @@ import UsersList from "./pages/Components/Users/UsersList";
 import ContactUsList from "./pages/Components/Users/ContactUsList";
 import { Footer, Header } from "./components/admin";
 import SideBar from "./components/admin/sidebar";
+import Signup from "./pages/Pages/Auth/Signup";
 
 const App = () => {
   let location = useLocation();
@@ -45,13 +46,15 @@ const App = () => {
     <>
       <div className="App">
       {
-        location.pathname !== '/' &&  <Header />
+         location.pathname !== '/' &&  location.pathname !== '/signup' && location.pathname !== '/forgot-password' && <Header />
+        
       }
       {
-        location.pathname !== '/' && <SideBar />
+        location.pathname !== '/' && location.pathname !== '/signup' && location.pathname !== '/forgot-password' && <SideBar />
       }
-        {/* {sessionStorage.getItem("ADMIN") ? (<Redirect to='/dashboard'/>) : (<Redirect to='/'/>)} */}
+        {localStorage.getItem("ADMIN") ? (<Redirect to='/dashboard'/>) : (<Redirect to='/'/>) }
         <Route path='/' exact component={Login} />
+        <Route path='/signup' exact component={Signup}/>
         <Route path="/dashboard" component={GeneralDashboard} />
         <Route path="/layout/default" component={DefaultLayoutPage} />
         <Route path='/admins' component={Admins} />
@@ -96,7 +99,7 @@ const App = () => {
         <Route path='/users/userList' component={UsersList}/>
         <Route path='/users/contactUs' component={ContactUsList}/>
         {
-          location.pathname !== '/' &&  <Footer />
+           location.pathname !== '/' && location.pathname !== '/signup' && location.pathname !== '/forgot-password' && <Footer />
         }
     
       </div>

@@ -31,6 +31,12 @@ const adminReducer = (state = initialState, action) => {
                 loading: false,
                 adminLogin: action.payload
             }
+        case types.CREATE_ADMIN_SUCCESS: 
+            return {
+                ...state,
+                loading: false,
+                admin : action.payload
+            }
         case types.LOAD_ADMIN_SUCCESS:
             return {
                 ...state,
@@ -47,7 +53,6 @@ const adminReducer = (state = initialState, action) => {
         case types.ADMIN_RESET_PASSWORD_SUCCESS:
         case types.ADMIN_FORGOT_PASSWORD_SUCCESS:
         case types.ADMIN_LOGOUT_SUCCESS:
-        case types.CREATE_ADMIN_SUCCESS:
         case types.UPDATE_ADMIN_SUCCESS:
         case types.DELETE_ADMIN_SUCCESS:
             return {

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from "react-redux";
 import { loadAdminStart, deleteAdminStart } from "../../../Redux/Actions/AdminActions";
 import BootstrapTable from 'react-bootstrap-table-next';
@@ -77,7 +77,7 @@ const Admins = () => {
               onClick={() => history.push(`viewAdmin/${row.id}`)}
             >
               <i className="fas fa-eye"></i>
-            </a>
+            </a>{" "}
           </>
         )
       }
@@ -115,13 +115,10 @@ const Admins = () => {
             <h1>Admins</h1>
           </div>
           <div className="row">
-            <div className="col-lg-20 col-md-20 col-20 col-sm-12">
+            <div className="col-lg-15 col-md-12 col-12 col-sm-14">
               <div className="card">
                 <div className="card-header">
                   <h4>Admin Details</h4>
-                  <div className="card-header-action">
-                    <Link to={'/addAdmin'} className="btn btn-primary"> + New </Link>
-                  </div>
                 </div>
                 <div className="card-body p-0">
                   <div className="table-responsive">

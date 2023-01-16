@@ -17,7 +17,7 @@ export const adminForgotPasswordApi = async (adminPassword) => await axios.post(
 
 export const loadAdminApi = async () => await axios.get('http://localhost:8080/api/admin', { headers: headersParam })
 
-export const createAdminApi = async (admin) => await axios.post('http://localhost:8080/api/admin/create', admin, { headers: headersParam })
+export const createAdminApi = async (admin) => await axios.post('http://localhost:8080/api/admin/create', admin)
 
 export const getSingleAdminApi = async (id) => await axios.get(`http://localhost:8080/api/admin/${id}`, { headers: headersParam })
 

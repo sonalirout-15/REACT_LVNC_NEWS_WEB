@@ -53,23 +53,29 @@ const Toast = Swal.mixin({
 
 export function* onAdminLoginStartAsync({ payload }) {
     try {
-        const response = yield call(adminLoginApi, payload);
-        if (response.data.status === 200) {
-            localStorage.setItem("ADMIN", response.data.data.token);
-            localStorage.setItem('ADMINEMAIL',  response.data.userEmail)
-            yield put(adminLoginSuccess(response.data));
+    const response = yield call(adminLoginApi, payload) 
+    if (response.data.status === 200) {
+        localStorage.setItem("ADMIN", JSON.stringify(response.data.data.token));
+        localStorage.setItem('ADMINEMAIL',  response.data.userEmail)
+        yield put(adminLoginSuccess(response.data));
+        Toast.fire({
+            icon: "success",
+            title: response.data.message,
+        });
+    } else {
+        Toast.fire({
+            icon: 'error',
+            title: response.data.message
+        })
+    
+    }
+} catch (error) {
+    yield put(adminLoginError(error.response));
             Toast.fire({
-                icon: "success",
-                title: response.data.message,
-            });
-            } else {
-                Toast.fire({
-                    icon: "error",
-                    title: response.data.message,
-                });
-        }
-    } catch (error) {
-        yield put(adminLoginError(error.response));
+                icon: 'error',
+                title: 'Invalid Email or Password'
+            })
+        
     }
 }
 
@@ -178,19 +184,58 @@ export function* onCreateAdminStartAsync({ payload }) {
     try {
         const response = yield call(createAdminApi, payload)
         if (response.data.message === "Success") {
-            yield put(createAdminSuccess(response.data.data))
+            console.log('Response~~~~~~~~~~~~~~~~~>>>', response.data)
+            yield put(createAdminSuccess(response.data))
             Toast.fire({
                 icon: "success",
                 title: response.data.message,
             })
-        } else {
+        }
+
+    } catch (error) {
+        yield put(createAdminError(error.response));
+        if(error.response.data.errors.name) {
             Toast.fire({
                 icon: "error",
-                title: response.data.errors.name,
+                title: error.response.data.errors.name,
+            });
+        } else if (error.response.data.errors.email) {
+            Toast.fire({
+                icon: "error",
+                title: error.response.data.errors.email,
+            });
+        } else if(error.response.data.errors.password) {
+            Toast.fire({
+                icon: "error",
+                title: error.response.data.errors.password,
+            });
+        } else if(error.response.data.errors.confirm_password) {
+            Toast.fire({
+                icon: "error",
+                title: error.response.data.errors.confirm_password,
+            });
+        } else if(error.response.data.errors.mobile) {
+            Toast.fire({
+                icon: "error",
+                title: error.response.data.errors.mobile,
+            });
+        } else if(error.response.data.errors.gender) {
+            Toast.fire({
+                icon: "error",
+                title: error.response.data.errors.gender,
+            });
+        } else if(error.response.data.errors.address){
+            Toast.fire({
+                icon: "error",
+                title: error.response.data.errors.address,
+            });
+        } else if(error.response.data.errors.image){
+            Toast.fire({
+                icon: "error",
+                title: error.response.data.errors.image,
             });
         }
-    } catch (error) {
-        yield put(createAdminError(error.response.data))
+        
     }
 }
 

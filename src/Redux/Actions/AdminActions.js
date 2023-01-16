@@ -83,8 +83,9 @@ export const createAdminStart = (admin) => ({
     payload: admin
 })
 
-export const createAdminSuccess = () => ({
+export const createAdminSuccess = (admin) => ({
     type: types.CREATE_ADMIN_SUCCESS,
+    payload: admin
 })
 
 export const createAdminError = (error) => ({

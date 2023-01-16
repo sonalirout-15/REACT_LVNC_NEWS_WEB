@@ -52,7 +52,7 @@ const UserDropdown = () => {
 
           <div className="dropdown-divider" />
           <a
-            href="/"
+            // href="/"
             className="dropdown-item has-icon text-danger"
             onClick={handleClick}
           >
