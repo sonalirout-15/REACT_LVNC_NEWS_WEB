@@ -63,7 +63,7 @@ const Admins = () => {
               <i className="far fa-edit"></i>
             </a>{" "}
             <a
-              className="btn btn-danger btn-action"
+              className="btn btn-danger btn-action mr-3"
               data-toggle="tooltip"
               title="Delete"
               onClick={() => handleDelete(row.id)}
@@ -71,23 +71,29 @@ const Admins = () => {
               <i className="fas fa-trash"></i>
             </a>{" "}
             <a
+              style={{marginLeft: '90px', marginTop:'-50%'}}
               className="btn btn-info btn-action"
               data-toggle="tooltip"
               title="View"
               onClick={() => history.push(`viewAdmin/${row.id}`)}
             >
               <i className="fas fa-eye"></i>
-            </a>{" "}
+            </a>
           </>
         )
       }
     },
   ]
+
   const handleDelete = (id) => {
-    if (window.confirm("Are you sure that you wanted to delete that admin?")) {
-      dispatch(deleteAdminStart(id))
-    }
+    dispatch(deleteAdminStart(id))
   }
+
+  // const handleDelete = (id) => {
+  //   if (window.confirm("Are you sure that you wanted to delete that admin?")) {
+  //     dispatch(deleteAdminStart(id))
+  //   }
+  // }
 
   const pagination = paginationFactory({
     page: 1,
@@ -115,7 +121,7 @@ const Admins = () => {
             <h1>Admins</h1>
           </div>
           <div className="row">
-            <div className="col-lg-15 col-md-12 col-12 col-sm-14">
+            <div className="col-lg-50 col-md-16 col-16 col-sm-50">
               <div className="card">
                 <div className="card-header">
                   <h4>Admin Details</h4>

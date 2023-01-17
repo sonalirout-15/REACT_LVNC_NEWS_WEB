@@ -9,7 +9,6 @@ const Signup = () =>  {
   const dispatch = useDispatch();
   const history = useHistory();
   const adminData = useSelector((state) => state?.admin?.admin);
-  console.log('Admin~~~~~~~~~~>>>', adminData);
 
   const [submit , setSubmit] = useState();
   const [data, setData] = useState({

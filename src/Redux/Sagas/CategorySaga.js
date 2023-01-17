@@ -69,14 +69,15 @@ export function* onCreateCategoryStartAsync({ payload }) {
                 icon: "success",
                 title: response.data.message
             })
-        } else {
-            Toast.fire({
-                icon: "error",
-                title: response.data.errors.category_name,
-            });
         }
     } catch (error) {
         yield put(createCategoryError(error.response.data))
+        if(error.response.data.errors.name) {
+            Toast.fire({
+                icon: "error",
+                title: error.response.data.errors.category_name,
+            });
+        }
     }
 }
 

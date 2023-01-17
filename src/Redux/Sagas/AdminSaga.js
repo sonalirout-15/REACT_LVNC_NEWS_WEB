@@ -184,13 +184,18 @@ export function* onCreateAdminStartAsync({ payload }) {
     try {
         const response = yield call(createAdminApi, payload)
         if (response.data.message === "Success") {
-            console.log('Response~~~~~~~~~~~~~~~~~>>>', response.data)
             yield put(createAdminSuccess(response.data))
             Toast.fire({
                 icon: "success",
                 title: response.data.message,
             })
+        } else {
+            Toast.fire({
+                icon: "error",
+                title:response.data.message,
+            });
         }
+
 
     } catch (error) {
         yield put(createAdminError(error.response));
@@ -200,6 +205,7 @@ export function* onCreateAdminStartAsync({ payload }) {
                 title: error.response.data.errors.name,
             });
         } else if (error.response.data.errors.email) {
+            console.log(error.response)
             Toast.fire({
                 icon: "error",
                 title: error.response.data.errors.email,
@@ -273,7 +279,7 @@ export function* onDeleteAdminStartAsync({ payload }) {
     try {
         const response = yield call(deleteAdminApi, payload)
         if (response.data.message === "Success") {
-            yield delay(500)
+            yield delay(500)    
             yield put(deleteAdminSuccess(response.data))
             Toast.fire({
                 icon: "success",

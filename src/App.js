@@ -52,9 +52,9 @@ const App = () => {
       {
         location.pathname !== '/' && location.pathname !== '/signup' && location.pathname !== '/forgot-password' && <SideBar />
       }
-        {localStorage.getItem("ADMIN") ? (<Redirect to='/dashboard'/>) : (<Redirect to='/'/>) }
+        {localStorage.getItem("ADMIN") ? (<Redirect to='/dashboard'/>) : (<Redirect to='/signup' />) && (<Redirect to='/' />) }
         <Route path='/' exact component={Login} />
-        <Route path='/signup' exact component={Signup}/>
+        <Route path='/signup'  component={Signup}/>
         <Route path="/dashboard" component={GeneralDashboard} />
         <Route path="/layout/default" component={DefaultLayoutPage} />
         <Route path='/admins' component={Admins} />
