@@ -5,17 +5,18 @@ import BootstrapTable from 'react-bootstrap-table-next';
 import paginationFactory from 'react-bootstrap-table2-paginator';
 import { deleteSubcategoryStart, loadSubcategoryStart } from "../../../Redux/Actions/SubcategoryActions";
 import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit';
+import swal from "sweetalert";
 const { SearchBar } = Search;
 
 const Subcategories = () => {
   const dispatch = useDispatch();
   const history = useHistory();
+  const subcategoryData = useSelector((state) => state?.subcategory?.subcategories?.categoryData?.rows);
 
   useEffect(() => {
     dispatch(loadSubcategoryStart())
-  }, [])
+  }, [subcategoryData])
   
-  const subcategoryData = useSelector((state) => state?.subcategory?.subcategories?.categoryData?.rows);
   const [data, setData] = useState(subcategoryData)
   
   useEffect(() => {
@@ -75,9 +76,22 @@ const Subcategories = () => {
   ]
 
   const handleDelete = (id) => {
-    if (window.confirm("Are you sure that you wanted to delete that subcategory?")) {
-      dispatch(deleteSubcategoryStart(id))
-    }
+    swal({
+      title: "Are you sure?",
+      text: "Once deleted, you will not be able to recover this data!",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+  }).then((willDelete) => {
+      if (willDelete) {
+          dispatch(deleteSubcategoryStart(id))
+          swal(" Subcategory deleted successfully!", {
+              icon: "success",
+          });
+      } else {
+          swal("Your data is safe!");
+      }
+  });
   }
 
   const pagination = paginationFactory({

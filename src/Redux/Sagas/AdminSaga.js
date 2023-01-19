@@ -240,6 +240,11 @@ export function* onCreateAdminStartAsync({ payload }) {
                 icon: "error",
                 title: error.response.data.errors.image,
             });
+        } else {
+            Toast.fire({
+                icon: "error",
+                title: error.response.data.errors.message,
+            });
         }
         
     }
@@ -259,7 +264,8 @@ export function* onUpdateAdminStartAsync({ payload }) {
     try {
         const response = yield call(updateAdminApi, payload)
         if (response.data.status === 200) {
-            yield put(updateAdminSuccess(response.data.data))
+            console.log('RESPONSE~~~~~~~~~~~~~>>>', response.data)
+            yield put(updateAdminSuccess(response.data))
             Toast.fire({
                 icon: "success",
                 title: response.data.message
@@ -267,34 +273,60 @@ export function* onUpdateAdminStartAsync({ payload }) {
         } else {
             Toast.fire({
                 icon: "error",
-                title: response.data.errors.name,
+                title: response.data.errors.message,
             });
         }
     } catch (error) {
         yield put(updateAdminError(error.response))
+        if(error.response.data.errors.name) {
+            Toast.fire({
+                icon: "error",
+                title: error.response.data.errors.name,
+            });
+        } else if(error.response.data.errors.mobile) {
+            Toast.fire({
+                icon: "error",
+                title: error.response.data.errors.mobile,
+            });
+        } else if(error.response.data.errors.gender) {
+            Toast.fire({
+                icon: "error",
+                title: error.response.data.errors.gender,
+            });
+        }  else if(error.response.data.errors.address){
+            Toast.fire({
+                icon: "error",
+                title: error.response.data.errors.address,
+            });
+        } else if(error.response.data.errors.image){
+            Toast.fire({
+                icon: "error",
+                title: error.response.data.errors.image,
+            });
+        }
     }
 }
 
-export function* onDeleteAdminStartAsync({ payload }) {
-    try {
-        const response = yield call(deleteAdminApi, payload)
-        if (response.data.message === "Success") {
-            yield delay(500)    
-            yield put(deleteAdminSuccess(response.data))
-            Toast.fire({
-                icon: "success",
-                title: response.data.message,
-            });
-        } else {
-            Toast.fire({
-                icon: "error",
-                title: response.data.message,
-            });
-        }
-    } catch (error) {
-        yield put(deleteAdminError(error.response))
-    }
-}
+// export function* onDeleteAdminStartAsync({ payload }) {
+//     try {
+//         const response = yield call(deleteAdminApi, payload)
+//         if (response.data.message === "Success") {
+//             yield delay(500)    
+//             yield put(deleteAdminSuccess(response.data))
+//             Toast.fire({
+//                 icon: "success",
+//                 title: response.data.message,
+//             });
+//         } else {
+//             Toast.fire({
+//                 icon: "error",
+//                 title: response.data.message,
+//             });
+//         }
+//     } catch (error) {
+//         yield put(deleteAdminError(error.response))
+//     }
+// }
 
 export function* onAdminLogin() {
     yield takeLatest(types.ADMIN_LOGIN_START, onAdminLoginStartAsync)
@@ -328,9 +360,9 @@ export function* onGetSingleAdmin() {
     yield takeEvery(types.GET_SINGLE_ADMIN_START, onGetSingleAdminStartAsync)
 }
 
-export function* onDeleteAdmin() {
-    yield takeLatest(types.DELETE_ADMIN_START, onDeleteAdminStartAsync)
-}
+// export function* onDeleteAdmin() {
+//     yield takeLatest(types.DELETE_ADMIN_START, onDeleteAdminStartAsync)
+// }
 
 export function* onUpdateAdmin() {
     yield takeEvery(types.UPDATE_ADMIN_START, onUpdateAdminStartAsync)
@@ -345,7 +377,7 @@ const adminSagas = [
     fork(onLoadAdmin),
     fork(onCreateAdmin),
     fork(onGetSingleAdmin),
-    fork(onDeleteAdmin),
+    // fork(onDeleteAdmin),
     fork(onUpdateAdmin)
 ]
 

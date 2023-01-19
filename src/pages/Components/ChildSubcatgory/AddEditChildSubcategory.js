@@ -14,16 +14,13 @@ const AddEditChildSubcategory = () => {
   const [formValue, setFormValue] = useState(initialState);
   const [editMode, setEditMode] = useState(false);
   const history = useHistory();
-  const [titleError, setTitleError] = useState();
-  const [descriptionError, setDescriptionError] = useState();
-  const [imageError, setImageError] = useState();
+  const [submit , setSubmit] = useState();
   var { Subcategory_ref_id, Description, title, image } = formValue;
   const dispatch = useDispatch();
   var { id } = useParams();
-  console.log('ID~~~~~~>>',id)
+  console.log('ID~~~~~~~~>>>', id);
 
   const childSubcategory = useSelector((state) => state?.childSubcatgory?.childSubcatgeory?.rows);
-  // console.log('CHILD-SUBCATEGORY~~~~~~~~~~~~~~>>>>>>', childSubcategory)
   const subcategories = useSelector((state) => state?.subcategory?.subcategories?.categoryData?.rows);
 
   useEffect(() => {
@@ -42,43 +39,6 @@ const AddEditChildSubcategory = () => {
   }, [])
 
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    if(Description === ''){
-        setDescriptionError('Description Required!')
-    }
-    if(title === ''){
-        setTitleError('Title Required!')
-    }
-    if(image === ''){
-        setImageError('Image Required!')
-    }
-     else {
-      if (!editMode) {
-        const formData = new FormData();
-        formData.append("Subcategory_ref_id", Subcategory_ref_id);
-        formData.append("Description", Description);
-        formData.append("title", title);
-        formData.append("image", image)
-        dispatch(createChildSubcategoryStart(formData));
-        console.log('FORMDATA!!!!!!!!!!!!!!', formData)
-        history.push('/childSubcategory')
-      }
-      else {
-        const formData = new FormData();
-        formData.append("id", id);
-        formData.append("Subcategory_ref_id", Subcategory_ref_id);
-        formData.append("Description", Description);
-        formData.append("title", title);
-        formData.append("image", image)
-        dispatch(updateChildSubcategoryStart(formData));
-        setEditMode(false);
-        // history.push('/childSubcategory')
-      }
-    }
-  };
-
-
   const onInputChange = (e) => {
     let { name, value } = e.target;
     setFormValue({ ...formValue, [name]: value });
@@ -87,6 +47,35 @@ const AddEditChildSubcategory = () => {
   const handleFileSelect = (e) => {
     setFormValue({ ...formValue, [e.target.name]: e.target.files[0] });
   };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setSubmit(true);
+      if(Description && title && image) {
+        if(!editMode) {
+          const formData = new FormData();
+          formData.append("Subcategory_ref_id", Subcategory_ref_id);
+          formData.append("Description", Description);
+          formData.append("title", title);
+          formData.append("image", image);
+          dispatch(createChildSubcategoryStart(formData))
+          history.push('/childSubcategory')
+        } 
+        else {
+          const formData = new FormData();
+          formData.append("id", id);
+          formData.append("Subcategory_ref_id", Subcategory_ref_id);
+          formData.append("Description", Description);
+          formData.append("title", title);
+          formData.append("image", image);
+          setEditMode(false);
+          dispatch(updateChildSubcategoryStart(formData));
+          // history.push('/childSubcategory')
+        }
+      }
+}
+
+
 
   return(
          <div className="main-content">
@@ -97,7 +86,7 @@ const AddEditChildSubcategory = () => {
           <form onSubmit={handleSubmit}>
             <div className="section-body">
               <div className="row">
-                <div className="col-18 col-md-6 col-lg-6">
+                <div className="col-30 col-md-6 col-lg-6">
                   <div className="card">
                     <div className="card-header">
                       <center><strong>{!editMode ? "Add Child Subcategory" : "Update Child Subcategory"}</strong></center>
@@ -116,9 +105,11 @@ const AddEditChildSubcategory = () => {
                       <label style={{
                         color: "red",
                         marginLeft: "2%",
-                        display: "flex"
+                        display: "flex",
+                        fontFamily : 'bold',
+                        fontSize: '15px'
                       }}>
-                        {titleError}
+                         {submit && !title && <small className="p-invalid">Title required.</small>}
                       </label>
                       </div>
                       <div className="form-group">
@@ -133,9 +124,11 @@ const AddEditChildSubcategory = () => {
                       <label style={{
                         color: "red",
                         marginLeft: "2%",
-                        display: "flex"
+                        display: "flex",
+                        fontFamily : 'bold',
+                        fontSize: '15px'
                       }}>
-                        {descriptionError}
+                         {submit && !Description && <small className="p-invalid">Description required.</small>}
                       </label>
                       </div>
                       <div className="form-group">
@@ -151,9 +144,11 @@ const AddEditChildSubcategory = () => {
                       <label style={{
                         color: "red",
                         marginLeft: "2%",
-                        display: "flex"
+                        display: "flex",
+                        fontFamily : 'bold',
+                        fontSize: '15px'
                       }}>
-                        {imageError}
+                        {submit && !image && <small className="p-invalid">Image required.</small>}
                       </label>
                       </div>
                       <div className="form-group">

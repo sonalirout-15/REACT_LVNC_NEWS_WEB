@@ -108,20 +108,20 @@ export const getSingleAdminError = (error) => ({
     payload: error
 })
 
-export const deleteAdminStart = (deleteAdmin) => ({
-    type: types.DELETE_ADMIN_START,
-    payload: deleteAdmin
-})
+// export const deleteAdminStart = (deleteAdmin) => ({
+//     type: types.DELETE_ADMIN_START,
+//     payload: deleteAdmin
+// })
 
-export const deleteAdminSuccess = (deleteAdmin) => ({
-    type: types.DELETE_ADMIN_SUCCESS,
-    payload: deleteAdmin
-})
+// export const deleteAdminSuccess = (deleteAdmin) => ({
+//     type: types.DELETE_ADMIN_SUCCESS,
+//     payload: deleteAdmin
+// })
 
-export const deleteAdminError = (error) => ({
-    type: types.DELETE_ADMIN_ERROR,
-    payload: error
-})
+// export const deleteAdminError = (error) => ({
+//     type: types.DELETE_ADMIN_ERROR,
+//     payload: error
+// })
 
 export const updateAdminStart = (updateAdmin) => ({
     type: types.UPDATE_ADMIN_START,

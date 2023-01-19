@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from "react-redux";
-import { loadAdminStart, deleteAdminStart } from "../../../Redux/Actions/AdminActions";
+import { loadAdminStart } from "../../../Redux/Actions/AdminActions";
 import BootstrapTable from 'react-bootstrap-table-next';
 import paginationFactory from 'react-bootstrap-table2-paginator';
 import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit';
@@ -63,15 +63,6 @@ const Admins = () => {
               <i className="far fa-edit"></i>
             </a>{" "}
             <a
-              className="btn btn-danger btn-action mr-3"
-              data-toggle="tooltip"
-              title="Delete"
-              onClick={() => handleDelete(row.id)}
-            >
-              <i className="fas fa-trash"></i>
-            </a>{" "}
-            <a
-              style={{marginLeft: '90px', marginTop:'-50%'}}
               className="btn btn-info btn-action"
               data-toggle="tooltip"
               title="View"
@@ -84,16 +75,6 @@ const Admins = () => {
       }
     },
   ]
-
-  const handleDelete = (id) => {
-    dispatch(deleteAdminStart(id))
-  }
-
-  // const handleDelete = (id) => {
-  //   if (window.confirm("Are you sure that you wanted to delete that admin?")) {
-  //     dispatch(deleteAdminStart(id))
-  //   }
-  // }
 
   const pagination = paginationFactory({
     page: 1,

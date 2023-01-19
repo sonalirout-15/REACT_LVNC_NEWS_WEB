@@ -64,18 +64,28 @@ export function* onCreateCategoryStartAsync({ payload }) {
     try {
         const response = yield call(createCategoryApi, payload)
         if (response.data.message === "Success") {
-            yield put(createCategorySuccess(response.data.data))
+            yield put(createCategorySuccess(response.data))
             Toast.fire({
                 icon: "success",
                 title: response.data.message
             })
+        } else {
+            Toast.fire({
+                icon: "error",
+                title: response.data.errors.message,
+            });
         }
     } catch (error) {
         yield put(createCategoryError(error.response.data))
-        if(error.response.data.errors.name) {
+        if(error.response.data.errors.category_name) {
             Toast.fire({
                 icon: "error",
                 title: error.response.data.errors.category_name,
+            });
+        } else {
+            Toast.fire({
+                icon: "error",
+                title: error.response.data.errors.message,
             });
         }
     }
@@ -87,15 +97,15 @@ export function* onDeleteCategoryStartAsync({ payload }) {
         if (response.data.message === "Success") {
             yield delay(500)
             yield put(deleteCategorySuccess(response.data))
-            Toast.fire({
-                icon: "success",
-                title: response.data.message,
-            });
-        } else {
-            Toast.fire({
-                icon: "error",
-                title: response.data.message,
-            });
+            // Toast.fire({
+            //     icon: "success",
+            //     title: response.data.message,
+            // });
+        // } else {
+        //     Toast.fire({
+        //         icon: "error",
+        //         title: response.data.message,
+        //     });
         }
     } catch (error) {
         yield put(deleteCategoryError(error.response))
@@ -114,11 +124,22 @@ export function* onUpdateCategoryStartAsync({ payload }) {
         } else {
             Toast.fire({
                 icon: "error",
-                title: response.data.errors.category_name,
+                title: response.data.errors.message,
             });
         }
     } catch (error) {
         yield put(updateCategoryError(error.response.data))
+        if(error.response.data.errors.category_name) {
+            Toast.fire({
+                icon: "error",
+                title: error.response.data.errors.category_name,
+            });
+        } else {
+            Toast.fire({
+                icon: "error",
+                title: error.response.data.errors.message,
+            });
+        }
     }
 }
 

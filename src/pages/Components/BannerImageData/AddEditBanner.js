@@ -12,9 +12,8 @@ const initialState = {
 const AddEditBanner = () => {
   const [formValue, setFormValue] = useState(initialState);
   const [editMode, setEditMode] = useState(false);
+  const [submit , setSubmit] = useState();
   const history = useHistory();
-  const [imageNameError, setImageNameError] = useState();
-  const [imageError, setImageError] = useState();
   var { id, imageName , image } = formValue;
   const dispatch = useDispatch();
   var { id } = useParams();
@@ -34,31 +33,26 @@ const AddEditBanner = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (imageName === '') {
-      setImageNameError('Title Required!')
-    }
-    if (image === '') {
-      setImageError('Image Required!');
-    } else {
-      if (!editMode) {
-        const formData = new FormData();
-        formData.append("imageName", imageName);
-        formData.append("image", image);
-        dispatch(createBannerImageStart(formData));
-        history.push('/banner')
-
+    setSubmit(true);
+      if( imageName && image) {
+        if(!editMode) {
+          const formData = new FormData();
+          formData.append("imageName", imageName);
+          formData.append("image", image);
+          dispatch(createBannerImageStart(formData))
+          history.push('/banner')
+        } 
+        else {
+          const formData = new FormData();
+          formData.append("id", id);
+          formData.append("imageName", imageName);
+          formData.append("image", image);
+          setEditMode(false);
+          dispatch(updateBannerImageStart(formData));
+          history.push('/banner')
+        }
       }
-      else {
-        const formData = new FormData();
-        formData.append("id", id);
-        formData.append("imageName", imageName);
-        formData.append("image", image);
-        dispatch(updateBannerImageStart(formData));
-        setEditMode(false);
-        history.push('/banner')
-      }
-    }
-  };
+}
 
 
   const onInputChange = (e) => {
@@ -98,9 +92,11 @@ const AddEditBanner = () => {
                       <label style={{
                         color: "red",
                         marginLeft: "2%",
-                        display: "flex"
+                        display: "flex",
+                        fontFamily : 'bold',
+                        fontSize: '15px'
                       }}>
-                        {imageNameError}
+                       {submit && !imageName && <small className="p-invalid">Title required.</small>}
                       </label>
                       </div>
                       <div className="form-group">
@@ -116,9 +112,11 @@ const AddEditBanner = () => {
                       <label style={{
                         color: "red",
                         marginLeft: "2%",
-                        display: "flex"
+                        display: "flex",
+                        fontFamily : 'bold',
+                        fontSize: '15px'
                       }}>
-                        {imageError}
+                       {submit && !image && <small className="p-invalid">Image required.</small>}
                       </label>
                       </div>
                       <button type="submit" className="btn btn-primary">{!editMode ? "Add" : "Update"}</button>{" "}

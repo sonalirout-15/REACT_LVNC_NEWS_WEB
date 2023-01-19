@@ -5,29 +5,43 @@ import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit';
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
 import { Link } from "react-router-dom";
+import swal from "sweetalert";
 import { deleteBannerImageStart, loadBannerImageStart } from "../../../Redux/Actions/BannerImageAction";
 const { SearchBar } = Search;
 
 const BannerImage = () => {
     const dispatch = useDispatch()
     const history = useHistory()
+    const bannerData = useSelector((state) => state?.banner?.bannerImageData)
 
     useEffect(() => {
       dispatch(loadBannerImageStart())
-    }, [])
+    }, [bannerData])
 
-    const bannerData = useSelector((state) => state?.banner?.bannerImageData)
     const [data, setData] = useState(bannerData)
     
     useEffect(() => {
       setData(bannerData)
     },[bannerData])
     
-      const handleDelete = (id) => {
-        if (window.confirm("Are you sure that you wanted to delete that banner?")) {
-          dispatch(deleteBannerImageStart(id))
+const handleDelete = (id) => {
+      swal({
+        title: "Are you sure?",
+        text: "Once deleted, you will not be able to recover this data!",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+    }).then((willDelete) => {
+        if (willDelete) {
+            dispatch(deleteBannerImageStart(id))
+            swal("BannerImage deleted successfully!", {
+                icon: "success",
+            });
+        } else {
+            swal("Your data is safe!");
         }
-      }
+    });
+    }
     
     const columns = [
     {

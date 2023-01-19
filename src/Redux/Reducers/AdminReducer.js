@@ -19,7 +19,7 @@ const adminReducer = (state = initialState, action) => {
         case types.LOAD_ADMIN_START:
         case types.CREATE_ADMIN_START:
         case types.GET_SINGLE_ADMIN_START:
-        case types.DELETE_ADMIN_START:
+        // case types.DELETE_ADMIN_START:
         case types.UPDATE_ADMIN_START:
             return {
                 ...state,
@@ -49,12 +49,18 @@ const adminReducer = (state = initialState, action) => {
                 loading: false,
                 adminData: action.payload
             }
+        case types.UPDATE_ADMIN_SUCCESS:
+            return{
+                ...state,
+                loading: true,
+                updateAdmin: action.payload
+            }
+            
         case types.ADMIN_CHANGE_PASSWORD_SUCCESS:
         case types.ADMIN_RESET_PASSWORD_SUCCESS:
         case types.ADMIN_FORGOT_PASSWORD_SUCCESS:
         case types.ADMIN_LOGOUT_SUCCESS:
-        case types.UPDATE_ADMIN_SUCCESS:
-        case types.DELETE_ADMIN_SUCCESS:
+        // case types.DELETE_ADMIN_SUCCESS:
             return {
                 ...state,
                 loading: true
@@ -67,7 +73,7 @@ const adminReducer = (state = initialState, action) => {
         case types.LOAD_ADMIN_ERROR:
         case types.CREATE_ADMIN_ERROR:
         case types.GET_SINGLE_ADMIN_ERROR:
-        case types.DELETE_ADMIN_ERROR:
+        // case types.DELETE_ADMIN_ERROR:
         case types.UPDATE_ADMIN_ERROR:
             return {
                 ...state,

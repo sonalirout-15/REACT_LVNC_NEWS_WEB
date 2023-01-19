@@ -11,8 +11,8 @@ const initialState = {
 const AddEditSubcategories = () => {
   const [formValue, setFormValue] = useState(initialState);
   const [editMode, setEditMode] = useState(false);
+  const [submit , setSubmit] = useState();
   const history = useHistory();
-  const [nameError, setNameError] = useState();
   var { category_ref_id, subcategory_name } = formValue;
   const dispatch = useDispatch();
   var { id } = useParams();
@@ -35,36 +35,28 @@ const AddEditSubcategories = () => {
     dispatch(loadCategoryStart())
   }, [])
 
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    if (subcategory_name === '') {
-      setNameError('Category Required!')
-    }
-    else if(subcategory_name.length < 4) {
-      setNameError('Category name needs to atleast 4 characters!')
-    }
-    else if(subcategory_name.length > 25) {
-      setNameError('Category name needs only 25 characters!')
-    }
-    else {
-      if (!editMode) {
-        dispatch(createSubcategoryStart(formValue));
-        history.push('/categories');
-
-      } else {
-        dispatch(updateSubcategoryStart(formValue))
-        setEditMode(false);
-        history.push('/categories')
-      }
-    }
-  };
-
   const onInputChange = (e) => {
     let { name, value } = e.target;
     setFormValue({ ...formValue, [name]: value });
     console.log("form ...", formValue);
   };
+
+
+const handleSubmit = async (e) => {
+    e.preventDefault();
+      setSubmit(true);
+      if(subcategory_name) {
+        if(!editMode) {
+          dispatch(createSubcategoryStart(formValue))
+          history.push('/subcategories')
+        } 
+        else {
+          setEditMode(false);
+          dispatch(updateSubcategoryStart(formValue))
+          history.push('/subcategories')
+        }
+      }
+}
 
 
   return(
@@ -95,9 +87,11 @@ const AddEditSubcategories = () => {
                        <label style={{
                         color: "red",
                         marginLeft: "2%",
-                        display: "flex"
+                        display: "flex",
+                        fontFamily : 'bold',
+                        fontSize: '15px'
                       }}>
-                        {nameError}
+                        {submit && !subcategory_name && <small className="p-invalid">Subcategory Name required.</small>}
                       </label>
                       </div>
                       <div className="form-group">

@@ -15,12 +15,8 @@ const initialState = {
 const AddEditCampaign = () => {
   const [formValue, setFormValue] = useState(initialState);
   const [editMode, setEditMode] = useState(false);
+  const [submit , setSubmit] = useState();
   const history = useHistory();
-  const [titleError, setTitleError] = useState();
-  const [descriptionError, setDescriptionError] = useState();
-  const [imageError, setImageError] = useState();
-  const [audioError, setAudioError] = useState();
-  const [videoError, setVedioError] = useState();
   var { id, title, description, image, audio, video } = formValue;
   const dispatch = useDispatch();
   var { id } = useParams();
@@ -38,50 +34,7 @@ const AddEditCampaign = () => {
     }
   }, [id]);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    if (title === '') {
-      setTitleError('Title Required!')
-    }
-    if (description === '') {
-      setDescriptionError('Description Required!');
-    }
-    if (image === '') {
-      setImageError('Image Required!');
-    }
-    if (audio === '') {
-      setAudioError('Audio Required!')
-    }
-    if (video === '') {
-      setVedioError('Vedio Required!')
-    } else {
-      if (!editMode) {
-        const formData = new FormData();
-        formData.append("title", title);
-        formData.append("description", description);
-        formData.append("image", image);
-        formData.append("audio", audio);
-        formData.append("video", video);
-        dispatch(createCampaningStart(formData));
-        history.push('/campaing')
-
-      }
-      else {
-        const formData = new FormData();
-        formData.append("id", id);
-        formData.append("title", title);
-        formData.append("description", description);
-        formData.append("image", image);
-        formData.append("audio", audio);
-        formData.append("video", video);
-        dispatch(updateCampaningStart(formData));
-        setEditMode(false);
-        history.push('/campaing')
-      }
-    }
-  };
-
-
+  
   const onInputChange = (e) => {
     let { name, value } = e.target;
     setFormValue({ ...formValue, [name]: value });
@@ -90,6 +43,35 @@ const AddEditCampaign = () => {
   const handleFileSelect = (e) => {
     setFormValue({ ...formValue, [e.target.name]: e.target.files[0] });
   };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setSubmit(true);
+      if( title && description && image && audio && video) {
+        if(!editMode) {
+          const formData = new FormData();
+          formData.append("title", title);
+          formData.append("Description", description);
+          formData.append("image", image);
+          formData.append("audio", audio)
+          formData.append("video", video)
+          dispatch(createCampaningStart(formData))
+          history.push('/campaign')
+        } 
+        else {
+          const formData = new FormData();
+          formData.append("id", id);
+          formData.append("title", title);
+          formData.append("Description", description);
+          formData.append("video", video)
+          formData.append("image", image);
+          setEditMode(false);
+          dispatch(updateCampaningStart(formData));
+          history.push('/campaign')
+        }
+      }
+}
+
 
   return (
       <div className="main-content">
@@ -119,9 +101,11 @@ const AddEditCampaign = () => {
                       <label style={{
                         color: "red",
                         marginLeft: "2%",
-                        display: "flex"
+                        display: "flex",
+                        fontFamily : 'bold',
+                          fontSize: '15px'
                       }}>
-                        {titleError}
+                       {submit && !title && <small className="p-invalid">Title required.</small>}
                       </label>
                       </div>
                       <div className="form-group">
@@ -136,9 +120,11 @@ const AddEditCampaign = () => {
                       <label style={{
                         color: "red",
                         marginLeft: "2%",
-                        display: "flex"
+                        display: "flex",
+                        fontFamily : 'bold',
+                          fontSize: '15px'
                       }}>
-                        {descriptionError}
+                       {submit && !description && <small className="p-invalid">Description required.</small>}
                       </label>
                       </div>
                       <div className="form-group">
@@ -156,7 +142,7 @@ const AddEditCampaign = () => {
                         marginLeft: "2%",
                         display: "flex"
                       }}>
-                        {imageError}
+                       {submit && !image && <small className="p-invalid">Image required.</small>}
                       </label>
                       </div>
                       <div className="form-group">
@@ -174,7 +160,7 @@ const AddEditCampaign = () => {
                         marginLeft: "2%",
                         display: "flex"
                       }}>
-                        {audioError}
+                        {submit && !audio && <small className="p-invalid">Audio required.</small>}
                       </label>
                       </div>
                       <div className="form-group">
@@ -192,7 +178,7 @@ const AddEditCampaign = () => {
                         marginLeft: "2%",
                         display: "flex"
                       }}>
-                        {videoError}
+                       {submit && !video && <small className="p-invalid">Video required.</small>}
                       </label>
                       </div>
                       <button type="submit" className="btn btn-primary">{!editMode ? "Add" : "Update"}</button>{" "}

@@ -10,7 +10,7 @@ const initialState = {
 
 const AddEditCategories = () => {
   const [formValue, setFormValue] = useState(initialState);
-  const [nameError, setNameError] = useState();
+  const [submit , setSubmit] = useState();
   const history = useHistory();
   const [editMode, setEditMode] = useState(false);
   var { category_name } = formValue;
@@ -30,36 +30,28 @@ const AddEditCategories = () => {
     }
   }, [id]);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    if (category_name === '') {
-      setNameError('Category Required!')
-    }
-    else if(category_name.length < 4) {
-      setNameError('Category name needs to atleast 4 characters!')
-    }
-    else if(category_name.length > 25) {
-      setNameError('Category name needs only 25 characters!')
-    }
-    else {
-      if (!editMode) {
-        dispatch(createCategoryStart(formValue));
-        history.push('/categories');
-
-      } else {
-        dispatch(updateCategoryStart(formValue))
-        setEditMode(false);
-        history.push('/categories')
-      }
-    }
-  };
-
   const onInputChange = (e) => {
     let { name, value } = e.target;
     setFormValue({ ...formValue, [name]: value });
-    console.log("form ...", formValue);
   };
-  
+
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+      setSubmit(true);
+      if(category_name) {
+        if(!editMode) {
+          dispatch(createCategoryStart(formValue))
+          history.push('/categories')
+        } 
+        else {
+          setEditMode(false);
+          dispatch(updateCategoryStart(formValue))
+          history.push('/categories')
+        }
+      }
+}
+
   return (
       <div className="main-content">
         <section className="section">
@@ -88,9 +80,11 @@ const AddEditCategories = () => {
                       <label style={{
                         color: "red",
                         marginLeft: "2%",
-                        display: "flex"
+                        display: "flex",
+                        fontFamily : 'bold',
+                        fontSize: '15px'
                       }}>
-                        {nameError}
+                       {submit && !category_name && <small className="p-invalid">Category Name required.</small>}
                       </label>
                       </div>
                       <button type="submit" className="btn btn-primary">{!editMode ? "Add" : "Update"}</button>{" "}

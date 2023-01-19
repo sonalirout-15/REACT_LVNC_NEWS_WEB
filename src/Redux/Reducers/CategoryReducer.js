@@ -2,6 +2,7 @@ import * as types from '../ActionTypes/CategoryActionTypes'
 
 const initialState = {
     categories: [],
+    category : [],
     categoryData: [],
     updateCategory: [],
     Subcategories: [],
@@ -34,7 +35,17 @@ const categoryReducer = (state = initialState, action) => {
                 categoryData: action.payload
             }
         case types.CREATE_CATEGORY_SUCCESS:
+            return{
+                ...state,
+                loading: false,
+                category: action.payload
+            }
         case types.UPDATE_CATEGORY_SUCCESS:
+            return {
+                ...state,
+                loading: false,
+                updateCategory: action.payload
+            }
         case types.DELETE_CATEGORY_SUCCESS:
             return {
                 ...state,

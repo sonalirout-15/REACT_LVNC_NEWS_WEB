@@ -2,13 +2,10 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router";
 import { Link } from "react-router-dom";
-import { createAdminStart, updateAdminStart } from "../../../Redux/Actions/AdminActions";
+import { updateAdminStart } from "../../../Redux/Actions/AdminActions";
 
 const initialState = {
   name: '',
-  email: '',
-  password: '',
-  confirm_password: '',
   mobile: '',
   gender: '',
   address: '',
@@ -17,23 +14,17 @@ const initialState = {
 
 const AddEditAdmin = () => {
   const [formValue, setFormValue] = useState(initialState);
+  const [submit , setSubmit] = useState();
   const [editMode, setEditMode] = useState(false);
   const history = useHistory();
-  const [genderCheck, setGenderCheck] = useState("Male");
-  const [nameError, setNameError] = useState();
-  const [emailError, setEmailError] = useState();
-  const [passwordError, setPasswordError] = useState();
-  const [confirmPasswordError, setConfirmPasswordError] = useState();
-  const [mobileError, setMobileError] = useState();
-  const [genderError, setGenderError] = useState();
-  const [addressError, setAddressError] = useState();
-  const [imageError, setImageError] = useState();
-  var { name, email, password, confirm_password, mobile, gender, address, image } = formValue;
+  var { name, mobile, gender, address, image } = formValue;
   const dispatch = useDispatch();
   var { id } = useParams();
 
-  const admin = useSelector((state) => state?.admin?.admin?.rows)
-
+  const admin = useSelector((state) => state?.admin?.admin?.rows);
+  const adminSuccess = useSelector((state) => state?.admin?.updateAdmin);
+  console.log('Admin-Success~~~~~~~~~~>>>', adminSuccess);
+ 
   useEffect(() => {
     if (id) {
       setEditMode(true);
@@ -45,71 +36,6 @@ const AddEditAdmin = () => {
     }
   }, [id]);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    if (name === '') {
-      setNameError('Name Required!')
-    }
-    if (email === '') {
-      setEmailError('Email is required.');
-    } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(email)) {
-      setEmailError('Invalid email address!')
-    }
-    if (password === '') {
-      setPasswordError('Password Required!');
-    } else if (password.length < 6) {
-      setPasswordError('Atleast 6 character Required!')
-    }
-    if (confirm_password === '') {
-      setConfirmPasswordError('Confirm Password Required!')
-    } else if (password !== confirm_password) {
-      setConfirmPasswordError('Password and Confirm Password does not match!')
-    }
-    if (mobile === '') {
-      setMobileError('Mobile Required!')
-    } else if (mobile.length != 10) {
-      setMobileError('Enter valid Mobile No!')
-    }
-    if (gender === '') {
-      setGenderError('Gender Required!')
-    }
-    if (address === '') {
-      setAddressError('Address Required!')
-    }
-    if (image === '') {
-      setImageError('Image Required!')
-    } else {
-
-      if (!editMode) {
-        const formData = new FormData();
-        formData.append("name", name);
-        formData.append("email", email);
-        formData.append("password", password);
-        formData.append("confirm_password", confirm_password);
-        formData.append("mobile", mobile);
-        formData.append("gender", gender);
-        formData.append("address", address);
-        formData.append("image", image);
-        dispatch(createAdminStart(formData));
-        history.push('/admins')
-      }
-      else {
-        const formData = new FormData();
-        formData.append("id", id);
-        formData.append("name", name);
-        formData.append("email", email);
-        formData.append("password", password);
-        formData.append("confirm_password", confirm_password);
-        formData.append("mobile", mobile);
-        formData.append("gender", gender);
-        formData.append("address", address);
-        formData.append("image", image);
-        dispatch(updateAdminStart(formData));
-        setEditMode(false);
-        history.push('/admins')
-      }
-    }
-  };
 
   const onInputChange = (e) => {
     let { name, value } = e.target;
@@ -121,11 +47,30 @@ const AddEditAdmin = () => {
     setFormValue({ ...formValue, [e.target.name]: e.target.files[0] });
   };
 
-  const handleGenderChange = (e) => {
-    let { name, value } = e.target;
-    setFormValue({ ...formValue, [name]: value });
-    setGenderCheck(e.target.value)
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if(name !== '' && mobile !== '' && gender !== '' &&  address !== '' && image !== ''){
+      if(editMode){
+        const formData = new FormData();
+        formData.append("id", id);
+        formData.append("name", name);
+        // formData.append("email", email);
+        formData.append("mobile", mobile);
+        formData.append("gender", gender);
+        formData.append("address", address);
+        formData.append("image", image);
+        dispatch(updateAdminStart(formData));
+        setEditMode(false);
+        setSubmit(true);
+      }
+     
+    }
+  };
+
+  if(adminSuccess?.message === "Admin updated succesfully..."){
+    history.push('/admins')
   }
+
 
   return (
       <div className="main-content">
@@ -139,7 +84,7 @@ const AddEditAdmin = () => {
                 <div className="col-18 col-md-6 col-lg-6">
                   <div className="card">
                     <div className="card-header">
-                      <center><strong>{!editMode ? "Add Admin" : "Update Admin"}</strong></center>
+                      <center><strong>Update Admin</strong></center>
                     </div>
                     <div className="card-body">
                       <div className="form-group">
@@ -155,12 +100,14 @@ const AddEditAdmin = () => {
                         <label style={{
                           color: "red",
                           marginLeft: "2%",
-                          display: "flex"
+                          display: "flex",
+                          fontFamily : 'bold',
+                          fontSize: '15px'
                         }}>
-                          {nameError}
+                          {submit && !name && <small className="p-invalid">Name required.</small>}
                         </label>
                       </div>
-                      <div className="form-group">
+                      {/* <div className="form-group">
                         <label>Email</label>
                         <input
                           type="text"
@@ -174,69 +121,9 @@ const AddEditAdmin = () => {
                           marginLeft: "2%",
                           display: "flex"
                         }}>
-                          {emailError}
+                          {submit && !email && <small className="p-invalid">Email required.</small>}
                         </label>
-                      </div>
-                      <div className="form-group">
-                        <label>Password Strength</label>
-                        <div className="input-group">
-                          <div className="input-group-prepend">
-                            <div className="input-group-text">
-                              <i className="fas fa-lock"></i>
-                            </div>
-                          </div>
-                          <input
-                            type="password"
-                            className="form-control pwstrength"
-                            data-indicator="pwindicator"
-                            id="password"
-                            value={password || ""}
-                            name="password"
-                            onChange={onInputChange}
-                          />
-                          <label style={{
-                            color: "red",
-                            marginLeft: "2%",
-                            display: "flex"
-                          }}>
-                            {passwordError}
-                          </label>
-                        </div>
-                        <div id="pwindicator" className="pwindicator">
-                          <div className="bar"></div>
-                          <div className="label"></div>
-                        </div>
-                      </div>
-                      <div className="form-group">
-                        <label>Confirm Password</label>
-                        <div className="input-group">
-                          <div className="input-group-prepend">
-                            <div className="input-group-text">
-                              <i className="fas fa-lock"></i>
-                            </div>
-                          </div>
-                          <input
-                            type="password"
-                            className="form-control pwstrength"
-                            data-indicator="pwindicator"
-                            id="confirm_password"
-                            value={confirm_password || ""}
-                            name="confirm_password"
-                            onChange={onInputChange}
-                          />
-                          <label style={{
-                            color: "red",
-                            marginLeft: "2%",
-                            display: "flex"
-                          }}>
-                            {confirmPasswordError}
-                          </label>
-                        </div>
-                        <div id="pwindicator" className="pwindicator">
-                          <div className="bar"></div>
-                          <div className="label"></div>
-                        </div>
-                      </div>
+                      </div> */}
                       <div className="form-group">
                         <label>Phone Number (US Format)</label>
                         <div className="input-group">
@@ -257,24 +144,28 @@ const AddEditAdmin = () => {
                         <label style={{
                           color: "red",
                           marginLeft: "2%",
-                          display: "flex"
+                          display: "flex",
+                          fontFamily : 'bold',
+                          fontSize: '15px'
                         }}>
-                          {mobileError}
+                           {submit && !mobile && <small className="p-invalid">Mobile required.</small>}
                         </label>
                       </div>
                       <div className="form-group">
                         <label>Gender</label>
-                        <div onChange={handleGenderChange}>
-                          <input type="radio" value="Male" name="gender" checked={genderCheck === "Male"} /> Male {" "}
-                          <input type="radio" value="Female" name="gender" checked={genderCheck === "Female"} /> Female {" "}
-                          <input type="radio" value="Other" name="gender" checked={genderCheck === "Other"} /> Other {" "}
+                        <div onChange={onInputChange}>
+                          <input type="radio" value="Male" name="gender"  /> Male {" "}
+                          <input type="radio" value="Female" name="gender" /> Female {" "}
+                          <input type="radio" value="Other" name="gender"  /> Other {" "}
                         </div>
                         <label style={{
                           color: "red",
                           marginLeft: "2%",
-                          display: "flex"
+                          display: "flex",
+                          fontFamily : 'bold',
+                          fontSize: '15px'
                         }}>
-                          {genderError}
+                           {submit && !gender && <small className="p-invalid">Gender required.</small>}
                         </label>
                       </div>
                       <div className="form-group">
@@ -289,9 +180,11 @@ const AddEditAdmin = () => {
                         <label style={{
                           color: "red",
                           marginLeft: "2%",
-                          display: "flex"
+                          display: "flex",
+                          fontFamily : 'bold',
+                          fontSize: '15px'
                         }}>
-                          {addressError}
+                          {submit && !address && <small className="p-invalid">Address required.</small>}
                         </label>
                       </div>
                       <div className="form-group">
@@ -307,12 +200,14 @@ const AddEditAdmin = () => {
                         <label style={{
                           color: "red",
                           marginLeft: "2%",
-                          display: "flex"
+                          display: "flex",
+                          fontFamily : 'bold',
+                          fontSize: '15px'
                         }}>
-                          {imageError}
+                           {submit && !image && <small className="p-invalid">Image required.</small>}
                         </label>
                       </div>
-                      <button type="submit" className="btn btn-primary">{!editMode ? "Add" : "Update"}</button>{" "}
+                      <button type="submit" className="btn btn-primary">Update</button>{" "}
                       <Link to={'/admins'} className="btn btn-info"> Back </Link>
                     </div>
                   </div>

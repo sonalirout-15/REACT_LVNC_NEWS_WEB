@@ -79,6 +79,22 @@ export function* onDeleteBannerImageStartAsync({ payload }) {
         }
     } catch (error) {
         yield put(deleteBannerImageError(error.response))
+        if(error.response.data.errors.imageName) {
+            Toast.fire({
+                icon: "error",
+                title: error.response.data.errors.imageName,
+            });
+        } else if(error.response.data.errors.image){
+            Toast.fire({
+                icon: "error",
+                title: error.response.data.errors.image,
+            });
+        } else {
+            Toast.fire({
+                icon: "error",
+                title: error.response.data.errors.message,
+            });
+        }
     }
 }
 
@@ -99,6 +115,22 @@ export function* onUpdateBannerImageStartAsync({ payload }) {
         }
     } catch (error) {
         yield put(updateBannerImageError(error.response))
+        if(error.response.data.errors.imageName) {
+            Toast.fire({
+                icon: "error",
+                title: error.response.data.errors.imageName,
+            });
+        } else if(error.response.data.errors.image){
+            Toast.fire({
+                icon: "error",
+                title: error.response.data.errors.image,
+            });
+        } else {
+            Toast.fire({
+                icon: "error",
+                title: error.response.data.errors.message,
+            });
+        }
     }
 }
 

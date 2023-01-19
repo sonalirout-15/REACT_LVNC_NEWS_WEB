@@ -5,16 +5,18 @@ import BootstrapTable from 'react-bootstrap-table-next';
 import paginationFactory from 'react-bootstrap-table2-paginator';
 import { deletePostStart, loadPostStart } from "../../../Redux/Actions/PostActions";
 import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit';
+import swal from "sweetalert";
 const { SearchBar } = Search;
 
 const Post = () => {
   const dispatch = useDispatch();
   const history = useHistory();
+  const postData = useSelector((state) => state?.post?.post?.rows)
 
   useEffect(() => {
     dispatch(loadPostStart())
-  }, [])
-  const postData = useSelector((state) => state?.post?.post?.rows)
+  }, [postData])
+
   const [data, setData] = useState(postData)
   useEffect(() => {
     setData(postData)
@@ -98,9 +100,22 @@ const Post = () => {
   ]
 
   const handleDelete = (id) => {
-    if (window.confirm("Are you sure that you wanted to delete that post?")) {
-      dispatch(deletePostStart(id))
-    }
+    swal({
+      title: "Are you sure?",
+      text: "Once deleted, you will not be able to recover this data!",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+  }).then((willDelete) => {
+      if (willDelete) {
+          dispatch(deletePostStart(id))
+          swal("Post deleted successfully!", {
+              icon: "success",
+          });
+      } else {
+          swal("Your data is safe!");
+      }
+  });
   }
 
   const pagination = paginationFactory({

@@ -5,6 +5,7 @@ import BootstrapTable from 'react-bootstrap-table-next';
 import paginationFactory from 'react-bootstrap-table2-paginator';
 import { deleteCategoryStart, loadCategoryStart } from "../../../Redux/Actions/CategoryAction";
 import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit';
+import swal from "sweetalert";
 
 const { SearchBar } = Search;
 
@@ -15,13 +16,17 @@ const Categories = () => {
   useEffect(() => {
     dispatch(loadCategoryStart())
   }, [])
-
-  const categoriesData = useSelector((state) => state?.categoryData?.categories?.categoryData?.rows)
+  
+  
+  const categoriesData = useSelector((state) => state?.categoryData?.categories?.categoryData?.rows);
   
   const [data, setData] = useState(categoriesData)
+  
   useEffect(() => {
     setData(categoriesData)
   }, [categoriesData])
+
+ 
 
   const columns = [
     {
@@ -75,10 +80,29 @@ const Categories = () => {
     },
   ]
 
+  // const handleDelete = (id) => {
+  //   if (window.confirm("Are you sure that you wanted to delete that category?")) {
+  //     dispatch(deleteCategoryStart(id))
+  //   }
+  // }
+
   const handleDelete = (id) => {
-    if (window.confirm("Are you sure that you wanted to delete that category?")) {
-      dispatch(deleteCategoryStart(id))
-    }
+    swal({
+      title: "Are you sure?",
+      text: "Once deleted, you will not be able to recover this data!",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+  }).then((willDelete) => {
+      if (willDelete) {
+          dispatch(deleteCategoryStart(id))
+          swal(" Category deleted successfully!", {
+              icon: "success",
+          });
+      } else {
+          swal("Your data is safe!");
+      }
+  });
   }
 
 
@@ -137,8 +161,11 @@ const Categories = () => {
                           </>
                         )
                       }
+                      
 
                     </ToolkitProvider>
+
+                    
                   </div>
                 </div>
               </div>

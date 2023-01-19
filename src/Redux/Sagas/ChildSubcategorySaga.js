@@ -46,7 +46,6 @@ export function* onGetSingleChildSubcategoryStartAsync({ payload }) {
 export function* onCreateChildSubcategoryStartAsync({ payload }) {
     try {
         const response = yield call(createChildSubcategoryApi, payload)
-        console.log('PAYLOAD~~~~~~~~~~~~~~~>>>', response.data.subCateData);
         if (response.data.status === 200) {
             yield put(createChildSubcategorySuccess(response.data.subCateData))
             Toast.fire({
@@ -56,11 +55,32 @@ export function* onCreateChildSubcategoryStartAsync({ payload }) {
         } else {
             Toast.fire({
                 icon: "error",
-                title: response.data.errors.subcategory_name,
+                title: response.data.errors.message,
             });
         }
     } catch (error) {
         yield put(createChildSubcategoryError(error.response))
+        if(error.response.data.errors.Description) {
+            Toast.fire({
+                icon: "error",
+                title: error.response.data.errors.Description,
+            });
+        } else if(error.response.data.errors.title){
+            Toast.fire({
+                icon: "error",
+                title: error.response.data.errors.title,
+            });
+        } else if(error.response.data.errors.image){
+            Toast.fire({
+                icon: "error",
+                title: error.response.data.errors.image,
+            });
+        } else {
+            Toast.fire({
+                icon: "error",
+                title: error.response.data.errors.message,
+            });
+        }
     }
 }
 
@@ -95,20 +115,34 @@ export function* onUpdateChildSubcategoryStartAsync({ payload }) {
                 title: response.data.message,
             });
         } else {
-            if (payload.subcategory_name === '') {
-                Toast.fire({
-                    icon: "error",
-                    title: response.data.errors.subcategory_name,
-                });
-            } else if (payload.Subcategory_ref_id === '') {
-                Toast.fire({
-                    icon: "error",
-                    title: response.data.errors.Subcategory_ref_id,
-                });
-            }
+            Toast.fire({
+                icon: "error",
+                title: response.data.message,
+            });
         }
     } catch (error) {
         yield put(updateChildSubcategoryError(error.response.data))
+        if(error.response.data.errors.Description) {
+            Toast.fire({
+                icon: "error",
+                title: error.response.data.errors.Description,
+            });
+        } else if(error.response.data.errors.title){
+            Toast.fire({
+                icon: "error",
+                title: error.response.data.errors.title,
+            });
+        } else if(error.response.data.errors.image){
+            Toast.fire({
+                icon: "error",
+                title: error.response.data.errors.image,
+            });
+        } else {
+            Toast.fire({
+                icon: "error",
+                title: error.response.data.errors.message,
+            });
+        }
     }
 }
 

@@ -36,8 +36,9 @@ export const createCategoryStart = (category) => ({
     payload: category
 })
 
-export const createCategorySuccess = () => ({
+export const createCategorySuccess = (category) => ({
     type: types.CREATE_CATEGORY_SUCCESS,
+    payload: category
 })
 
 export const createCategoryError = (error) => ({

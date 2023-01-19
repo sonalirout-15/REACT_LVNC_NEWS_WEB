@@ -47,27 +47,8 @@ const validatePhoneNum = (mobile) => {
 
   const handleFileSelect = (e) => {
   setData({ ...data, [e.target.name]: e.target.files[0] });
-    console.log('e---->>', e.target.files[0]);
   };
 
-//   const handleSubmit = (e) => {
-//     e.preventDefault();
-//     setSubmit(true);
-//     setData(data)
-//     if(data.name !== '' &&  data.email !== '' && data.password !== '' && data.confirm_password !== '' && data.mobile !== '' && data.gender !== '' &&  data.address !== '' && data.image !== '') {
-//       var adminData = {
-//         name : data.name,
-//         email: data.email,
-//         password: data.password,
-//         confirm_password: data.confirm_password,
-//         mobile: data.mobile,
-//         gender: data.gender,
-//         address: data.address,
-//         image: data.image
-//       }
-//       dispatch(createAdminStart(adminData))
-//     }  
-// };
 
 
 const handleSubmit = (e) => {
@@ -84,7 +65,7 @@ const handleSubmit = (e) => {
     formData.append("gender", data.gender);
     formData.append("address", data.address);
     formData.append("image", data.image);
-    dispatch(createAdminStart(formData))
+    dispatch(createAdminStart(formData));
   }  
 };
 

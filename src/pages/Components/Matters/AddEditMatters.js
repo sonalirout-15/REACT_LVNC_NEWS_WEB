@@ -16,11 +16,7 @@ const AddEditMattters = () => {
   const [formValue, setFormValue] = useState(initialState);
   const [editMode, setEditMode] = useState(false);
   const history = useHistory();
-  const [titleError, setTitleError] = useState();
-  const [descriptionError, setDescriptionError] = useState();
-  const [imageError, setImageError] = useState();
-  const [audioError, setAudioError] = useState();
-  const [videoError, setVedioError] = useState();
+  const [submit , setSubmit] = useState();
   var { title, Description, image, audio, video } = formValue;
   const dispatch = useDispatch();
   var { id } = useParams();
@@ -42,45 +38,31 @@ const AddEditMattters = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (title === '') {
-      setTitleError('Title Required!')
-    }
-    if (Description === '') {
-      setDescriptionError('Description Required!');
-    }
-    if (image === '') {
-      setImageError('Image Required!');
-    }
-    if (audio === '') {
-      setAudioError('Audio Required!')
-    }
-    if (video === '') {
-      setVedioError('Vedio Required!')
-    } else {
-      if (!editMode) {
-        const formData = new FormData();
-        formData.append("title", title);
-        formData.append("Description", Description);
-        formData.append("image", image);
-        formData.append("audio", audio);
-        formData.append("video", video);
-        dispatch(createMettersStart(formData));
-        history.push('/matters')
+    setSubmit(true);
+      if( title && Description && image && video) {
+        if(!editMode) {
+          const formData = new FormData();
+          formData.append("title", title);
+          formData.append("Description", Description);
+          formData.append("image", image);
+          formData.append("audio", audio)
+          formData.append("video", video)
+          dispatch(createMettersStart(formData))
+          history.push('/matters')
+        } 
+        else {
+          const formData = new FormData();
+          formData.append("id", id);
+          formData.append("title", title);
+          formData.append("Description", Description);
+          formData.append("video", video)
+          formData.append("image", image);
+          setEditMode(false);
+          dispatch(updateMettersStart(formData));
+          history.push('/matters')
+        }
       }
-      else {
-        const formData = new FormData();
-        formData.append("id", id);
-        formData.append("title", title);
-        formData.append("Description", Description);
-        formData.append("image", image);
-        formData.append("audio", audio);
-        formData.append("video", video);
-        dispatch(updateMettersStart(formData));
-        setEditMode(false);
-        history.push('/matters')
-      }
-    }
-  }
+}
 
   const onInputChange = (e) => {
     let { name, value } = e.target;
@@ -119,9 +101,11 @@ const AddEditMattters = () => {
                       <label style={{
                         color: "red",
                         marginLeft: "2%",
-                        display: "flex"
+                        display: "flex",
+                        fontFamily : 'bold',
+                        fontSize: '15px'
                       }}>
-                        {titleError}
+                       {submit && !title && <small className="p-invalid">Title required.</small>}
                       </label>
                       </div>
                       <div className="form-group">
@@ -136,9 +120,11 @@ const AddEditMattters = () => {
                       <label style={{
                         color: "red",
                         marginLeft: "2%",
-                        display: "flex"
+                        display: "flex",
+                        fontFamily : 'bold',
+                        fontSize: '15px'
                       }}>
-                        {descriptionError}
+                        {submit && !Description && <small className="p-invalid">Description required.</small>}
                       </label>
                       </div>
                       <div className="form-group">
@@ -154,9 +140,11 @@ const AddEditMattters = () => {
                       <label style={{
                         color: "red",
                         marginLeft: "2%",
-                        display: "flex"
+                        display: "flex",
+                        fontFamily : 'bold',
+                        fontSize: '15px'
                       }}>
-                        {imageError}
+                       {submit && !image && <small className="p-invalid">Image required.</small>}
                       </label>
                       </div>
                       <div className="form-group">
@@ -172,9 +160,11 @@ const AddEditMattters = () => {
                       <label style={{
                         color: "red",
                         marginLeft: "2%",
-                        display: "flex"
+                        display: "flex",
+                        fontFamily : 'bold',
+                        fontSize: '15px'
                       }}>
-                        {audioError}
+                       {submit && !audio && <small className="p-invalid">Audio required.</small>}
                       </label>
                       </div>
                       <div className="form-group">
@@ -190,9 +180,11 @@ const AddEditMattters = () => {
                       <label style={{
                         color: "red",
                         marginLeft: "2%",
-                        display: "flex"
+                        display: "flex",
+                        fontFamily : 'bold',
+                        fontSize: '15px'
                       }}>
-                        {videoError}
+                       {submit && !video && <small className="p-invalid">Video required.</small>}
                       </label>
                       </div>
                       <button type="submit" className="btn btn-primary">{!editMode ? "Add" : "Update"}</button>{" "}

@@ -22,12 +22,8 @@ const initialState = {
 const AddEditPost = () => {
   const [formValue, setFormValue] = useState(initialState);
   const [editMode, setEditMode] = useState(false);
+  const [submit , setSubmit] = useState();
   const history = useHistory();
-  const [titleError, setTitleError] = useState();
-  const [descriptionError, setDescriptionError] = useState();
-  const [imageError, setImageError] = useState();
-  const [audioError, setAudioError] = useState();
-  const [videoError, setVedioError] = useState();
   var { admin_ref_id, category_ref_id, subcategory_ref_id, childcategory_ref_id , title, Description, image, audio, video } = formValue;
   const dispatch = useDispatch();
   var { id } = useParams();
@@ -61,58 +57,6 @@ const AddEditPost = () => {
     dispatch(loadAdminStart())
   }, [])
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    if (title === '') {
-      setTitleError('Title Required!')
-    }
-    if (Description === '') {
-      setDescriptionError('Description Required!');
-    }
-    if (image === '') {
-      setImageError('Image Required!');
-    }
-    if (audio === '') {
-      setAudioError('Audio Required!')
-    }
-    if (video === '') {
-      setVedioError('Vedio Required!')
-    } else {
-
-      if (!editMode) {
-        const formData = new FormData();
-        formData.append("admin_ref_id", admin_ref_id);
-        formData.append("category_ref_id", category_ref_id);
-        formData.append("subcategory_ref_id", subcategory_ref_id);
-        formData.append("childcategory_ref_id", childcategory_ref_id);
-        formData.append("title", title);
-        formData.append("Description", Description);
-        formData.append("image", image);
-        formData.append("audio", audio);
-        formData.append("video", video);
-        dispatch(createPostStart(formData));
-        history.push('/post')
-      }
-      else {
-        const formData = new FormData();
-        formData.append("id", id);
-        formData.append("admin_ref_id", admin_ref_id);
-        formData.append("category_ref_id", category_ref_id);
-        formData.append("subcategory_ref_id", subcategory_ref_id);
-        formData.append("childcategory_ref_id", childcategory_ref_id);
-        formData.append("title", title);
-        formData.append("Description", Description);
-        formData.append("image", image);
-        formData.append("audio", audio);
-        formData.append("video", video);
-        dispatch(updatePostStart(formData));
-        setEditMode(false);
-        history.push('/post')
-      }
-    }
-  };
-
-
   const onInputChange = (e) => {
     let { name, value } = e.target;
     setFormValue({ ...formValue, [name]: value });
@@ -121,6 +65,45 @@ const AddEditPost = () => {
   const handleFileSelect = (e) => {
     setFormValue({ ...formValue, [e.target.name]: e.target.files[0] });
   };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setSubmit(true);
+      if( title && Description && image && video) {
+        if(!editMode) {
+          const formData = new FormData();
+          formData.append("admin_ref_id", admin_ref_id);
+          formData.append("category_ref_id", category_ref_id);
+          formData.append("subcategory_ref_id", subcategory_ref_id);
+          formData.append("childcategory_ref_id", childcategory_ref_id)
+          formData.append("title", title);
+          formData.append("Description", Description);
+          formData.append("image", image);
+          formData.append("audio", audio)
+          formData.append("video", video)
+          dispatch(createPostStart(formData))
+          history.push('/post')
+        } 
+        else {
+          const formData = new FormData();
+          formData.append("id", id);
+          formData.append("admin_ref_id", admin_ref_id);
+          formData.append("category_ref_id", category_ref_id);
+          formData.append("subcategory_ref_id", subcategory_ref_id);
+          formData.append("childcategory_ref_id", childcategory_ref_id)
+          formData.append("title", title);
+          formData.append("Description", Description);
+          formData.append("image", image);
+          formData.append("audio", audio)
+          formData.append("video", video)
+          setEditMode(false);
+          dispatch(updatePostStart(formData));
+          history.push('/post')
+        }
+      }
+}
+
+
 
   return (
       <div className="main-content">
@@ -150,9 +133,11 @@ const AddEditPost = () => {
                       <label style={{
                         color: "red",
                         marginLeft: "2%",
-                        display: "flex"
+                        display: "flex",
+                        fontFamily : 'bold',
+                        fontSize: '15px'
                       }}>
-                        {titleError}
+                       {submit && !title && <small className="p-invalid">Title required.</small>}
                       </label>
                       </div>
                       <div className="form-group">
@@ -167,9 +152,11 @@ const AddEditPost = () => {
                       <label style={{
                         color: "red",
                         marginLeft: "2%",
-                        display: "flex"
+                        display: "flex",
+                        fontFamily : 'bold',
+                        fontSize: '15px'
                       }}>
-                        {descriptionError}
+                       {submit && !Description && <small className="p-invalid">Description required.</small>}
                       </label>
                       </div>
                       <div className="form-group">
@@ -185,9 +172,11 @@ const AddEditPost = () => {
                       <label style={{
                         color: "red",
                         marginLeft: "2%",
-                        display: "flex"
+                        display: "flex",
+                        fontFamily : 'bold',
+                        fontSize: '15px'
                       }}>
-                        {imageError}
+                       {submit && !image && <small className="p-invalid">Image required.</small>}
                       </label>
                       </div>
                       <div className="form-group">
@@ -203,9 +192,11 @@ const AddEditPost = () => {
                       <label style={{
                         color: "red",
                         marginLeft: "2%",
-                        display: "flex"
+                        display: "flex",
+                        fontFamily : 'bold',
+                        fontSize: '15px'
                       }}>
-                        {audioError}
+                        {submit && !audio && <small className="p-invalid">Audio required.</small>}
                       </label>
                       </div>
                       <div className="form-group">
@@ -221,9 +212,11 @@ const AddEditPost = () => {
                       <label style={{
                         color: "red",
                         marginLeft: "2%",
-                        display: "flex"
+                        display: "flex",
+                        fontFamily : 'bold',
+                        fontSize: '15px'
                       }}>
-                        {videoError}
+                        {submit && !video && <small className="p-invalid">Video required.</small>}
                       </label>
                       </div>
                       <div className="form-group">

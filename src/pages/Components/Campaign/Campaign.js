@@ -5,17 +5,18 @@ import BootstrapTable from 'react-bootstrap-table-next';
 import paginationFactory from 'react-bootstrap-table2-paginator';
 import { deleteCampaningStart, loadCampaningStart } from "../../../Redux/Actions/CampaignActions";
 import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit';
+import swal from "sweetalert";
 const { SearchBar } = Search;
 
 const Campaign = () => {
   const dispatch = useDispatch()
   const history = useHistory()
+  const campaningData = useSelector((state) => state?.campaning?.campaning?.CampaningData?.rows)
 
   useEffect(() => {
     dispatch(loadCampaningStart())
-  }, [])
+  }, [campaningData])
   
-  const campaningData = useSelector((state) => state?.campaning?.campaning?.CampaningData?.rows)
   const [data, setData] = useState(campaningData)
   useEffect(() => {
     setData(campaningData)
@@ -94,11 +95,23 @@ const Campaign = () => {
   ]
 
   const handleDelete = (id) => {
-    if (window.confirm("Are you sure that you wanted to delete that campaing?")) {
-      dispatch(deleteCampaningStart(id))
-    }
+    swal({
+      title: "Are you sure?",
+      text: "Once deleted, you will not be able to recover this data!",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+  }).then((willDelete) => {
+      if (willDelete) {
+          dispatch(deleteCampaningStart(id))
+          swal("Campign deleted successfully!", {
+              icon: "success",
+          });
+      } else {
+          swal("Your data is safe!");
+      }
+  });
   }
-
   const pagination = paginationFactory({
     page: 1,
     sizePerPage: 4,

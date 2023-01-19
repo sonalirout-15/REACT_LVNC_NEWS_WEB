@@ -5,6 +5,7 @@ import { deleteMettersStart, loadMettersStart } from "../../../Redux/Actions/Mat
 import BootstrapTable from 'react-bootstrap-table-next';
 import paginationFactory from 'react-bootstrap-table2-paginator';
 import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit';
+import swal from "sweetalert";
 
 const { SearchBar } = Search;
 
@@ -12,11 +13,12 @@ const Matters = () => {
 
   const dispatch = useDispatch();
   const history = useHistory()
+  const mettersData = useSelector((state) => state?.metters?.metters?.mettersData?.rows)
 
   useEffect(() => {
     dispatch(loadMettersStart())
-  }, [])
-  const mettersData = useSelector((state) => state?.metters?.metters?.mettersData?.rows)
+  }, [mettersData])
+  
   const [data, setData] = useState(mettersData)
 
   useEffect(() => {
@@ -98,9 +100,22 @@ const Matters = () => {
   ]
 
   const handleDelete = (id) => {
-    if (window.confirm("Are you sure that you wanted to delete that metters?")) {
-      dispatch(deleteMettersStart(id))
-    }
+    swal({
+      title: "Are you sure?",
+      text: "Once deleted, you will not be able to recover this data!",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+  }).then((willDelete) => {
+      if (willDelete) {
+          dispatch(deleteMettersStart(id))
+          swal("Matters deleted successfully!", {
+              icon: "success",
+          });
+      } else {
+          swal("Your data is safe!");
+      }
+  });
   }
 
   const pagination = paginationFactory({

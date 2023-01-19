@@ -76,6 +76,37 @@ export function* onCreateCampaningStartAsync({ payload }) {
         }
     } catch (error) {
         yield put(createCampaningError(error.response.data))
+        if(error.response.data.errors.title) {
+            Toast.fire({
+                icon: "error",
+                title: error.response.data.errors.title,
+            });
+        } else if(error.response.data.errors.description){
+            Toast.fire({
+                icon: "error",
+                title: error.response.data.errors.description,
+            });
+        } else if(error.response.data.errors.image) {
+            Toast.fire({
+                icon: "error",
+                title: error.response.data.errors.image,
+            });
+        } else if(error.response.data.errors.audio){
+            Toast.fire({
+                icon: "error",
+                title: error.response.data.errors.audio,
+            });
+        } else if(error.response.data.errors.video){
+            Toast.fire({
+                icon: "error",
+                title: error.response.data.errors.video,
+            });
+        } else {
+            Toast.fire({
+                icon: "error",
+                title: error.response.data.errors.message,
+            });
+        }
     }
 }
 
@@ -117,6 +148,37 @@ export function* onUpdateCampaningStartAsync({ payload }) {
         }
     } catch (error) {
         yield put(updateCampaningError(error.response))
+        if(error.response.data.errors.title) {
+            Toast.fire({
+                icon: "error",
+                title: error.response.data.errors.title,
+            });
+        } else if(error.response.data.errors.description){
+            Toast.fire({
+                icon: "error",
+                title: error.response.data.errors.description,
+            });
+        } else if(error.response.data.errors.image) {
+            Toast.fire({
+                icon: "error",
+                title: error.response.data.errors.image,
+            });
+        } else if(error.response.data.errors.audio){
+            Toast.fire({
+                icon: "error",
+                title: error.response.data.errors.audio,
+            });
+        } else if(error.response.data.errors.video){
+            Toast.fire({
+                icon: "error",
+                title: error.response.data.errors.video,
+            });
+        } else {
+            Toast.fire({
+                icon: "error",
+                title: error.response.data.errors.message,
+            });
+        }
     }
 }
 

@@ -56,7 +56,43 @@ export function* onCreateLatestNewsStartAsync({ payload }) {
             });
         }
     } catch (error) {
-        yield put(createLatestNewsError(error.response.data))
+        yield put(createLatestNewsError(error.response))
+        if(error.response.data.errors.title) {
+            Toast.fire({
+                icon: "error",
+                title: error.response.data.errors.title,
+            });
+        } else if(error.response.data.errors.Description){
+            Toast.fire({
+                icon: "error",
+                title: error.response.data.errors.Description,
+            });
+        } else if(error.response.data.errors.image){
+            Toast.fire({
+                icon: "error",
+                title: error.response.data.errors.image,
+            });
+        } else if (error.response.data.errors.video) {
+            Toast.fire({
+                icon: "error",
+                title: error.response.data.errors.video,
+            });
+        } else if(error.response.data.errors.category_ref_id){
+            Toast.fire({
+                icon: "error",
+                title: error.response.data.errors.category_ref_id,
+            });
+        } else if(error.response.data.errors.Subcategory_ref_id){
+            Toast.fire({
+                icon: "error",
+                title: error.response.data.errors.Subcategory_ref_id,
+            });
+        } else {
+            Toast.fire({
+                icon: "error",
+                title: error.response.data.errors.message,
+            });
+        }
     }
 }
 
@@ -97,7 +133,43 @@ export function* onUpdateLatestNewsStartAsync({ payload }) {
             })
         }
     } catch (error) {
-        yield put(updateLatestNewsError(error.response))
+        yield put(updateLatestNewsError(error.response.data))
+        if(error.response.data.errors.title) {
+            Toast.fire({
+                icon: "error",
+                title: error.response.data.errors.title,
+            });
+        } else if(error.response.data.errors.Description){
+            Toast.fire({
+                icon: "error",
+                title: error.response.data.errors.Description,
+            });
+        } else if(error.response.data.errors.image){
+            Toast.fire({
+                icon: "error",
+                title: error.response.data.errors.image,
+            });
+        } else if (error.response.data.errors.video) {
+            Toast.fire({
+                icon: "error",
+                title: error.response.data.errors.video,
+            });
+        } else if(error.response.data.errors.category_ref_id){
+            Toast.fire({
+                icon: "error",
+                title: error.response.data.errors.category_ref_id,
+            });
+        } else if(error.response.data.errors.Subcategory_ref_id){
+            Toast.fire({
+                icon: "error",
+                title: error.response.data.errors.Subcategory_ref_id,
+            });
+        } else {
+            Toast.fire({
+                icon: "error",
+                title: error.response.data.errors.message,
+            });
+        }
     }
 }
 

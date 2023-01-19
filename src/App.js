@@ -1,5 +1,5 @@
 import React from "react";
-import { Redirect, Route, useLocation } from "react-router-dom";
+import { BrowserRouter as Router, Redirect, Route , Switch, useLocation } from "react-router-dom";
 import DefaultLayoutPage from "./pages/Strater/DefaultLayoutPage";
 import Login from './pages/Pages/Auth/Login';
 import GeneralDashboard from "./pages/Dashboard/GeneralDashboard";
@@ -53,10 +53,143 @@ const App = () => {
         location.pathname !== '/' && location.pathname !== '/signup' && location.pathname !== '/forgot-password' && <SideBar />
       }
         {localStorage.getItem("ADMIN") ? (<Redirect to='/dashboard'/>) : (<Redirect to='/signup' />) && (<Redirect to='/' />) }
-        <Route path='/' exact component={Login} />
-        <Route path='/signup'  component={Signup}/>
-        <Route path="/dashboard" component={GeneralDashboard} />
-        <Route path="/layout/default" component={DefaultLayoutPage} />
+        <Switch>
+          <Route path='/' exact>
+            <Login />
+          </Route>
+          <Route path='/signup' >
+            <Signup />
+          </Route>
+          <Route path='/dashboard'>
+            <GeneralDashboard />
+          </Route>
+          <Route path='/layout/default'>
+            <DefaultLayoutPage />
+          </Route>
+          <Route path='/admins'>
+            <Admins />
+          </Route>
+          <Route path='/editAdmin/:id'>
+            <AddEditAdmin />
+          </Route>
+          <Route path='/viewAdmin/:id'>
+            <ViewAdmin />
+          </Route>
+          <Route path='/categories'>
+            <Categories />
+          </Route>
+          <Route path='/addCategory'>
+            <AddEditCategories />
+          </Route>
+          <Route path='/editCategory/:id'>
+            <AddEditCategories />
+          </Route>
+          <Route path='/viewCategory/:id'>
+            <ViewCategories />
+          </Route>
+          <Route path='/subcategories'>
+            <Subcategories />
+          </Route>
+          <Route path='/addSubcategory'>
+            <AddEditSubcategories />
+          </Route>
+          <Route path='/editCategory/:id'>
+            <AddEditSubcategories />
+          </Route>
+          <Route path='/viewCategory/:id'>
+            <ViewSubcategories />
+          </Route>
+          <Route path='/childSubcategory'>
+            <ChildSubcategory />
+          </Route>
+          <Route path='/addChildSubcategory'>
+            <AddEditChildSubcategory />
+          </Route>
+          <Route path='/editChildSubcategory/:id'>
+            <AddEditChildSubcategory />
+          </Route>
+          <Route path='/viewChildSubcategory/:id'>
+            <ViewChildSubcategory />
+          </Route>
+          <Route path='/matters'>
+            <Matters/>
+          </Route>
+          <Route path='/addMatters'>
+            <AddEditMatters />
+          </Route>
+          <Route path='/editMatters/:id'>
+            <AddEditMatters />
+          </Route>
+          <Route path='/viewMatters/:id'>
+            <ViewMatters />
+          </Route>
+          <Route path='/post'>
+            <Post />
+          </Route>
+          <Route path='/addPost'>
+            <AddEditPost />
+          </Route>
+          <Route path='/editPost/:id'>
+            <AddEditPost />
+          </Route>
+          <Route path='/viewPost/:id'>
+            <ViewPost />
+          </Route>
+          <Route path='/campaign'>
+            <Campaning />
+          </Route>
+          <Route path='/addCampaign'>
+            <AddEditCampanings />
+          </Route>
+          <Route path='/editCampaign/:id'>
+            <AddEditCampanings />
+          </Route>
+          <Route path='/viewCampaign/:id'>
+            <ViewCampaning />
+          </Route>
+          <Route path='/banner'>
+            <BannerImage />
+          </Route>
+          <Route path='/addBanner'>
+            <AddEditBanner />
+          </Route>
+          <Route path='/editBanner/:id'>
+            <AddEditBanner />
+          </Route>
+          <Route path='/viewBanner/:id'>
+            <ViewBanner />
+          </Route>
+          <Route path='/latestNews'>
+            <LatestNews />
+          </Route>
+          <Route path='/addLatestnews'>
+            <AddEditLatestNews />
+          </Route>
+          <Route path='/editLatestNews/:id'>
+            <AddEditLatestNews />
+          </Route>
+          <Route path='/viewLatestNews/:id'>
+            <ViewLatestNews />
+          </Route>
+          <Route path='/change-password'>
+            <ChangePassword />
+          </Route>
+          <Route path='/reset-password'>
+            <ResetPassword />
+          </Route>
+          <Route path='/forgot-password'>
+            <ForgotPassword />
+          </Route>
+          <Route path='/users/userList'>
+            <UsersList />
+          </Route>
+          <Route path='/users/contactUs'>
+            <ContactUsList />
+          </Route>
+        {/* <Route path='/' exact element={<Login />} />
+        <Route path='/signup'  element={<Signup />}/>
+        <Route path="/dashboard" element={<GeneralDashboard />} />
+        <Route path="/layout/default" element={<DefaultLayoutPage />} />
         <Route path='/admins' component={Admins} />
         <Route path='/addAdmin' component={AddEditAdmin} />
         <Route path='/editAdmin/:id' component={AddEditAdmin} />
@@ -97,7 +230,8 @@ const App = () => {
         <Route path='/reset-password' component={ResetPassword} />
         <Route path='/forgot-password' component={ForgotPassword} />
         <Route path='/users/userList' component={UsersList}/>
-        <Route path='/users/contactUs' component={ContactUsList}/>
+        <Route path='/users/contactUs' component={ContactUsList}/> */}
+        </Switch>
         {
            location.pathname !== '/' && location.pathname !== '/signup' && location.pathname !== '/forgot-password' && <Footer />
         }

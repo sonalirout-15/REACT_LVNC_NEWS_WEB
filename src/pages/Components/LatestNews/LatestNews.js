@@ -5,17 +5,18 @@ import BootstrapTable from 'react-bootstrap-table-next';
 import paginationFactory from 'react-bootstrap-table2-paginator';
 import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit';
 import { deleteLatestNewsStart, loadLatestNewsStart } from "../../../Redux/Actions/LatestNewsActions";
+import swal from "sweetalert";
 const { SearchBar } = Search;
 
 const LatestNews = () => {
   const dispatch = useDispatch()
   const history = useHistory()
+  const latestNewsData = useSelector((state) => state?.latestnewsData?.latestnews?.rows)
 
   useEffect(() => {
     dispatch(loadLatestNewsStart())
-  }, [])
+  }, [latestNewsData])
 
-  const latestNewsData = useSelector((state) => state?.latestnewsData?.latestnews?.rows)
   const [data, setData] = useState(latestNewsData)
   useEffect(() => {
     setData(latestNewsData)
@@ -89,9 +90,22 @@ const LatestNews = () => {
   ]
 
   const handleDelete = (id) => {
-    if (window.confirm("Are you sure that you wanted to delete that campaning?")) {
-      dispatch(deleteLatestNewsStart(id))
-    }
+    swal({
+      title: "Are you sure?",
+      text: "Once deleted, you will not be able to recover this data!",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+  }).then((willDelete) => {
+      if (willDelete) {
+          dispatch(deleteLatestNewsStart(id))
+          swal("Latest News deleted successfully!", {
+              icon: "success",
+          });
+      } else {
+          swal("Your data is safe!");
+      }
+  });
   }
 
   const pagination = paginationFactory({

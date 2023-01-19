@@ -69,11 +69,22 @@ export function* onCreateSubcategoryStartAsync({ payload }) {
         } else {
             Toast.fire({
                 icon: "error",
-                title: response.data.errors.subcategory_name,
+                title: response.data.errors.message,
             });
         }
     } catch (error) {
         yield put(createSubcategoryError(error.response.data))
+        if(error.response.data.errors.subcategory_name) {
+            Toast.fire({
+                icon: "error",
+                title: error.response.data.errors.subcategory_name,
+            });
+        } else {
+            Toast.fire({
+                icon: "error",
+                title: error.response.data.errors.message,
+            });
+        }
     }
 }
 
@@ -122,6 +133,17 @@ export function* onUpdateSubcategoryStartAsync({ payload }) {
         }
     } catch (error) {
         yield put(updateSubcategoryError(error.response.data))
+        if(error.response.data.errors.subcategory_name) {
+            Toast.fire({
+                icon: "error",
+                title: error.response.data.errors.subcategory_name,
+            });
+        } else {
+            Toast.fire({
+                icon: "error",
+                title: error.response.data.errors.message,
+            });
+        }
     }
 }
 

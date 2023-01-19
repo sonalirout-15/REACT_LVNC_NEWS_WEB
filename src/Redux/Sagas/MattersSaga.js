@@ -77,6 +77,37 @@ export function* onCreateMettersStartAsync({ payload }) {
         }
     } catch (error) {
         yield put(createMettersError(error.response.data))
+        if(error.response.data.errors.title) {
+            Toast.fire({
+                icon: "error",
+                title: error.response.data.errors.title,
+            });
+        } else if(error.response.data.errors.Description){
+            Toast.fire({
+                icon: "error",
+                title: error.response.data.errors.Description,
+            });
+        } else if(error.response.data.errors.image){
+            Toast.fire({
+                icon: "error",
+                title: error.response.data.errors.image,
+            });
+        } else if (error.response.data.errors.video) {
+            Toast.fire({
+                icon: "error",
+                title: error.response.data.errors.video,
+            });
+        } else if(error.response.data.errors.audio) {
+            Toast.fire({
+                icon: "error",
+                title: error.response.data.errors.audio,
+            });
+        } else {
+            Toast.fire({
+                icon: "error",
+                title: error.response.data.errors.message
+            })
+        }
     }
 }
 
