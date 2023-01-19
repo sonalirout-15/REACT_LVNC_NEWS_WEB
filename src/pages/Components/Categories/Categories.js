@@ -12,15 +12,13 @@ const { SearchBar } = Search;
 const Categories = () => {
   const dispatch = useDispatch()
   const history = useHistory()
+  const categoriesData = useSelector((state) => state?.categoryData?.categories?.categoryData?.rows);
+  const [data, setData] = useState(categoriesData)
 
   useEffect(() => {
     dispatch(loadCategoryStart())
   }, [])
   
-  
-  const categoriesData = useSelector((state) => state?.categoryData?.categories?.categoryData?.rows);
-  
-  const [data, setData] = useState(categoriesData)
   
   useEffect(() => {
     setData(categoriesData)
@@ -99,6 +97,7 @@ const Categories = () => {
           swal(" Category deleted successfully!", {
               icon: "success",
           });
+         
       } else {
           swal("Your data is safe!");
       }

@@ -17,7 +17,7 @@ const Matters = () => {
 
   useEffect(() => {
     dispatch(loadMettersStart())
-  }, [mettersData])
+  }, [])
   
   const [data, setData] = useState(mettersData)
 

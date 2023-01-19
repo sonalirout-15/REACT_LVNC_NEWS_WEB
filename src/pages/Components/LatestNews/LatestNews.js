@@ -15,7 +15,7 @@ const LatestNews = () => {
 
   useEffect(() => {
     dispatch(loadLatestNewsStart())
-  }, [latestNewsData])
+  }, [])
 
   const [data, setData] = useState(latestNewsData)
   useEffect(() => {

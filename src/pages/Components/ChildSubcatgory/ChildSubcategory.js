@@ -15,7 +15,7 @@ const ChildSubcategory = () => {
 
   useEffect(() => {
     dispatch(loadChildSubcategoryStart())
-  }, [childSubcategoryData])
+  }, [])
   
   const [data, setData] = useState(childSubcategoryData)
   useEffect(() => {

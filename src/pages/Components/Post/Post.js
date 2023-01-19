@@ -15,7 +15,7 @@ const Post = () => {
 
   useEffect(() => {
     dispatch(loadPostStart())
-  }, [postData])
+  }, [])
 
   const [data, setData] = useState(postData)
   useEffect(() => {
